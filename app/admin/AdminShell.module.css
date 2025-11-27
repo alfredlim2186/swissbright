@@ -1,0 +1,128 @@
+.shell {
+  min-height: 100vh;
+  display: flex;
+  background-color: #030303;
+  color: #f8f8f8;
+  font-family: var(--font-inter, 'Inter', sans-serif);
+}
+
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, rgba(10,10,10,0.95), rgba(5,5,5,0.95));
+  border-right: 1px solid rgba(201, 168, 106, 0.25);
+  padding: 1.75rem 1.25rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+}
+
+.brand span {
+  display: block;
+  font-size: 0.9rem;
+  color: #b8b8b8;
+  margin-top: 0.25rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #f8f8f8;
+  font-size: 0.95rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navItem span {
+  font-size: 1.05rem;
+}
+
+.navItem:hover {
+  background-color: rgba(201, 168, 106, 0.15);
+  color: #fff7da;
+}
+
+.active {
+  background-color: rgba(201, 168, 106, 0.25);
+  color: #fff;
+  border: 1px solid rgba(201, 168, 106, 0.4);
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #050505;
+}
+
+.mobileNote {
+  margin-top: auto;
+  font-size: 0.75rem;
+  color: #7a7a7a;
+  line-height: 1.4;
+}
+
+/* Fix select dropdown visibility */
+.content select {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  color: #F8F8F8 !important;
+  border: 1px solid rgba(201, 168, 106, 0.25) !important;
+}
+
+.content select option {
+  background-color: #0A0A0A !important;
+  color: #F8F8F8 !important;
+}
+
+.content select:focus {
+  outline: 1px solid rgba(201, 168, 106, 0.5) !important;
+  outline-offset: -1px;
+}
+
+@media (max-width: 1024px) {
+  .shell {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .navList {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .navItem {
+    padding: 0.5rem 0.65rem;
+  }
+}
+
+

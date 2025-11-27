@@ -1,0 +1,314 @@
+.page {
+  background-color: transparent;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.intro {
+  background-color: transparent;
+  padding: 4rem 1.5rem;
+  position: relative;
+}
+
+.intro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(180deg, transparent, rgba(201, 168, 106, 0.3), transparent);
+}
+
+.introContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.introText {
+  font-family: var(--font-inter);
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  color: var(--soft-gray);
+  line-height: 1.8;
+}
+
+.lifestyleSection {
+  background-color: transparent;
+  padding: 5rem 1.5rem;
+  position: relative;
+}
+
+.lifestyleContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.lifestyleImageWrapper {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(201, 168, 106, 0.3);
+  transition: all 0.4s ease;
+}
+
+.lifestyleImageWrapper:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 40px rgba(201, 168, 106, 0.3);
+  transform: translateY(-5px);
+}
+
+.lifestyleImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: saturate(0.7) brightness(0.6) contrast(1.1);
+  transition: all 0.6s ease;
+}
+
+.lifestyleImageWrapper:hover .lifestyleImage {
+  filter: saturate(1) brightness(0.7) contrast(1.15);
+  transform: scale(1.05);
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.5) 0%,
+    rgba(201, 168, 106, 0.25) 50%,
+    rgba(10, 10, 10, 0.6) 100%
+  );
+  pointer-events: none;
+}
+
+.imageCaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 10, 0.95) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.captionIcon {
+  color: var(--gold);
+  font-size: 1.5rem;
+  text-shadow: 
+    0 0 15px rgba(201, 168, 106, 0.8),
+    0 0 30px rgba(201, 168, 106, 0.5);
+}
+
+.imageCaption p {
+  font-family: var(--font-playfair);
+  font-size: 1.25rem;
+  color: var(--neon-white);
+  font-style: italic;
+  margin: 0;
+}
+
+.howToEnjoy {
+  background-color: transparent;
+  padding: 5rem 1.5rem;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  color: var(--neon-white);
+  text-align: center;
+  margin-bottom: 3rem;
+  letter-spacing: 1px;
+}
+
+.instructionsList {
+  list-style: none;
+  padding: 0;
+}
+
+.instruction {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+  padding: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-left: 3px solid rgba(201, 168, 106, 0.3);
+  transition: all 0.3s ease;
+}
+
+.instruction:hover {
+  border-left-color: var(--gold);
+  background-color: rgba(201, 168, 106, 0.02);
+}
+
+.instructionIcon {
+  font-family: var(--font-inter);
+  font-size: 1.5rem;
+  color: var(--gold);
+  font-weight: 600;
+  flex-shrink: 0;
+  line-height: 1.6;
+  text-shadow: 
+    0 0 12px rgba(201, 168, 106, 0.5),
+    0 0 24px rgba(201, 168, 106, 0.3);
+  transition: all 0.3s ease;
+}
+
+.instruction:hover .instructionIcon {
+  transform: scale(1.15);
+  text-shadow: 
+    0 0 18px rgba(201, 168, 106, 0.8),
+    0 0 36px rgba(201, 168, 106, 0.5);
+}
+
+.instructionText {
+  font-family: var(--font-inter);
+  font-size: 1.0625rem;
+  color: var(--soft-gray);
+  line-height: 1.6;
+}
+
+.provenance {
+  background-color: transparent;
+  padding: 5rem 1.5rem;
+  position: relative;
+}
+
+.provenance::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(180deg, transparent, rgba(201, 168, 106, 0.3), transparent);
+}
+
+.provenanceContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.provenanceContent {
+  text-align: left;
+}
+
+.provenanceText {
+  font-family: var(--font-inter);
+  font-size: clamp(1.0625rem, 2vw, 1.25rem);
+  color: var(--soft-gray);
+  line-height: 1.8;
+}
+
+.provenanceImageWrapper {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(201, 168, 106, 0.3);
+  transition: all 0.4s ease;
+}
+
+.provenanceImageWrapper:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 40px rgba(201, 168, 106, 0.3);
+}
+
+.provenanceImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: saturate(0.75) brightness(0.55) contrast(1.1);
+  transition: all 0.6s ease;
+}
+
+.provenanceImageWrapper:hover .provenanceImage {
+  filter: saturate(1) brightness(0.65) contrast(1.15);
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .intro,
+  .howToEnjoy,
+  .lifestyleSection,
+  .provenance {
+    padding: 4rem 1.5rem;
+  }
+
+  .provenanceContainer {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .provenanceContent {
+    text-align: center;
+  }
+
+  .imageCaption {
+    padding: 1.5rem;
+  }
+
+  .imageCaption p {
+    font-size: 1rem;
+  }
+
+  .instruction {
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .instructionIcon {
+    font-size: 1.25rem;
+  }
+
+  .instructionText {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro,
+  .howToEnjoy,
+  .lifestyleSection,
+  .provenance {
+    padding: 3rem 1rem;
+  }
+
+  .imageCaption {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .captionIcon {
+    font-size: 1.25rem;
+  }
+
+  .imageCaption p {
+    font-size: 0.9375rem;
+  }
+
+  .instruction {
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+}
+

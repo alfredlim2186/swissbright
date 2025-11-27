@@ -1,0 +1,149 @@
+.footer {
+  padding: 4rem 1.5rem 3rem;
+  text-align: center;
+  border-top: 1px solid rgba(201, 168, 106, 0.3);
+  background-color: var(--black);
+}
+
+.emblem {
+  font-size: 2rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+  opacity: 0.85;
+}
+
+.logoImage {
+  height: auto;
+  width: auto;
+  max-height: 55px;
+  object-fit: contain;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.links a {
+  color: var(--soft-gray);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.links a:hover {
+  color: var(--gold);
+}
+
+.separator {
+  color: var(--gold);
+  font-size: 0.875rem;
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.socialIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 106, 0.3);
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.socialIcon:hover {
+  border-color: rgba(201, 168, 106, 0.6);
+  background: rgba(201, 168, 106, 0.1);
+  transform: translateY(-2px);
+}
+
+.socialIconImage {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0.9) sepia(1) saturate(1.5) hue-rotate(15deg);
+}
+
+.socialIconFallback {
+  color: var(--gold);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.copyright {
+  color: var(--soft-gray);
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 3rem 1.25rem 2.5rem;
+  }
+
+  .logo {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 2.5rem 1rem 2rem;
+  }
+  
+  .emblem {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .links {
+    gap: 0.75rem;
+    flex-direction: column;
+  }
+  
+  .separator {
+    display: none;
+  }
+  
+  .links a {
+    font-size: 0.9rem;
+  }
+  
+  .copyright {
+    font-size: 0.8rem;
+  }
+}
+

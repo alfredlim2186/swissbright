@@ -1,0 +1,241 @@
+.page {
+  min-height: 100vh;
+  background-color: var(--black);
+  color: var(--neon-white);
+  padding-bottom: 6rem;
+}
+
+.hero {
+  position: relative;
+  padding: 6rem 1.5rem 4rem;
+  overflow: hidden;
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(201, 168, 106, 0.15), transparent 60%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0.35rem;
+  text-transform: uppercase;
+  color: rgba(201, 168, 106, 0.85);
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.heroTitle {
+  font-family: var(--font-playfair);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  color: var(--neon-white);
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.heroDescription {
+  color: var(--soft-gray);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin: 0 auto 2.5rem;
+  max-width: 700px;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.95rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  color: var(--black);
+  background-color: var(--gold);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(201, 168, 106, 0.35);
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(201, 168, 106, 0.4);
+}
+
+.ctaButton span {
+  font-size: 1.25rem;
+}
+
+.whySection {
+  padding: 4rem 1.5rem;
+}
+
+.whyContent {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  align-items: center;
+}
+
+.whyCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(201, 168, 106, 0.25);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+}
+
+.whyTitle {
+  font-family: var(--font-playfair);
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+
+.whyDescription {
+  color: var(--soft-gray);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.stepsSection {
+  padding: 4rem 1.5rem 2rem;
+}
+
+.stepsHeader {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 3rem;
+}
+
+.stepsTitle {
+  font-family: var(--font-playfair);
+  font-size: 2.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.stepsSubtitle {
+  color: var(--soft-gray);
+  line-height: 1.7;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stepCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+}
+
+.stepImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.stepImage {
+  object-fit: cover;
+  filter: grayscale(0.15) saturate(1.1);
+  transform: scale(1.02);
+}
+
+.stepContent {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.stepNumber {
+  font-size: 0.85rem;
+  letter-spacing: 0.3rem;
+  color: rgba(201, 168, 106, 0.8);
+  text-transform: uppercase;
+}
+
+.stepTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--neon-white);
+}
+
+.stepDescription {
+  color: var(--soft-gray);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.note {
+  margin-top: 2rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 4.5rem 1rem 3rem;
+  }
+
+  .whyContent {
+    grid-template-columns: 1fr;
+  }
+
+  .stepsTitle {
+    font-size: 2rem;
+  }
+
+  .ctaButton {
+    width: 100%;
+  }
+
+  .whyCard {
+    text-align: center;
+  }
+
+  .whyTitle,
+  .whyDescription {
+    text-align: center;
+  }
+
+  .stepsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .stepContent {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+

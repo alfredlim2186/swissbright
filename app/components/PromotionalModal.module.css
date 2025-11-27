@@ -1,0 +1,279 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.overlayVisible {
+  opacity: 1;
+}
+
+.modal {
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.98) 0%,
+    rgba(201, 168, 106, 0.08) 50%,
+    rgba(10, 10, 10, 0.98) 100%
+  );
+  border: 2px solid rgba(201, 168, 106, 0.4);
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(201, 168, 106, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transform: scale(0.9) translateY(20px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modalVisible {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--soft-gray);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  transition: all 0.3s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.closeButton:hover {
+  color: var(--gold);
+  background-color: rgba(201, 168, 106, 0.1);
+  transform: rotate(90deg);
+}
+
+.content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.iconWrapper {
+  margin-bottom: 0.5rem;
+}
+
+.icon {
+  font-size: 3.5rem;
+  display: block;
+  animation: float 3s ease-in-out infinite;
+  text-shadow: 
+    0 0 20px rgba(201, 168, 106, 0.6),
+    0 0 40px rgba(201, 168, 106, 0.4);
+  filter: drop-shadow(0 0 10px rgba(201, 168, 106, 0.3));
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.title {
+  font-family: var(--font-playfair);
+  font-size: 2rem;
+  color: var(--gold);
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 20px rgba(201, 168, 106, 0.3);
+}
+
+.message {
+  font-family: var(--font-inter);
+  font-size: 1.0625rem;
+  color: var(--neon-white);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 100%;
+}
+
+.link {
+  color: var(--gold);
+  text-decoration: underline;
+  text-decoration-color: rgba(201, 168, 106, 0.5);
+  text-underline-offset: 3px;
+  transition: all 0.3s ease;
+}
+
+.link:hover {
+  color: var(--neon-white);
+  text-decoration-color: var(--gold);
+  text-shadow: 0 0 10px rgba(201, 168, 106, 0.5);
+}
+
+.ctaButton {
+  font-family: var(--font-inter);
+  padding: 1rem 2.5rem;
+  background-color: transparent;
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(201, 168, 106, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.ctaButton:hover::before {
+  left: 100%;
+}
+
+.ctaButton:hover {
+  background-color: var(--gold);
+  color: var(--black);
+  box-shadow: 
+    0 0 25px rgba(201, 168, 106, 0.5),
+    0 0 50px rgba(201, 168, 106, 0.3);
+  transform: translateY(-2px);
+}
+
+.ctaButton:active {
+  transform: translateY(0);
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .modal {
+    padding: 2rem 1.75rem;
+    max-width: 90%;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .message {
+    font-size: 1rem;
+  }
+
+  .icon {
+    font-size: 3rem;
+  }
+
+  .ctaButton {
+    padding: 0.875rem 2rem;
+    font-size: 0.9375rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .overlay {
+    padding: 0.75rem;
+  }
+
+  .modal {
+    padding: 1.75rem 1.5rem;
+    max-width: 100%;
+    border-width: 1px;
+  }
+
+  .closeButton {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 28px;
+    height: 28px;
+    font-size: 1.25rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .message {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .icon {
+    font-size: 2.5rem;
+  }
+
+  .ctaButton {
+    padding: 0.75rem 1.75rem;
+    font-size: 0.875rem;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .content {
+    gap: 1.25rem;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .modal {
+    transition: none;
+  }
+
+  .icon {
+    animation: none;
+  }
+
+  .closeButton:hover {
+    transform: none;
+  }
+
+  .ctaButton::before {
+    display: none;
+  }
+}
+
+

@@ -1,0 +1,115 @@
+.pageBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Diagonal gold accent lines */
+.accentLine1 {
+  position: absolute;
+  width: 500px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 106, 0.2), transparent);
+  top: 30%;
+  left: -10%;
+  transform: rotate(-15deg);
+}
+
+.accentLine2 {
+  position: absolute;
+  width: 400px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 106, 0.15), transparent);
+  top: 60%;
+  right: -5%;
+  transform: rotate(20deg);
+}
+
+.accentLine3 {
+  position: absolute;
+  width: 600px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 106, 0.1), transparent);
+  bottom: 20%;
+  left: 10%;
+  transform: rotate(-10deg);
+}
+
+/* Subtle gold circles */
+.goldCircle1 {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(201, 168, 106, 0.08);
+  border-radius: 50%;
+  top: 15%;
+  right: 5%;
+}
+
+.goldCircle2 {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(201, 168, 106, 0.06);
+  border-radius: 50%;
+  bottom: 25%;
+  left: 8%;
+}
+
+.goldCircle3 {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border: 1px solid rgba(201, 168, 106, 0.05);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Corner decorative elements */
+.cornerAccent1 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 10%;
+  left: 5%;
+  border-top: 2px solid rgba(201, 168, 106, 0.15);
+  border-left: 2px solid rgba(201, 168, 106, 0.15);
+}
+
+.cornerAccent2 {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  bottom: 15%;
+  right: 8%;
+  border-bottom: 2px solid rgba(201, 168, 106, 0.12);
+  border-right: 2px solid rgba(201, 168, 106, 0.12);
+}
+
+/* Mobile - reduce complexity */
+@media (max-width: 768px) {
+  .goldCircle1,
+  .goldCircle3,
+  .accentLine2,
+  .cornerAccent2 {
+    display: none;
+  }
+  
+  .goldCircle2 {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .cornerAccent1 {
+    width: 60px;
+    height: 60px;
+  }
+}
+

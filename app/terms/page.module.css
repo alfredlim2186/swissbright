@@ -1,0 +1,126 @@
+.termsPage {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  position: relative;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  transition: color 0.3s ease;
+}
+
+.backLink:hover {
+  color: var(--neon-white);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(201, 168, 106, 0.3);
+}
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--neon-white);
+  margin-bottom: 0.5rem;
+}
+
+.lastUpdated {
+  color: var(--soft-gray);
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.content {
+  color: var(--soft-gray);
+  line-height: 1.8;
+}
+
+.section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(201, 168, 106, 0.15);
+}
+
+.section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.sectionTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 1.75rem);
+  color: var(--gold);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.paragraph {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--soft-gray);
+}
+
+.paragraph strong {
+  color: var(--neon-white);
+  font-weight: 600;
+}
+
+.list {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  color: var(--soft-gray);
+}
+
+.list li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.link {
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 168, 106, 0.3);
+  transition: all 0.3s ease;
+}
+
+.link:hover {
+  color: var(--neon-white);
+  border-bottom-color: var(--gold);
+}
+
+@media (max-width: 640px) {
+  .termsPage {
+    padding: 1.5rem 1rem;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .paragraph {
+    font-size: 0.95rem;
+  }
+}
+

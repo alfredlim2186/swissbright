@@ -1,0 +1,264 @@
+.pageBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Diagonal gold accent lines */
+.accentLine1 {
+  position: absolute;
+  width: 450px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 106, 0.25), transparent);
+  top: 20%;
+  left: -8%;
+  transform: rotate(-20deg);
+  animation: lineFloat1 20s ease-in-out infinite;
+}
+
+.accentLine2 {
+  position: absolute;
+  width: 350px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 106, 0.2), transparent);
+  top: 50%;
+  right: -5%;
+  transform: rotate(25deg);
+  animation: lineFloat2 18s ease-in-out infinite;
+}
+
+.accentLine3 {
+  position: absolute;
+  width: 500px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 106, 0.15), transparent);
+  bottom: 30%;
+  left: 15%;
+  transform: rotate(-12deg);
+  animation: lineFloat3 22s ease-in-out infinite;
+}
+
+.accentLine4 {
+  position: absolute;
+  width: 300px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 106, 0.18), transparent);
+  top: 70%;
+  right: 20%;
+  transform: rotate(15deg);
+  animation: lineFloat4 19s ease-in-out infinite;
+}
+
+/* Subtle gold circles */
+.goldCircle1 {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border: 1px solid rgba(201, 168, 106, 0.1);
+  border-radius: 50%;
+  top: 12%;
+  right: 8%;
+  animation: circleFloat1 25s ease-in-out infinite;
+}
+
+.goldCircle2 {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border: 1px solid rgba(201, 168, 106, 0.08);
+  border-radius: 50%;
+  bottom: 20%;
+  left: 10%;
+  animation: circleFloat2 20s ease-in-out infinite;
+}
+
+.goldCircle3 {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border: 1px solid rgba(201, 168, 106, 0.07);
+  border-radius: 50%;
+  top: 45%;
+  left: 5%;
+  animation: circleFloat3 23s ease-in-out infinite;
+}
+
+.goldCircle4 {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border: 1px solid rgba(201, 168, 106, 0.09);
+  border-radius: 50%;
+  bottom: 35%;
+  right: 15%;
+  animation: circleFloat4 21s ease-in-out infinite;
+}
+
+/* Corner decorative elements */
+.cornerAccent1 {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  top: 8%;
+  left: 6%;
+  border-top: 2px solid rgba(201, 168, 106, 0.18);
+  border-left: 2px solid rgba(201, 168, 106, 0.18);
+}
+
+.cornerAccent2 {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  bottom: 12%;
+  right: 10%;
+  border-bottom: 2px solid rgba(201, 168, 106, 0.15);
+  border-right: 2px solid rgba(201, 168, 106, 0.15);
+}
+
+.cornerAccent3 {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  top: 60%;
+  right: 5%;
+  border-top: 2px solid rgba(201, 168, 106, 0.12);
+  border-right: 2px solid rgba(201, 168, 106, 0.12);
+}
+
+/* Floating dots */
+.floatingDot1,
+.floatingDot2,
+.floatingDot3 {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(201, 168, 106, 0.6);
+  opacity: 0.4;
+}
+
+.floatingDot1 {
+  top: 25%;
+  left: 30%;
+  animation: dotFloat1 15s ease-in-out infinite;
+}
+
+.floatingDot2 {
+  top: 65%;
+  right: 25%;
+  animation: dotFloat2 18s ease-in-out infinite;
+}
+
+.floatingDot3 {
+  bottom: 40%;
+  left: 60%;
+  animation: dotFloat3 16s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes lineFloat1 {
+  0%, 100% { transform: rotate(-20deg) translateY(0); }
+  50% { transform: rotate(-20deg) translateY(-20px); }
+}
+
+@keyframes lineFloat2 {
+  0%, 100% { transform: rotate(25deg) translateY(0); }
+  50% { transform: rotate(25deg) translateY(15px); }
+}
+
+@keyframes lineFloat3 {
+  0%, 100% { transform: rotate(-12deg) translateY(0); }
+  50% { transform: rotate(-12deg) translateY(-25px); }
+}
+
+@keyframes lineFloat4 {
+  0%, 100% { transform: rotate(15deg) translateY(0); }
+  50% { transform: rotate(15deg) translateY(18px); }
+}
+
+@keyframes circleFloat1 {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.1; }
+  50% { transform: translateY(-30px) scale(1.05); opacity: 0.15; }
+}
+
+@keyframes circleFloat2 {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.08; }
+  50% { transform: translateY(25px) scale(1.03); opacity: 0.12; }
+}
+
+@keyframes circleFloat3 {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.07; }
+  50% { transform: translateY(-20px) scale(1.04); opacity: 0.1; }
+}
+
+@keyframes circleFloat4 {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.09; }
+  50% { transform: translateY(22px) scale(1.02); opacity: 0.13; }
+}
+
+@keyframes dotFloat1 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(15px, -20px); }
+  66% { transform: translate(-10px, 15px); }
+}
+
+@keyframes dotFloat2 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(-20px, 10px); }
+  66% { transform: translate(12px, -18px); }
+}
+
+@keyframes dotFloat3 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(18px, 15px); }
+  66% { transform: translate(-15px, -12px); }
+}
+
+/* Mobile - reduce complexity */
+@media (max-width: 768px) {
+  .goldCircle1,
+  .goldCircle3,
+  .goldCircle4,
+  .accentLine2,
+  .accentLine4,
+  .cornerAccent2,
+  .cornerAccent3,
+  .floatingDot2,
+  .floatingDot3 {
+    display: none;
+  }
+  
+  .goldCircle2 {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .cornerAccent1 {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .accentLine1,
+  .accentLine2,
+  .accentLine3,
+  .accentLine4,
+  .goldCircle1,
+  .goldCircle2,
+  .goldCircle3,
+  .goldCircle4,
+  .floatingDot1,
+  .floatingDot2,
+  .floatingDot3 {
+    animation: none !important;
+  }
+}
+

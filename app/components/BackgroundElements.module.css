@@ -1,0 +1,155 @@
+.backgroundElements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Geometric shapes */
+.shape {
+  position: absolute;
+  border: 1px solid rgba(201, 168, 106, 0.08);
+  will-change: transform;
+}
+
+.shape1 {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  top: 15%;
+  left: 5%;
+  border-width: 2px;
+}
+
+.shape2 {
+  width: 150px;
+  height: 150px;
+  top: 40%;
+  right: 8%;
+  transform: rotate(45deg);
+}
+
+.shape3 {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  top: 65%;
+  left: 10%;
+  border-color: rgba(201, 168, 106, 0.05);
+}
+
+.shape4 {
+  width: 120px;
+  height: 120px;
+  top: 80%;
+  right: 15%;
+  transform: rotate(30deg);
+  border-color: rgba(201, 168, 106, 0.06);
+}
+
+.shape5 {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  top: 50%;
+  right: 25%;
+  border-color: rgba(201, 168, 106, 0.04);
+}
+
+/* Decorative lines */
+.line {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 106, 0.1), transparent);
+  will-change: transform;
+}
+
+.line1 {
+  width: 40%;
+  top: 30%;
+  left: -10%;
+  transform: rotate(-15deg);
+}
+
+.line2 {
+  width: 50%;
+  top: 70%;
+  right: -15%;
+  transform: rotate(10deg);
+}
+
+/* Dots pattern overlay */
+.dotsPattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(201, 168, 106, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.5;
+}
+
+/* Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .shape,
+  .line {
+    transform: none !important;
+  }
+}
+
+/* Hide some elements on mobile to avoid clutter */
+@media (max-width: 768px) {
+  .shape3,
+  .shape5,
+  .line2 {
+    display: none;
+  }
+  
+  .shape1 {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .shape2 {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .dotsPattern {
+    background-size: 40px 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shape1,
+  .shape2,
+  .shape4 {
+    opacity: 0.5;
+  }
+  
+  .shape1 {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .shape2 {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .shape4 {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .dotsPattern {
+    background-size: 35px 35px;
+    opacity: 0.3;
+  }
+}
+

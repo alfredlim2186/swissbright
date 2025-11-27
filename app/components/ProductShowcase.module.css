@@ -1,0 +1,259 @@
+.showcase {
+  padding: 5rem 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Introduction Section */
+.introSection {
+  max-width: 900px;
+  margin: 0 auto 5rem;
+  text-align: center;
+}
+
+.eyebrow {
+  font-family: var(--font-inter);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.title {
+  font-family: var(--font-playfair);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--neon-white);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: 1px;
+}
+
+.divider {
+  width: 80px;
+  height: 1px;
+  background-color: var(--gold);
+  margin: 2rem auto;
+  box-shadow: 0 0 10px rgba(201, 168, 106, 0.5);
+}
+
+.description {
+  font-family: var(--font-inter);
+  font-size: clamp(1.0625rem, 2vw, 1.25rem);
+  color: var(--soft-gray);
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Highlights */
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+  text-align: left;
+}
+
+.highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(201, 168, 106, 0.2);
+  transition: all 0.3s ease;
+}
+
+.highlight:hover {
+  border-color: var(--gold);
+  background: rgba(201, 168, 106, 0.03);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 20px rgba(201, 168, 106, 0.2);
+}
+
+.highlightIcon {
+  font-size: 1.5rem;
+  color: var(--gold);
+  flex-shrink: 0;
+  text-shadow: 
+    0 0 15px rgba(201, 168, 106, 0.6),
+    0 0 30px rgba(201, 168, 106, 0.4);
+  line-height: 1;
+  margin-top: 0.25rem;
+}
+
+.highlightText {
+  flex: 1;
+}
+
+.highlightTitle {
+  font-family: var(--font-playfair);
+  font-size: 1.25rem;
+  color: var(--neon-white);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.highlightDesc {
+  font-family: var(--font-inter);
+  font-size: 0.9375rem;
+  color: var(--soft-gray);
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.imageCard {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  border: 2px solid rgba(201, 168, 106, 0.4);
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.imageCard:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 30px rgba(201, 168, 106, 0.4);
+  transform: translateY(-5px);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.7) brightness(0.6) contrast(1.1);
+  transition: all 0.6s ease;
+}
+
+.imageCard:hover .image {
+  filter: saturate(1) brightness(0.7) contrast(1.15);
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg, 
+    rgba(10, 10, 10, 0.5) 0%, 
+    rgba(201, 168, 106, 0.3) 100%
+  );
+  pointer-events: none;
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+
+.imageCard:hover .overlay {
+  opacity: 0.5;
+}
+
+@media (max-width: 1024px) {
+  .highlights {
+    grid-template-columns: 1fr;
+  }
+  
+  .imageCard {
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .showcase {
+    padding: 4rem 1.25rem;
+  }
+
+  .introSection {
+    margin-bottom: 4rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .highlights {
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  .highlight {
+    padding: 1.25rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .imageCard {
+    height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .showcase {
+    padding: 3rem 1rem;
+  }
+
+  .introSection {
+    margin-bottom: 3rem;
+  }
+
+  .eyebrow {
+    font-size: 0.8125rem;
+  }
+
+  .divider {
+    width: 60px;
+    margin: 1.5rem auto;
+  }
+
+  .description {
+    font-size: 0.9375rem;
+    margin-bottom: 2rem;
+  }
+
+  .highlights {
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  .highlight {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .highlightIcon {
+    font-size: 1.25rem;
+  }
+
+  .highlightTitle {
+    font-size: 1.125rem;
+  }
+
+  .highlightDesc {
+    font-size: 0.875rem;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  
+  .imageCard {
+    height: 200px;
+  }
+}
+

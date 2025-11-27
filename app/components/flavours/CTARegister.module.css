@@ -1,0 +1,138 @@
+.section {
+  background-color: transparent;
+  padding: 5rem 1.5rem;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.content {
+  background: linear-gradient(135deg, rgba(201, 168, 106, 0.05) 0%, rgba(201, 168, 106, 0.02) 100%);
+  border: 2px solid rgba(201, 168, 106, 0.3);
+  padding: 4rem 3rem;
+  text-align: center;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+}
+
+.visible .content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.content::before,
+.content::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--gold);
+  box-shadow: 
+    0 0 15px rgba(201, 168, 106, 0.4),
+    inset 0 0 15px rgba(201, 168, 106, 0.2);
+  transition: all 0.3s ease;
+}
+
+.content:hover::before,
+.content:hover::after {
+  box-shadow: 
+    0 0 25px rgba(201, 168, 106, 0.6),
+    inset 0 0 25px rgba(201, 168, 106, 0.3);
+}
+
+.content::before {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.content::after {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+.title {
+  font-family: var(--font-playfair);
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--neon-white);
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.description {
+  font-family: var(--font-inter);
+  font-size: clamp(1.0625rem, 2vw, 1.25rem);
+  color: var(--soft-gray);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaButton {
+  font-family: var(--font-inter);
+  padding: 1.125rem 3rem;
+  background-color: var(--gold);
+  color: var(--black);
+  text-decoration: none;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  border: 2px solid var(--gold);
+}
+
+.ctaButton:hover {
+  background-color: transparent;
+  color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(201, 168, 106, 0.3);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 1.5rem;
+  }
+
+  .content {
+    padding: 3rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .content {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .content::before,
+  .content::after {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .ctaButton:hover {
+    transform: none;
+  }
+}
+

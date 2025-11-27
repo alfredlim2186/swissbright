@@ -1,0 +1,268 @@
+.section {
+  background-color: transparent;
+  padding: 5rem 1.5rem;
+  position: relative;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+}
+
+.visible .container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  color: var(--neon-white);
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.divider {
+  width: 80px;
+  height: 1px;
+  background-color: var(--gold);
+  margin: 1.5rem auto;
+  box-shadow: 0 0 10px rgba(201, 168, 106, 0.5);
+}
+
+.description {
+  font-family: var(--font-inter);
+  font-size: 1.0625rem;
+  color: var(--soft-gray);
+  text-align: center;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+}
+
+.graphContainer {
+  background: rgba(255, 255, 255, 0.02);
+  border: 2px solid rgba(201, 168, 106, 0.3);
+  padding: 3rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.graphContainer::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 60px;
+  height: 60px;
+  border-top: 2px solid var(--gold);
+  border-left: 2px solid var(--gold);
+  box-shadow: 0 0 15px rgba(201, 168, 106, 0.4);
+}
+
+.graphContainer::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 60px;
+  height: 60px;
+  border-bottom: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+  box-shadow: 0 0 15px rgba(201, 168, 106, 0.4);
+}
+
+.attribute {
+  margin-bottom: 2rem;
+}
+
+.attribute:last-child {
+  margin-bottom: 0;
+}
+
+.attributeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.attributeName {
+  font-family: var(--font-playfair);
+  font-size: 1.25rem;
+  color: var(--neon-white);
+  letter-spacing: 0.5px;
+}
+
+.attributeValue {
+  font-family: var(--font-inter);
+  font-size: 1.125rem;
+  color: var(--gold);
+  font-weight: 600;
+  text-shadow: 
+    0 0 10px rgba(201, 168, 106, 0.5),
+    0 0 20px rgba(201, 168, 106, 0.3);
+}
+
+.barBackground {
+  height: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(201, 168, 106, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  width: 0;
+  position: relative;
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.3s;
+}
+
+.barAnimate {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.barGlow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-40px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 2.5rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.legendDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.legendText {
+  font-family: var(--font-inter);
+  font-size: 0.9375rem;
+  color: var(--soft-gray);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 1.5rem;
+  }
+
+  .graphContainer {
+    padding: 2rem 1.5rem;
+  }
+
+  .graphContainer::before,
+  .graphContainer::after {
+    width: 40px;
+    height: 40px;
+  }
+
+  .attributeName {
+    font-size: 1.125rem;
+  }
+
+  .attributeValue {
+    font-size: 1rem;
+  }
+
+  .legend {
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .graphContainer {
+    padding: 1.5rem 1rem;
+  }
+
+  .graphContainer::before,
+  .graphContainer::after {
+    width: 30px;
+    height: 30px;
+  }
+
+  .attribute {
+    margin-bottom: 1.5rem;
+  }
+
+  .attributeName {
+    font-size: 1rem;
+  }
+
+  .attributeValue {
+    font-size: 0.9375rem;
+  }
+
+  .barBackground {
+    height: 10px;
+  }
+
+  .legend {
+    gap: 1.5rem;
+  }
+
+  .legendText {
+    font-size: 0.875rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barFill,
+  .barGlow {
+    animation: none !important;
+    transition: width 0.5s ease !important;
+  }
+}
+
+
+
+

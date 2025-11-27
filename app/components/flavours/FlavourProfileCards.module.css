@@ -1,0 +1,139 @@
+.section {
+  background-color: transparent;
+  padding: 5rem 1.5rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair);
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--neon-white);
+  text-align: center;
+  margin-bottom: 3rem;
+  letter-spacing: 1px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+}
+
+.visible .grid {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 2px solid rgba(201, 168, 106, 0.2);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 106, 0.05), transparent);
+  transition: left 0.5s ease;
+}
+
+.card:hover::before {
+  left: 100%;
+}
+
+.card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(201, 168, 106, 0.2);
+}
+
+.cardIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--gold);
+  text-shadow: 
+    0 0 20px rgba(201, 168, 106, 0.6),
+    0 0 40px rgba(201, 168, 106, 0.4),
+    0 0 60px rgba(201, 168, 106, 0.2);
+  filter: drop-shadow(0 4px 15px rgba(201, 168, 106, 0.5));
+  transition: all 0.3s ease;
+}
+
+.card:hover .cardIcon {
+  transform: scale(1.1);
+  text-shadow: 
+    0 0 25px rgba(201, 168, 106, 0.8),
+    0 0 50px rgba(201, 168, 106, 0.6),
+    0 0 75px rgba(201, 168, 106, 0.3);
+}
+
+.cardTitle {
+  font-family: var(--font-playfair);
+  font-size: 1.75rem;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.cardSubtitle {
+  font-family: var(--font-inter);
+  font-size: 1.125rem;
+  color: var(--neon-white);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.cardDescription {
+  font-family: var(--font-inter);
+  font-size: 1rem;
+  color: var(--soft-gray);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 1.5rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .card {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grid {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}
+

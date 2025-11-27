@@ -1,0 +1,146 @@
+.section {
+  background-color: transparent;
+  padding: 5rem 1.5rem;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.tastingNotesBlock {
+  margin-bottom: 5rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+}
+
+.visible .tastingNotesBlock {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sensoryBlock {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+}
+
+.visible .sensoryBlock {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sectionTitle {
+  font-family: var(--font-playfair);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  color: var(--neon-white);
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+}
+
+.notesList {
+  list-style: none;
+  padding: 0;
+}
+
+.noteItem {
+  font-family: var(--font-inter);
+  font-size: 1.125rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.noteItem::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 1.25rem;
+  line-height: 1.8rem;
+  text-shadow: 
+    0 0 12px rgba(201, 168, 106, 0.6),
+    0 0 24px rgba(201, 168, 106, 0.4);
+}
+
+.noteLabel {
+  color: var(--neon-white);
+  font-weight: 600;
+}
+
+.noteDescription {
+  color: var(--soft-gray);
+}
+
+.sensoryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2.5rem;
+}
+
+.sensoryItem {
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(201, 168, 106, 0.2);
+  padding: 2rem;
+  transition: border-color 0.3s ease;
+}
+
+.sensoryItem:hover {
+  border-color: var(--gold);
+}
+
+.sensoryLabel {
+  font-family: var(--font-playfair);
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.sensoryText {
+  font-family: var(--font-inter);
+  font-size: 1.0625rem;
+  color: var(--soft-gray);
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 1.5rem;
+  }
+
+  .tastingNotesBlock {
+    margin-bottom: 4rem;
+  }
+
+  .sensoryGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .noteItem {
+    font-size: 1rem;
+  }
+
+  .sensoryItem {
+    padding: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tastingNotesBlock,
+  .sensoryBlock {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+

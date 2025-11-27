@@ -1,0 +1,429 @@
+.ingredients {
+  border-top: 1px solid rgba(201, 168, 106, 0.2);
+  padding: 5rem 1.5rem;
+  overflow: visible;
+  position: relative;
+}
+
+.sectionTitle {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  text-align: center;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 10;
+}
+
+.intro {
+  text-align: center;
+  color: var(--soft-gray);
+  font-size: 1.125rem;
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 2rem auto 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Carousel Container */
+.carouselContainer {
+  position: relative;
+  width: 100vw;
+  max-width: none;
+  margin: 3rem 0 0 calc(-50vw + 50%);
+  padding: 3rem 0;
+  overflow: hidden;
+  perspective: 1200px;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
+}
+
+.carousel {
+  display: flex;
+  gap: 2rem;
+  padding: 0 calc(50vw - 180px);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Individual Tile */
+.tile {
+  flex: 0 0 360px;
+  width: 360px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 2px solid rgba(201, 168, 106, 0.2);
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.5;
+  transform: scale(0.9);
+  filter: blur(1px);
+  transform-origin: center center;
+}
+
+.tile:hover {
+  cursor: pointer;
+}
+
+/* Left Tiles - Slight rotation to the left */
+.tileLeft {
+  transform: scale(0.9) rotateY(8deg);
+}
+
+/* Right Tiles - Slight rotation to the right */
+.tileRight {
+  transform: scale(0.9) rotateY(-8deg);
+}
+
+/* Active Center Tile - No rotation, front-facing */
+.tileActive {
+  opacity: 1;
+  transform: scale(1) rotateY(0deg);
+  filter: blur(0);
+  border-color: var(--gold);
+  box-shadow: 
+    0 0 40px rgba(201, 168, 106, 0.3),
+    0 8px 30px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.tileImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+}
+
+.tileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.7) brightness(0.6) contrast(1.1);
+  transition: all 0.6s ease;
+}
+
+.tileActive .tileImage {
+  filter: saturate(1) brightness(0.7) contrast(1.15);
+}
+
+.tileOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.3) 0%,
+    rgba(201, 168, 106, 0.2) 50%,
+    rgba(10, 10, 10, 0.8) 100%
+  );
+  pointer-events: none;
+}
+
+.tileContent {
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.tileIcon {
+  display: block;
+  font-size: 2.5rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  text-shadow: 
+    0 0 15px rgba(201, 168, 106, 0.6),
+    0 0 30px rgba(201, 168, 106, 0.4);
+  transition: all 0.3s ease;
+}
+
+.tileActive .tileIcon {
+  transform: scale(1.1);
+  text-shadow: 
+    0 0 20px rgba(201, 168, 106, 0.8),
+    0 0 40px rgba(201, 168, 106, 0.5);
+}
+
+.tileName {
+  font-family: var(--font-playfair);
+  font-size: 1.5rem;
+  color: var(--neon-white);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.tileActive .tileName {
+  color: var(--gold);
+}
+
+.tileBenefit {
+  color: var(--soft-gray);
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* Indicators */
+.indicators {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(201, 168, 106, 0.3);
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator:hover {
+  border-color: var(--gold);
+  transform: scale(1.2);
+}
+
+.indicatorActive {
+  background-color: var(--gold);
+  border-color: var(--gold);
+  box-shadow: 0 0 12px rgba(201, 168, 106, 0.6);
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .carouselContainer {
+    perspective: 1000px;
+  }
+
+  .carousel {
+    padding: 0 calc(50vw - 160px);
+  }
+
+  .tile {
+    flex: 0 0 320px;
+    width: 320px;
+  }
+
+  .tileLeft {
+    transform: scale(0.9) rotateY(6deg);
+  }
+
+  .tileRight {
+    transform: scale(0.9) rotateY(-6deg);
+  }
+
+  .tileImageWrapper {
+    height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ingredients {
+    padding: 4rem 1.5rem;
+    overflow: visible;
+  }
+
+  .sectionTitle {
+    padding: 0 1rem;
+    font-size: clamp(2rem, 8vw, 2.5rem);
+  }
+
+  .intro {
+    font-size: 1rem;
+    margin: 1.5rem auto 3rem;
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+
+  .carouselContainer {
+    perspective: 800px;
+    margin: 3rem 0 0 calc(-50vw + 50%);
+    width: 100vw;
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 25%,
+      black 75%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 25%,
+      black 75%,
+      transparent 100%
+    );
+  }
+
+  .carousel {
+    padding: 0 calc(50vw - 140px);
+    gap: 1.5rem;
+  }
+
+  .tile {
+    flex: 0 0 280px;
+    width: 280px;
+    opacity: 0.6;
+  }
+
+  .tileLeft {
+    transform: scale(0.85) rotateY(5deg);
+  }
+
+  .tileRight {
+    transform: scale(0.85) rotateY(-5deg);
+  }
+
+  .tileActive {
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
+  }
+
+  .tileImageWrapper {
+    height: 200px;
+  }
+
+  .tileContent {
+    padding: 1.5rem 1rem;
+  }
+
+  .tileIcon {
+    font-size: 2rem;
+  }
+
+  .tileName {
+    font-size: 1.25rem;
+  }
+
+  .tileBenefit {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ingredients {
+    padding: 3rem 1rem;
+    overflow: visible;
+  }
+  
+  .sectionTitle {
+    padding: 0 0.5rem;
+    font-size: clamp(1.75rem, 10vw, 2rem);
+  }
+  
+  .intro {
+    padding: 0 0.5rem;
+    font-size: 0.9375rem;
+    max-width: 100%;
+  }
+
+  .carouselContainer {
+    perspective: 600px;
+    margin: 3rem 0 0 calc(-50vw + 50%);
+    width: 100vw;
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 30%,
+      black 70%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 30%,
+      black 70%,
+      transparent 100%
+    );
+  }
+
+  .carousel {
+    padding: 0 calc(50vw - 120px);
+    gap: 1rem;
+  }
+
+  .tile {
+    flex: 0 0 240px;
+    width: 240px;
+    opacity: 0.7;
+  }
+
+  .tileLeft {
+    transform: scale(0.8) rotateY(4deg);
+  }
+
+  .tileRight {
+    transform: scale(0.8) rotateY(-4deg);
+  }
+
+  .tileActive {
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
+  }
+
+  .tileImageWrapper {
+    height: 180px;
+  }
+
+  .tileContent {
+    padding: 1.25rem 0.875rem;
+  }
+
+  .tileIcon {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tileName {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .tileBenefit {
+    font-size: 0.875rem;
+  }
+
+  .indicators {
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .indicator {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .carousel {
+    transition: none;
+  }
+
+  .tile,
+  .tileImage,
+  .tileIcon {
+    transition: none;
+  }
+
+  .tileActive {
+    animation: none;
+  }
+}

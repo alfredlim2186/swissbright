@@ -1,0 +1,582 @@
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(201, 168, 106, 0.1);
+}
+
+.nav {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  text-decoration: none;
+}
+
+.logo:hover {
+  opacity: 0.85;
+}
+
+.logoImage {
+  height: auto;
+  width: auto;
+  max-height: 50px;
+  object-fit: contain;
+}
+
+.navLinks {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.navLinks li a {
+  color: var(--neon-white);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.navLinks li a:hover {
+  color: var(--gold);
+}
+
+.navLinks li a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.navLinks li a:hover::after {
+  width: 100%;
+}
+
+.contactLink {
+  color: var(--neon-white) !important;
+  font-weight: 400;
+}
+
+.shopLink {
+  color: var(--gold) !important;
+  font-weight: 500;
+}
+
+.loginButton {
+  color: var(--gold) !important;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem !important;
+  border: 1.5px solid var(--gold);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.loginButton:hover {
+  background-color: var(--gold);
+  color: var(--black) !important;
+  box-shadow: 0 0 10px rgba(201, 168, 106, 0.4);
+}
+
+.loginButton::after {
+  display: none !important;
+}
+
+.accountDropdown {
+  position: relative;
+}
+
+ .accountButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1.25rem;
+  border: 1.5px solid #C9A86A;
+  background: transparent;
+  color: #C9A86A;
+  border-radius: 999px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.accountButton:hover {
+  background: #C9A86A;
+  color: #050505;
+}
+
+.accountMenu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  background: #0a0a0a;
+  border: 1px solid rgba(201, 168, 106, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  min-width: 240px;
+  z-index: 10;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+}
+
+.accountMenuHeader p {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #b8b8b8;
+}
+
+.accountMenuHeader strong {
+  display: block;
+  margin-top: 0.25rem;
+  color: #f8f8f8;
+  font-size: 1rem;
+}
+
+.accountInfo {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.accountField {
+  color: #b8b8b8;
+  font-size: 0.8rem;
+}
+
+.accountField strong {
+  display: block;
+  color: #f8f8f8;
+  font-size: 0.95rem;
+}
+
+.accountField small {
+  display: block;
+  color: #6b7280;
+  margin-top: 0.2rem;
+}
+
+.accountMenuFooter {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.accountLink {
+  color: #c9a86a;
+  font-weight: 600;
+}
+
+.signOutButton {
+  background: transparent;
+  border: 1px solid rgba(248, 113, 113, 0.5);
+  border-radius: 8px;
+  padding: 0.45rem 1rem;
+  color: #f87171;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mobileAccountSection {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.mobileAccountLink {
+  color: #c9a86a;
+  font-weight: 600;
+}
+
+.mobileLogoutButton {
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(248, 113, 113, 0.5);
+  background: transparent;
+  color: #f87171;
+  font-weight: 600;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.languageSwitcherItem {
+  display: flex;
+  align-items: center;
+}
+
+.cartIconItem {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.cartIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+  margin: 0 -0.5rem;
+}
+
+.cartIcon:hover {
+  color: var(--neon-white);
+  transform: scale(1.1);
+}
+
+.cartIcon::after {
+  display: none !important;
+}
+
+.mobileCartIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+}
+
+.mobileCartIcon:hover {
+  color: var(--neon-white);
+  transform: scale(1.1);
+}
+
+.cartBadge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--gold);
+  color: var(--black);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  border: 2px solid var(--black);
+  transform: translate(25%, -25%);
+  min-width: 20px;
+  padding: 0 2px;
+}
+
+/* Mobile Controls Container */
+.mobileControls {
+  display: none;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mobileLanguageSwitcher {
+  display: flex;
+  align-items: center;
+}
+
+.mobileLanguageItem {
+  margin: 0.5rem 1.5rem;
+  padding: 0.5rem 0;
+}
+
+/* Burger Menu Button (hidden on desktop) */
+.burgerButton {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.burgerLine {
+  width: 100%;
+  height: 2px;
+  background-color: var(--gold);
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.burgerButton:hover .burgerLine {
+  background-color: var(--neon-white);
+}
+
+/* Burger animation when open */
+.burgerOpen .burgerLine:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.burgerOpen .burgerLine:nth-child(2) {
+  opacity: 0;
+}
+
+.burgerOpen .burgerLine:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Mobile Menu Overlay */
+.mobileOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height */
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Mobile Menu */
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 85%;
+  max-width: 400px;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
+  background-color: #0A0A0A;
+  border-left: 2px solid rgba(201, 168, 106, 0.5);
+  z-index: 1000;
+  overflow-y: auto;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.mobileMenuOpen {
+  right: 0 !important;
+  visibility: visible !important;
+}
+
+.mobileMenuHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(201, 168, 106, 0.3);
+  background-color: rgba(201, 168, 106, 0.02);
+}
+
+.mobileLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobileLogo:hover {
+  opacity: 0.85;
+}
+
+.mobileLogo .logoImage {
+  max-height: 45px;
+}
+
+.mobileNavLinks {
+  list-style: none;
+  padding: 2rem 0;
+  flex: 1;
+}
+
+.mobileNavLinks li {
+  margin: 0;
+}
+
+.mobileNavLinks li a {
+  display: block !important;
+  padding: 1rem 1.5rem;
+  color: #F8F8F8 !important;
+  text-decoration: none;
+  font-size: 1.125rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+  background-color: transparent;
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobileNavLinks li a:hover {
+  color: #C9A86A !important;
+  background-color: rgba(201, 168, 106, 0.1);
+  border-left-color: #C9A86A;
+  padding-left: 2rem;
+}
+
+/* Override any global link styles for mobile menu */
+.mobileNavLinks li a::after {
+  display: none !important;
+}
+
+.mobileLoginItem {
+  margin-top: 1.5rem;
+  padding: 0 1.5rem;
+}
+
+.mobileLoginButton {
+  display: block !important;
+  width: 100%;
+  text-align: center;
+  padding: 1rem 2rem !important;
+  background-color: var(--gold) !important;
+  color: var(--black) !important;
+  border: 2px solid var(--gold) !important;
+  font-weight: 600 !important;
+  font-size: 1.125rem !important;
+  letter-spacing: 0.5px;
+  border-left: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.mobileLoginButton:hover {
+  background-color: transparent !important;
+  color: var(--gold) !important;
+  box-shadow: 0 0 15px rgba(201, 168, 106, 0.4);
+}
+
+.mobileMenuFooter {
+  margin-top: auto;
+  padding: 1.5rem;
+  border-top: 1px solid rgba(201, 168, 106, 0.2);
+  text-align: center;
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+
+.mobileMenuFooter p {
+  color: var(--soft-gray);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 1rem 1.25rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  /* Hide desktop nav on mobile/tablet */
+  .navLinks {
+    display: none;
+  }
+
+  /* Show mobile controls (language switcher + burger menu) */
+  .mobileControls {
+    display: flex;
+  }
+
+  /* Show burger menu */
+  .burgerButton {
+    display: flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav {
+    padding: 0.875rem 1rem;
+  }
+  
+  .logo {
+    font-size: 1.35rem;
+  }
+
+  .mobileMenu {
+    width: 90%;
+  }
+
+  .mobileNavLinks li a {
+    font-size: 1.05rem;
+    padding: 0.875rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav {
+    padding: 0.75rem 0.875rem;
+  }
+  
+  .logo {
+    font-size: 1.25rem;
+  }
+
+  .mobileMenu {
+    width: 100%;
+  }
+
+  .burgerButton {
+    width: 28px;
+    height: 22px;
+  }
+
+  .mobileNavLinks li a {
+    font-size: 1rem;
+    padding: 0.875rem 1.25rem;
+  }
+
+  .mobileLoginButton {
+    font-size: 1rem !important;
+    padding: 0.875rem 1.5rem !important;
+  }
+}
+
+/* Reduced motion support for mobile menu */
+@media (prefers-reduced-motion: reduce) {
+  .mobileMenu,
+  .burgerLine,
+  .mobileOverlay {
+    transition: none !important;
+    animation: none !important;
+  }
+}

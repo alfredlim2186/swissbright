@@ -1,0 +1,65 @@
+.offerBanner {
+  padding: 2.5rem 1.5rem;
+  background-color: var(--black);
+  border-top: 1px solid rgba(201, 168, 106, 0.3);
+  border-bottom: 1px solid rgba(201, 168, 106, 0.3);
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.icon {
+  color: var(--gold);
+  font-size: 1.5rem;
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .icon {
+    display: none;
+  }
+  
+  .offerBanner {
+    padding: 2rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .offerBanner {
+    padding: 1.75rem 1rem;
+  }
+  
+  .text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+}
+
+.text {
+  color: var(--gold);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+.link {
+  color: var(--neon-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.link:hover {
+  color: var(--gold);
+  text-shadow: 0 0 10px rgba(201, 168, 106, 0.4);
+}
+
