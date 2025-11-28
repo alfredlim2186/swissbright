@@ -5,6 +5,475 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES, type Language } from '@/lib/i18n-constants'
 
+// Ingredient slugs for management
+const INGREDIENT_SLUGS = [
+  'korean-red-ginseng',
+  'tongkat-ali',
+  'maca-root',
+  'l-arginine',
+  'tribulus-terrestris',
+]
+
+const INGREDIENT_LABELS: { [key: string]: string } = {
+  'korean-red-ginseng': 'Korean Red Ginseng',
+  'tongkat-ali': 'Tongkat Ali',
+  'maca-root': 'Maca Root',
+  'l-arginine': 'L-Arginine',
+  'tribulus-terrestris': 'Tribulus Terrestris',
+}
+
+// Ingredient Manager Component
+function IngredientManager({ 
+  content, 
+  activeLanguage, 
+  onUpdate, 
+  onImageUpload,
+  uploading,
+  setUploading,
+  setMessage,
+}: {
+  content: ContentItem[]
+  activeLanguage: Language
+  onUpdate: () => void
+  onImageUpload: (key: string, file: File) => Promise<void>
+  uploading: string | null
+  setUploading: (key: string | null) => void
+  setMessage: (msg: string) => void
+}) {
+  const [editing, setEditing] = useState<{ slug: string; field: string } | null>(null)
+  const [editValue, setEditValue] = useState('')
+
+  const getContentValue = (slug: string, field: string) => {
+    const key = `ingredients.${slug}.${field}`
+    return content.find((item) => item.key === key && item.language === activeLanguage)?.value || ''
+  }
+
+  const handleSave = async (slug: string, field: string, value: string, type: 'TEXT' | 'IMAGE' | 'ICON' = 'TEXT') => {
+    try {
+      const key = `ingredients.${slug}.${field}`
+      const res = await fetch('/api/admin/content', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          key, 
+          language: activeLanguage, 
+          value,
+          type,
+          section: 'ingredients',
+        }),
+      })
+
+      if (res.ok) {
+        setMessage('✓ Ingredient updated successfully')
+        setEditing(null)
+        onUpdate()
+        setTimeout(() => setMessage(''), 3000)
+      } else {
+        const errorData = await res.json().catch(() => ({}))
+        setMessage(`✗ Failed to save: ${errorData.error || 'Unknown error'}`)
+      }
+    } catch (error) {
+      console.error('Save error:', error)
+      setMessage('✗ Error saving ingredient')
+    }
+  }
+
+  const handleImageUploadForIngredient = async (slug: string, file: File) => {
+    const key = `ingredients.${slug}.image`
+    await onImageUpload(key, file)
+  }
+
+  return (
+    <div>
+      {INGREDIENT_SLUGS.map((slug) => {
+        const name = getContentValue(slug, 'name') || INGREDIENT_LABELS[slug]
+        const benefit = getContentValue(slug, 'benefit')
+        const icon = getContentValue(slug, 'icon') || '🌿'
+        const image = getContentValue(slug, 'image')
+        const imageAlt = getContentValue(slug, 'imageAlt') || name
+
+        return (
+          <div
+            key={slug}
+            style={{
+              marginBottom: '2.5rem',
+              padding: '2rem',
+              backgroundColor: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(201, 168, 106, 0.3)',
+              borderRadius: '12px',
+            }}
+          >
+            <h4 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: '1.25rem',
+              color: '#C9A86A',
+              marginBottom: '1.5rem',
+            }}>
+              {INGREDIENT_LABELS[slug]}
+            </h4>
+
+            {/* Name */}
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{ display: 'block', color: '#C9A86A', marginBottom: '0.5rem', fontWeight: '500' }}>
+                Name
+              </label>
+              {editing?.slug === slug && editing?.field === 'name' ? (
+                <div>
+                  <input
+                    type="text"
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem',
+                      backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                      border: '1px solid rgba(201, 168, 106, 0.3)',
+                      color: '#F8F8F8',
+                      fontSize: '0.9375rem',
+                    }}
+                  />
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <button
+                      onClick={() => handleSave(slug, 'name', editValue)}
+                      style={{
+                        padding: '0.5rem 1.5rem',
+                        backgroundColor: '#C9A86A',
+                        border: 'none',
+                        color: '#0A0A0A',
+                        fontSize: '0.875rem',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        marginRight: '0.5rem',
+                      }}
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={() => setEditing(null)}
+                      style={{
+                        padding: '0.5rem 1.5rem',
+                        backgroundColor: 'transparent',
+                        border: '1px solid rgba(201, 168, 106, 0.3)',
+                        color: '#C9A86A',
+                        fontSize: '0.875rem',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <span style={{ color: '#F8F8F8' }}>{name || 'Not set'}</span>
+                  <button
+                    onClick={() => {
+                      setEditing({ slug, field: 'name' })
+                      setEditValue(name)
+                    }}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      backgroundColor: 'transparent',
+                      border: '1px solid rgba(201, 168, 106, 0.3)',
+                      color: '#C9A86A',
+                      fontSize: '0.875rem',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Edit
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Benefit */}
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{ display: 'block', color: '#C9A86A', marginBottom: '0.5rem', fontWeight: '500' }}>
+                Benefit
+              </label>
+              {editing?.slug === slug && editing?.field === 'benefit' ? (
+                <div>
+                  <input
+                    type="text"
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem',
+                      backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                      border: '1px solid rgba(201, 168, 106, 0.3)',
+                      color: '#F8F8F8',
+                      fontSize: '0.9375rem',
+                    }}
+                  />
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <button
+                      onClick={() => handleSave(slug, 'benefit', editValue)}
+                      style={{
+                        padding: '0.5rem 1.5rem',
+                        backgroundColor: '#C9A86A',
+                        border: 'none',
+                        color: '#0A0A0A',
+                        fontSize: '0.875rem',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        marginRight: '0.5rem',
+                      }}
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={() => setEditing(null)}
+                      style={{
+                        padding: '0.5rem 1.5rem',
+                        backgroundColor: 'transparent',
+                        border: '1px solid rgba(201, 168, 106, 0.3)',
+                        color: '#C9A86A',
+                        fontSize: '0.875rem',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <span style={{ color: '#F8F8F8' }}>{benefit || 'Not set'}</span>
+                  <button
+                    onClick={() => {
+                      setEditing({ slug, field: 'benefit' })
+                      setEditValue(benefit)
+                    }}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      backgroundColor: 'transparent',
+                      border: '1px solid rgba(201, 168, 106, 0.3)',
+                      color: '#C9A86A',
+                      fontSize: '0.875rem',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Edit
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Icon */}
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{ display: 'block', color: '#C9A86A', marginBottom: '0.5rem', fontWeight: '500' }}>
+                Icon (Emoji)
+              </label>
+              {editing?.slug === slug && editing?.field === 'icon' ? (
+                <div>
+                  <input
+                    type="text"
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                    placeholder="🌿"
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem',
+                      backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                      border: '1px solid rgba(201, 168, 106, 0.3)',
+                      color: '#F8F8F8',
+                      fontSize: '1.25rem',
+                    }}
+                  />
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <button
+                      onClick={() => handleSave(slug, 'icon', editValue, 'ICON')}
+                      style={{
+                        padding: '0.5rem 1.5rem',
+                        backgroundColor: '#C9A86A',
+                        border: 'none',
+                        color: '#0A0A0A',
+                        fontSize: '0.875rem',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        marginRight: '0.5rem',
+                      }}
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={() => setEditing(null)}
+                      style={{
+                        padding: '0.5rem 1.5rem',
+                        backgroundColor: 'transparent',
+                        border: '1px solid rgba(201, 168, 106, 0.3)',
+                        color: '#C9A86A',
+                        fontSize: '0.875rem',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <span style={{ fontSize: '2rem' }}>{icon || '🌿'}</span>
+                  <button
+                    onClick={() => {
+                      setEditing({ slug, field: 'icon' })
+                      setEditValue(icon)
+                    }}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      backgroundColor: 'transparent',
+                      border: '1px solid rgba(201, 168, 106, 0.3)',
+                      color: '#C9A86A',
+                      fontSize: '0.875rem',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Edit
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Image */}
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{ display: 'block', color: '#C9A86A', marginBottom: '0.5rem', fontWeight: '500' }}>
+                Image (Cloudinary)
+              </label>
+              {image && (
+                <div style={{ marginBottom: '1rem' }}>
+                  <img 
+                    src={image} 
+                    alt={imageAlt}
+                    style={{ 
+                      maxWidth: '300px', 
+                      maxHeight: '200px', 
+                      objectFit: 'cover',
+                      border: '1px solid rgba(201, 168, 106, 0.3)',
+                    }}
+                  />
+                </div>
+              )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0]
+                  if (file) handleImageUploadForIngredient(slug, file)
+                }}
+                disabled={uploading === `ingredients.${slug}.image`}
+                style={{
+                  padding: '0.5rem',
+                  backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                  border: '1px solid rgba(201, 168, 106, 0.3)',
+                  color: '#F8F8F8',
+                  fontSize: '0.875rem',
+                }}
+              />
+              {image && (
+                <input
+                  type="text"
+                  value={image}
+                  onChange={(e) => {
+                    handleSave(slug, 'image', e.target.value, 'IMAGE')
+                  }}
+                  placeholder="Or enter Cloudinary URL"
+                  style={{
+                    width: '100%',
+                    marginTop: '0.5rem',
+                    padding: '0.75rem',
+                    backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                    border: '1px solid rgba(201, 168, 106, 0.3)',
+                    color: '#F8F8F8',
+                    fontSize: '0.875rem',
+                  }}
+                />
+              )}
+              {uploading === `ingredients.${slug}.image` && (
+                <p style={{ color: '#C9A86A', fontSize: '0.875rem', marginTop: '0.5rem' }}>Uploading...</p>
+              )}
+            </div>
+
+            {/* Image Alt Text */}
+            <div>
+              <label style={{ display: 'block', color: '#C9A86A', marginBottom: '0.5rem', fontWeight: '500' }}>
+                Image Alt Text
+              </label>
+              {editing?.slug === slug && editing?.field === 'imageAlt' ? (
+                <div>
+                  <input
+                    type="text"
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem',
+                      backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                      border: '1px solid rgba(201, 168, 106, 0.3)',
+                      color: '#F8F8F8',
+                      fontSize: '0.9375rem',
+                    }}
+                  />
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <button
+                      onClick={() => handleSave(slug, 'imageAlt', editValue)}
+                      style={{
+                        padding: '0.5rem 1.5rem',
+                        backgroundColor: '#C9A86A',
+                        border: 'none',
+                        color: '#0A0A0A',
+                        fontSize: '0.875rem',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        marginRight: '0.5rem',
+                      }}
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={() => setEditing(null)}
+                      style={{
+                        padding: '0.5rem 1.5rem',
+                        backgroundColor: 'transparent',
+                        border: '1px solid rgba(201, 168, 106, 0.3)',
+                        color: '#C9A86A',
+                        fontSize: '0.875rem',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <span style={{ color: '#F8F8F8' }}>{imageAlt || 'Not set'}</span>
+                  <button
+                    onClick={() => {
+                      setEditing({ slug, field: 'imageAlt' })
+                      setEditValue(imageAlt)
+                    }}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      backgroundColor: 'transparent',
+                      border: '1px solid rgba(201, 168, 106, 0.3)',
+                      color: '#C9A86A',
+                      fontSize: '0.875rem',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Edit
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 interface ContentItem {
   id: string
   key: string
@@ -566,9 +1035,31 @@ export default function AdminContentPage() {
             </h2>
             {renderContentField('ingredients.title', 'Section Title', 'TEXT', 'Title for ingredients section')}
             {renderContentField('ingredients.description', 'Section Description', 'TEXT', 'Description for ingredients section')}
-            <p style={{ color: '#B8B8B8', fontSize: '0.875rem', marginTop: '2rem' }}>
-              Note: Individual ingredient details (names, icons, images) are managed in the Ingredients component code.
-            </p>
+            
+            <div style={{ marginTop: '3rem', marginBottom: '2rem' }}>
+              <h3 style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: '1.5rem',
+                color: '#F8F8F8',
+                marginBottom: '1rem',
+              }}>
+                Manage Ingredients
+              </h3>
+              <p style={{ color: '#B8B8B8', fontSize: '0.875rem', marginBottom: '2rem' }}>
+                Edit individual ingredients. Each ingredient needs a name, benefit, icon, and image. Images are uploaded to Cloudinary.
+              </p>
+
+              {/* Ingredient Management */}
+              <IngredientManager 
+                content={content}
+                activeLanguage={activeLanguage}
+                onUpdate={fetchContent}
+                onImageUpload={handleImageUpload}
+                uploading={uploading}
+                setUploading={setUploading}
+                setMessage={setMessage}
+              />
+            </div>
           </div>
         )}
 
