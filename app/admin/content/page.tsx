@@ -60,6 +60,8 @@ function IngredientManager({
           value,
           type,
           section: 'ingredients',
+          // Sync images across all languages
+          updateAllLanguages: type === 'IMAGE',
         }),
       })
 
@@ -375,6 +377,7 @@ function IngredientManager({
                   type="text"
                   value={image}
                   onChange={(e) => {
+                    // Update image URL - will sync across all languages
                     handleSave(slug, 'image', e.target.value, 'IMAGE')
                   }}
                   placeholder="Or enter Cloudinary URL"
@@ -594,11 +597,17 @@ export default function AdminContentPage() {
 
       const { path } = await uploadRes.json()
 
-      // Update content with new image path
+      // Update content with new image path for all languages
       const updateRes = await fetch('/api/admin/content', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ key, language: activeLanguage, value: path }),
+        body: JSON.stringify({ 
+          key, 
+          language: activeLanguage, 
+          value: path,
+          type: 'IMAGE',
+          updateAllLanguages: true, // Sync image across all languages
+        }),
       })
 
       if (updateRes.ok) {
@@ -676,7 +685,13 @@ export default function AdminContentPage() {
                 fetch('/api/admin/content', {
                   method: 'PATCH',
                   headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ key, value: e.target.value }),
+                  body: JSON.stringify({ 
+                    key, 
+                    value: e.target.value,
+                    type: 'IMAGE',
+                    language: activeLanguage,
+                    updateAllLanguages: true, // Sync image across all languages
+                  }),
                 }).then(() => fetchContent())
               }}
               placeholder="Or enter image URL/path"
@@ -1019,6 +1034,23 @@ export default function AdminContentPage() {
             {renderContentField('product.description', 'Description', 'TEXT', 'Product description text')}
             {renderContentField('product.image1', 'Product Image 1', 'IMAGE', 'First product lifestyle image')}
             {renderContentField('product.image2', 'Product Image 2', 'IMAGE', 'Second product lifestyle image')}
+            
+            <div style={{ marginTop: '3rem' }}>
+              <h3 style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: '1.5rem',
+                color: '#F8F8F8',
+                marginBottom: '1.5rem',
+              }}>
+                Product Highlight Tiles
+              </h3>
+              {renderContentField('product.highlight.discreetFormat.title', 'Discreet Format - Title', 'TEXT', 'Title for "Discreet Format" tile')}
+              {renderContentField('product.highlight.discreetFormat.description', 'Discreet Format - Description', 'TEXT', 'Description for "Discreet Format" tile')}
+              {renderContentField('product.highlight.naturalBotanicals.title', 'Natural Botanicals - Title', 'TEXT', 'Title for "Natural Botanicals" tile')}
+              {renderContentField('product.highlight.naturalBotanicals.description', 'Natural Botanicals - Description', 'TEXT', 'Description for "Natural Botanicals" tile')}
+              {renderContentField('product.highlight.lastingEffects.title', 'Lasting Effects - Title', 'TEXT', 'Title for "Lasting Effects" tile')}
+              {renderContentField('product.highlight.lastingEffects.description', 'Lasting Effects - Description', 'TEXT', 'Description for "Lasting Effects" tile')}
+            </div>
           </div>
         )}
 

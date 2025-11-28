@@ -17,6 +17,23 @@ export default async function ProductShowcase({
   image1,
   image2,
 }: ProductShowcaseProps) {
+  // Fetch translations for product highlight tiles
+  const [
+    discreetFormatTitle,
+    discreetFormatDesc,
+    naturalBotanicalsTitle,
+    naturalBotanicalsDesc,
+    lastingEffectsTitle,
+    lastingEffectsDesc,
+  ] = await Promise.all([
+    getContent('product.highlight.discreetFormat.title', 'Discreet Format'),
+    getContent('product.highlight.discreetFormat.description', 'A single candy. No powders, no pills.'),
+    getContent('product.highlight.naturalBotanicals.title', 'Natural Botanicals'),
+    getContent('product.highlight.naturalBotanicals.description', 'Korean ginseng, Tongkat Ali, Maca—time-tested ingredients.'),
+    getContent('product.highlight.lastingEffects.title', 'Lasting Effects'),
+    getContent('product.highlight.lastingEffects.description', 'Onset in 1-3 hours. Effects may last up to 3 days.'),
+  ])
+
   const showcaseImages = [
     {
       src: image1 || 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=1200&q=80',
@@ -44,22 +61,22 @@ export default async function ProductShowcase({
             <div className={styles.highlight}>
               <span className={styles.highlightIcon}>✦</span>
               <div className={styles.highlightText}>
-                <h3 className={styles.highlightTitle}>Discreet Format</h3>
-                <p className={styles.highlightDesc}>A single candy. No powders, no pills.</p>
+                <h3 className={styles.highlightTitle}>{discreetFormatTitle}</h3>
+                <p className={styles.highlightDesc}>{discreetFormatDesc}</p>
               </div>
             </div>
             <div className={styles.highlight}>
               <span className={styles.highlightIcon}>✦</span>
               <div className={styles.highlightText}>
-                <h3 className={styles.highlightTitle}>Natural Botanicals</h3>
-                <p className={styles.highlightDesc}>Korean ginseng, Tongkat Ali, Maca—time-tested ingredients.</p>
+                <h3 className={styles.highlightTitle}>{naturalBotanicalsTitle}</h3>
+                <p className={styles.highlightDesc}>{naturalBotanicalsDesc}</p>
               </div>
             </div>
             <div className={styles.highlight}>
               <span className={styles.highlightIcon}>✦</span>
               <div className={styles.highlightText}>
-                <h3 className={styles.highlightTitle}>Lasting Effects</h3>
-                <p className={styles.highlightDesc}>Onset in 1-3 hours. Effects may last up to 3 days.</p>
+                <h3 className={styles.highlightTitle}>{lastingEffectsTitle}</h3>
+                <p className={styles.highlightDesc}>{lastingEffectsDesc}</p>
               </div>
             </div>
           </div>

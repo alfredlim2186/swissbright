@@ -1,5 +1,6 @@
 import styles from './Safety.module.css'
 import ScrollReveal from './ScrollReveal'
+import { getContent } from '@/lib/content'
 
 interface SafetyProps {
   title?: string
@@ -7,43 +8,72 @@ interface SafetyProps {
   closing?: string
 }
 
-export default function Safety({ title, description, closing }: SafetyProps) {
+export default async function Safety({ title, description, closing }: SafetyProps) {
+  // Fetch translations for all certifications
+  const [
+    iso22000Title,
+    iso22000Desc,
+    gmpTitle,
+    gmpDesc,
+    iso9001Title,
+    iso9001Desc,
+    haccpTitle,
+    haccpDesc,
+    organicTitle,
+    organicDesc,
+    vegetarianTitle,
+    vegetarianDesc,
+  ] = await Promise.all([
+    getContent('safety.cert.iso22000.title', 'Food Safety Management'),
+    getContent('safety.cert.iso22000.description', 'Food safety management at every stage of production.'),
+    getContent('safety.cert.gmp.title', 'Good Manufacturing Practice'),
+    getContent('safety.cert.gmp.description', 'Ensures consistent quality and purity in every batch.'),
+    getContent('safety.cert.iso9001.title', 'Quality Management'),
+    getContent('safety.cert.iso9001.description', 'Quality management focused on continuous improvement and reliability.'),
+    getContent('safety.cert.haccp.title', 'Hazard Analysis'),
+    getContent('safety.cert.haccp.description', 'Rigorous preventive control for safe and traceable production.'),
+    getContent('safety.cert.organic.title', 'Certified Organic'),
+    getContent('safety.cert.organic.description', 'Natural ingredients sourced from certified organic farms.'),
+    getContent('safety.cert.vegetarian.title', 'Vegetarian Safe'),
+    getContent('safety.cert.vegetarian.description', '100% plant-based ingredients with no animal derivatives.'),
+  ])
+
   const certifications = [
   {
     icon: '🏆',
     code: 'ISO 22000',
-    title: 'Food Safety Management',
-    description: 'Food safety management at every stage of production.',
+    title: iso22000Title,
+    description: iso22000Desc,
   },
   {
     icon: '✓',
     code: 'GMP',
-    title: 'Good Manufacturing Practice',
-    description: 'Ensures consistent quality and purity in every batch.',
+    title: gmpTitle,
+    description: gmpDesc,
   },
   {
     icon: '⚡',
     code: 'ISO 9001',
-    title: 'Quality Management',
-    description: 'Quality management focused on continuous improvement and reliability.',
+    title: iso9001Title,
+    description: iso9001Desc,
   },
   {
     icon: '◆',
     code: 'HACCP',
-    title: 'Hazard Analysis',
-    description: 'Rigorous preventive control for safe and traceable production.',
+    title: haccpTitle,
+    description: haccpDesc,
   },
   {
     icon: '🌿',
     code: 'ORGANIC',
-    title: 'Certified Organic',
-    description: 'Natural ingredients sourced from certified organic farms.',
+    title: organicTitle,
+    description: organicDesc,
   },
   {
     icon: '🌱',
     code: 'VEGETARIAN',
-    title: 'Vegetarian Safe',
-    description: '100% plant-based ingredients with no animal derivatives.',
+    title: vegetarianTitle,
+    description: vegetarianDesc,
   },
 ]
 

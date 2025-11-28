@@ -74,10 +74,46 @@ export async function PATCH(request: Request) {
     await requireAdmin()
     
     const body = await request.json()
-    const { key, language, value, type, page, section, label, description } = body
+    const { key, language, value, type, page, section, label, description, updateAllLanguages } = body
     
     if (!key || !language) {
       return NextResponse.json({ error: 'Key and language are required' }, { status: 400 })
+    }
+
+    // If updating an IMAGE and updateAllLanguages is true, update for all languages
+    if (type === 'IMAGE' && updateAllLanguages && value !== undefined) {
+      const languages = ['en', 'ms', 'zh-CN']
+      const results = await Promise.all(
+        languages.map(async (lang) => {
+          return await prisma.content.upsert({
+            where: { 
+              key_language: {
+                key,
+                language: lang,
+              }
+            },
+            update: {
+              value,
+              type: 'IMAGE',
+              ...(page !== undefined && { page }),
+              ...(section !== undefined && { section }),
+              ...(label !== undefined && { label }),
+              ...(description !== undefined && { description }),
+            },
+            create: {
+              key,
+              language: lang,
+              type: 'IMAGE',
+              value,
+              page: page || null,
+              section: section || null,
+              label: label || null,
+              description: description || null,
+            },
+          })
+        })
+      )
+      return NextResponse.json({ updated: results, message: 'Image updated for all languages' })
     }
 
     // Use upsert to create if it doesn't exist, update if it does
