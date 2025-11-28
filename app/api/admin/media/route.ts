@@ -15,12 +15,13 @@ export async function GET() {
   try {
     await requireAdmin()
     
-    // Fetch resources from Cloudinary in the sweetb-uploads folder
-    const result = await cloudinary.search
-      .expression('folder:sweetb-uploads')
-      .sort_by([{ created_at: 'desc' }])
-      .max_results(500)
-      .execute()
+    // Fetch resources from Cloudinary in the sweetb-uploads folder using Admin API
+    const result = await cloudinary.api.resources({
+      type: 'upload',
+      prefix: 'sweetb-uploads',
+      max_results: 500,
+      sort_by: [{ field: 'created_at', direction: 'desc' }],
+    })
 
     const mediaFiles = result.resources.map((resource: any) => ({
       filename: resource.public_id.split('/').pop() || resource.public_id,
