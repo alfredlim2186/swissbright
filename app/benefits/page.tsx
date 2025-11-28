@@ -8,9 +8,56 @@ import { getContent } from '@/lib/content'
 export const dynamic = 'force-dynamic'
 
 export default async function BenefitsPage() {
-  const backLink = await getContent('benefits.back', '← Back to Home')
-  const title = await getContent('benefits.title', 'Redefining Vitality')
-  const subtitle = await getContent('benefits.subtitle', 'Discover how SweetB supports your journey to balanced energy, confidence, and enduring performance.')
+  // Fetch all translations
+  const [
+    backLink,
+    title,
+    subtitle,
+    energyTitle,
+    energyP1,
+    energyP2,
+    energyP3,
+    confidenceTitle,
+    confidenceP1,
+    confidenceP2,
+    confidenceP3,
+    performanceTitle,
+    performanceP1,
+    performanceP2,
+    performanceP3,
+    discreetTitle,
+    discreetP1,
+    discreetP2,
+    discreetP3,
+    finalTitle,
+    finalText,
+    shopButton,
+    storyButton,
+  ] = await Promise.all([
+    getContent('benefits.back', '← Back to Home'),
+    getContent('benefits.title', 'Redefining Vitality'),
+    getContent('benefits.subtitle', 'Discover how SweetB supports your journey to balanced energy, confidence, and enduring performance.'),
+    getContent('benefits.energy.title', 'Energy & Focus'),
+    getContent('benefits.energy.p1', 'Experience the difference between forced stimulation and true vitality. SweetB delivers clear, sustained energy that flows naturally throughout your day, without the crash or jitters that come from synthetic alternatives.'),
+    getContent('benefits.energy.p2', 'Our carefully balanced blend of Korean Red Ginseng and Maca Root works synergistically to enhance mental clarity and physical stamina. You\'ll notice improved concentration during demanding tasks, sharper decision-making, and the mental endurance to stay focused from morning meetings to evening commitments.'),
+    getContent('benefits.energy.p3', 'Unlike caffeine-heavy products that spike and fade, SweetB supports your body\'s natural energy production, helping you maintain consistent performance when it matters most.'),
+    getContent('benefits.confidence.title', 'Balanced Confidence'),
+    getContent('benefits.confidence.p1', 'True confidence comes from within — from feeling composed, centered, and in control. SweetB\'s natural ingredients support your body\'s ability to maintain emotional equilibrium even in high-pressure situations.'),
+    getContent('benefits.confidence.p2', 'The Tongkat Ali and Tribulus Terrestris in our formula have been traditionally used for centuries to promote inner strength and self-assurance. These botanicals work at a foundational level, supporting healthy hormone balance and helping you feel more present, grounded, and ready to engage with the world around you.'),
+    getContent('benefits.confidence.p3', 'Whether you\'re presenting to a boardroom, navigating social situations, or simply showing up as your best self, SweetB helps you maintain that quiet confidence that doesn\'t need to announce itself — it simply is.'),
+    getContent('benefits.performance.title', 'Lasting Performance'),
+    getContent('benefits.performance.p1', 'Performance isn\'t just about peak moments — it\'s about enduring support that carries you through extended periods of physical and mental demand. SweetB\'s effects are designed to last, with benefits that can extend for up to three days.'),
+    getContent('benefits.performance.p2', 'The combination of L-Arginine and traditional adaptogens promotes healthy circulation and stamina, supporting your body\'s ability to sustain effort over time. This means better endurance during workouts, improved recovery, and the physical resilience to meet life\'s demands without constantly reaching for another boost.'),
+    getContent('benefits.performance.p3', 'Whether you\'re an athlete pushing your limits, a professional navigating long workdays, or simply someone who values steady, reliable vitality, SweetB provides the foundation for lasting performance.'),
+    getContent('benefits.discreet.title', 'Discreet & Convenient'),
+    getContent('benefits.discreet.p1', 'In a world that demands your attention at every turn, wellness should be simple, not complicated. SweetB strips away the excess — no pills to swallow, no powders to mix, no elaborate routines to follow.'),
+    getContent('benefits.discreet.p2', 'Just one discreet candy, taken once daily. It fits seamlessly into your life, whether you\'re at home, at work, or on the move. The elegant formulation means you can maintain your wellness practice without drawing attention or disrupting your day. No one needs to know about your personal choices for vitality.'),
+    getContent('benefits.discreet.p3', 'This is refined simplicity — sophisticated support that respects your time, your privacy, and your preference for understated excellence. Take it in the morning with your coffee, before an important meeting, or whenever you choose. SweetB adapts to your lifestyle, not the other way around.'),
+    getContent('benefits.final.title', 'Experience the Difference'),
+    getContent('benefits.final.text', 'These benefits work together, creating a foundation for vitality that supports every aspect of your life. From morning clarity to evening confidence, SweetB is your quiet companion in the pursuit of balanced, enduring wellness.'),
+    getContent('benefits.final.shopButton', 'Shop SweetB'),
+    getContent('benefits.final.storyButton', 'Our Story'),
+  ])
   
   return (
     <div className={styles.benefitsPage}>
@@ -57,23 +104,10 @@ export default async function BenefitsPage() {
               </div>
               <div className={styles.textContent}>
                 <span className={styles.sectionIcon}>⚡</span>
-                <h2 className={styles.sectionTitle}>Energy & Focus</h2>
-                <p className={styles.paragraph}>
-                  Experience the difference between forced stimulation and true vitality. SweetB delivers 
-                  <span className={styles.highlight}> clear, sustained energy</span> that flows naturally 
-                  throughout your day, without the crash or jitters that come from synthetic alternatives.
-                </p>
-                <p className={styles.paragraph}>
-                  Our carefully balanced blend of <strong>Korean Red Ginseng</strong> and <strong>Maca Root</strong> 
-                  works synergistically to enhance mental clarity and physical stamina. You'll notice improved 
-                  concentration during demanding tasks, sharper decision-making, and the mental endurance to 
-                  stay focused from morning meetings to evening commitments.
-                </p>
-                <p className={styles.paragraph}>
-                  Unlike caffeine-heavy products that spike and fade, SweetB supports your body's natural 
-                  energy production, helping you maintain <span className={styles.highlight}>consistent 
-                  performance</span> when it matters most.
-                </p>
+                <h2 className={styles.sectionTitle}>{energyTitle}</h2>
+                <p className={styles.paragraph} dangerouslySetInnerHTML={{ __html: energyP1 }} />
+                <p className={styles.paragraph} dangerouslySetInnerHTML={{ __html: energyP2 }} />
+                <p className={styles.paragraph} dangerouslySetInnerHTML={{ __html: energyP3 }} />
               </div>
             </div>
           </section>
@@ -85,23 +119,10 @@ export default async function BenefitsPage() {
             <div className={styles.sectionLayout}>
               <div className={styles.textContent}>
                 <span className={styles.sectionIcon}>◆</span>
-                <h2 className={styles.sectionTitle}>Balanced Confidence</h2>
-                <p className={styles.paragraph}>
-                  True confidence comes from within — from feeling composed, centered, and in control. 
-                  SweetB's natural ingredients support your body's ability to maintain 
-                  <span className={styles.highlight}> emotional equilibrium</span> even in high-pressure situations.
-                </p>
-                <p className={styles.paragraph}>
-                  The <strong>Tongkat Ali</strong> and <strong>Tribulus Terrestris</strong> in our formula 
-                  have been traditionally used for centuries to promote inner strength and self-assurance. 
-                  These botanicals work at a foundational level, supporting healthy hormone balance and 
-                  helping you feel more present, grounded, and ready to engage with the world around you.
-                </p>
-                <p className={styles.paragraph}>
-                  Whether you're presenting to a boardroom, navigating social situations, or simply showing 
-                  up as your best self, SweetB helps you maintain that <span className={styles.highlight}>quiet 
-                  confidence</span> that doesn't need to announce itself — it simply is.
-                </p>
+                <h2 className={styles.sectionTitle}>{confidenceTitle}</h2>
+                <p className={styles.paragraph} dangerouslySetInnerHTML={{ __html: confidenceP1 }} />
+                <p className={styles.paragraph} dangerouslySetInnerHTML={{ __html: confidenceP2 }} />
+                <p className={styles.paragraph} dangerouslySetInnerHTML={{ __html: confidenceP3 }} />
               </div>
               <div className={styles.imageWrapper}>
                 <img 
@@ -131,23 +152,10 @@ export default async function BenefitsPage() {
               </div>
               <div className={styles.textContent}>
                 <span className={styles.sectionIcon}>∞</span>
-                <h2 className={styles.sectionTitle}>Lasting Performance</h2>
-                <p className={styles.paragraph}>
-                  Performance isn't just about peak moments — it's about <span className={styles.highlight}>enduring 
-                  support</span> that carries you through extended periods of physical and mental demand. SweetB's 
-                  effects are designed to last, with benefits that can extend for up to three days.
-                </p>
-                <p className={styles.paragraph}>
-                  The combination of <strong>L-Arginine</strong> and traditional adaptogens promotes healthy 
-                  circulation and stamina, supporting your body's ability to sustain effort over time. This means 
-                  better endurance during workouts, improved recovery, and the physical resilience to meet life's 
-                  demands without constantly reaching for another boost.
-                </p>
-                <p className={styles.paragraph}>
-                  Whether you're an athlete pushing your limits, a professional navigating long workdays, or 
-                  simply someone who values <span className={styles.highlight}>steady, reliable vitality</span>, 
-                  SweetB provides the foundation for lasting performance.
-                </p>
+                <h2 className={styles.sectionTitle}>{performanceTitle}</h2>
+                <p className={styles.paragraph} dangerouslySetInnerHTML={{ __html: performanceP1 }} />
+                <p className={styles.paragraph} dangerouslySetInnerHTML={{ __html: performanceP2 }} />
+                <p className={styles.paragraph} dangerouslySetInnerHTML={{ __html: performanceP3 }} />
               </div>
             </div>
           </section>
@@ -159,24 +167,10 @@ export default async function BenefitsPage() {
             <div className={styles.sectionLayout}>
               <div className={styles.textContent}>
                 <span className={styles.sectionIcon}>✦</span>
-                <h2 className={styles.sectionTitle}>Discreet & Convenient</h2>
-                <p className={styles.paragraph}>
-                  In a world that demands your attention at every turn, wellness should be 
-                  <span className={styles.highlight}> simple, not complicated</span>. SweetB strips away the 
-                  excess — no pills to swallow, no powders to mix, no elaborate routines to follow.
-                </p>
-                <p className={styles.paragraph}>
-                  Just one discreet candy, taken once daily. It fits seamlessly into your life, whether you're 
-                  at home, at work, or on the move. The elegant formulation means you can maintain your wellness 
-                  practice without drawing attention or disrupting your day. No one needs to know about your 
-                  personal choices for vitality.
-                </p>
-                <p className={styles.paragraph}>
-                  This is <span className={styles.highlight}>refined simplicity</span> — sophisticated support 
-                  that respects your time, your privacy, and your preference for understated excellence. Take 
-                  it in the morning with your coffee, before an important meeting, or whenever you choose. 
-                  SweetB adapts to your lifestyle, not the other way around.
-                </p>
+                <h2 className={styles.sectionTitle}>{discreetTitle}</h2>
+                <p className={styles.paragraph} dangerouslySetInnerHTML={{ __html: discreetP1 }} />
+                <p className={styles.paragraph} dangerouslySetInnerHTML={{ __html: discreetP2 }} />
+                <p className={styles.paragraph} dangerouslySetInnerHTML={{ __html: discreetP3 }} />
               </div>
               <div className={styles.imageWrapper}>
                 <img 
@@ -196,15 +190,11 @@ export default async function BenefitsPage() {
           <section className={styles.finalSection}>
             <div className={styles.finalContent}>
               <span className={styles.finalIcon}>◆</span>
-              <h2 className={styles.finalTitle}>Experience the Difference</h2>
-              <p className={styles.finalText}>
-                These benefits work together, creating a foundation for vitality that supports every aspect 
-                of your life. From morning clarity to evening confidence, SweetB is your quiet companion 
-                in the pursuit of balanced, enduring wellness.
-              </p>
+              <h2 className={styles.finalTitle}>{finalTitle}</h2>
+              <p className={styles.finalText}>{finalText}</p>
               <div className={styles.finalButtons}>
-                <a href="/#shop" className="btn btn-primary">Shop SweetB</a>
-                <a href="/about" className="btn btn-secondary">Our Story</a>
+                <a href="/#shop" className="btn btn-primary">{shopButton}</a>
+                <a href="/about" className="btn btn-secondary">{storyButton}</a>
               </div>
             </div>
           </section>
