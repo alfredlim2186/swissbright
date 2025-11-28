@@ -9,6 +9,7 @@ type MediaFile = {
   size: number
   createdAt: string
   modifiedAt: string
+  publicId?: string
 }
 
 const formatFileSize = (bytes: number) => {
@@ -111,16 +112,18 @@ export default function MediaManager() {
     }
   }
 
-  const handleDelete = async (filename: string) => {
-    if (!confirm(`Are you sure you want to delete "${filename}"? This action cannot be undone.`)) {
+  const handleDelete = async (file: MediaFile) => {
+    if (!confirm(`Are you sure you want to delete "${file.filename}"? This action cannot be undone.`)) {
       return
     }
 
     try {
-      setDeleting(filename)
+      setDeleting(file.filename)
       setError(null)
 
-      const res = await fetch(`/api/admin/media?filename=${encodeURIComponent(filename)}`, {
+      // Use publicId if available, otherwise fall back to filename
+      const identifier = file.publicId || file.filename
+      const res = await fetch(`/api/admin/media?publicId=${encodeURIComponent(identifier)}`, {
         method: 'DELETE',
       })
 
@@ -321,7 +324,7 @@ export default function MediaManager() {
                         Copy URL
                       </button>
                       <button
-                        onClick={() => handleDelete(file.filename)}
+                        onClick={() => handleDelete(file)}
                         disabled={deleting === file.filename}
                         style={{
                           flex: 1,

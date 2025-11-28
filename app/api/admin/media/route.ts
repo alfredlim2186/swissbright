@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAdmin } from '@/lib/auth'
-import { readdir, stat, unlink } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
+import { v2 as cloudinary } from 'cloudinary'
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
 
 export const dynamic = 'force-dynamic'
 
@@ -10,33 +15,21 @@ export async function GET() {
   try {
     await requireAdmin()
     
-    const uploadDir = join(process.cwd(), 'public', 'uploads')
-    
-    if (!existsSync(uploadDir)) {
-      return NextResponse.json({ media: [] })
-    }
+    // Fetch resources from Cloudinary in the sweetb-uploads folder
+    const result = await cloudinary.search
+      .expression('folder:sweetb-uploads')
+      .sort_by([{ created_at: 'desc' }])
+      .max_results(500)
+      .execute()
 
-    const files = await readdir(uploadDir)
-    const mediaFiles = []
-
-    for (const file of files) {
-      const filePath = join(uploadDir, file)
-      const stats = await stat(filePath)
-      
-      // Only include image files
-      if (stats.isFile() && /\.(jpg|jpeg|png|gif|webp)$/i.test(file)) {
-        mediaFiles.push({
-          filename: file,
-          url: `/uploads/${file}`,
-          size: stats.size,
-          createdAt: stats.birthtime.toISOString(),
-          modifiedAt: stats.mtime.toISOString(),
-        })
-      }
-    }
-
-    // Sort by most recent first
-    mediaFiles.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    const mediaFiles = result.resources.map((resource: any) => ({
+      filename: resource.public_id.split('/').pop() || resource.public_id,
+      url: resource.secure_url,
+      size: resource.bytes || 0,
+      createdAt: resource.created_at,
+      modifiedAt: resource.updated_at || resource.created_at,
+      publicId: resource.public_id,
+    }))
 
     return NextResponse.json({ media: mediaFiles })
   } catch (error) {
@@ -44,7 +37,10 @@ export async function GET() {
     if ((error as Error).message === 'Unauthorized' || (error as Error).message?.includes('Forbidden')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
-    return NextResponse.json({ error: 'Failed to load media' }, { status: 500 })
+    return NextResponse.json({ 
+      error: 'Failed to load media',
+      details: process.env.NODE_ENV === 'development' ? String(error) : undefined
+    }, { status: 500 })
   }
 }
 
@@ -53,25 +49,30 @@ export async function DELETE(request: NextRequest) {
     await requireAdmin()
     
     const { searchParams } = new URL(request.url)
-    const filename = searchParams.get('filename')
+    const publicId = searchParams.get('publicId') || searchParams.get('filename')
     
-    if (!filename) {
-      return NextResponse.json({ error: 'Filename required' }, { status: 400 })
+    if (!publicId) {
+      return NextResponse.json({ error: 'Public ID or filename required' }, { status: 400 })
+    }
+
+    // If filename is provided (for backward compatibility), construct public_id
+    let cloudinaryPublicId = publicId
+    if (!publicId.includes('/')) {
+      // It's just a filename, construct the full public_id
+      cloudinaryPublicId = `sweetb-uploads/${publicId.replace(/\.[^/.]+$/, '')}`
     }
 
     // Security: prevent directory traversal
-    if (filename.includes('..') || filename.includes('/') || filename.includes('\\')) {
-      return NextResponse.json({ error: 'Invalid filename' }, { status: 400 })
+    if (cloudinaryPublicId.includes('..')) {
+      return NextResponse.json({ error: 'Invalid public ID' }, { status: 400 })
     }
 
-    const uploadDir = join(process.cwd(), 'public', 'uploads')
-    const filePath = join(uploadDir, filename)
+    // Delete from Cloudinary
+    const result = await cloudinary.uploader.destroy(cloudinaryPublicId)
 
-    if (!existsSync(filePath)) {
+    if (result.result === 'not found') {
       return NextResponse.json({ error: 'File not found' }, { status: 404 })
     }
-
-    await unlink(filePath)
 
     return NextResponse.json({ success: true, message: 'File deleted successfully' })
   } catch (error) {
@@ -79,7 +80,10 @@ export async function DELETE(request: NextRequest) {
     if ((error as Error).message === 'Unauthorized' || (error as Error).message?.includes('Forbidden')) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
-    return NextResponse.json({ error: 'Failed to delete file' }, { status: 500 })
+    return NextResponse.json({ 
+      error: 'Failed to delete file',
+      details: process.env.NODE_ENV === 'development' ? String(error) : undefined
+    }, { status: 500 })
   }
 }
 
