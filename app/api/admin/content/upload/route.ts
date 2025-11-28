@@ -1,8 +1,13 @@
 import { NextResponse } from 'next/server'
 import { requireAdmin } from '@/lib/auth'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
+import { v2 as cloudinary } from 'cloudinary'
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
 
 export const dynamic = 'force-dynamic'
 
@@ -56,31 +61,33 @@ export async function POST(request: Request) {
     // Generate unique filename
     const timestamp = Date.now()
     const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_')
-    const filename = `${timestamp}_${sanitizedName}`
-    
-    // Save to public/uploads directory
-    const uploadDir = join(process.cwd(), 'public', 'uploads')
-    
-    // Create directory if it doesn't exist
-    if (!existsSync(uploadDir)) {
-      await mkdir(uploadDir, { recursive: true })
-    }
+    const filename = `sweetb-uploads/${timestamp}_${sanitizedName}`
 
-    const filepath = join(uploadDir, filename)
-    // bytes already read above for magic bytes validation
-    await writeFile(filepath, buffer)
+    // Convert buffer to base64 for Cloudinary
+    const base64 = buffer.toString('base64')
+    const dataURI = `data:${file.type};base64,${base64}`
 
-    // Return the public URL path
-    const publicPath = `/uploads/${filename}`
-    
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(dataURI, {
+      folder: 'sweetb-uploads',
+      public_id: `${timestamp}_${sanitizedName.replace(/\.[^/.]+$/, '')}`, // Remove extension
+      resource_type: 'auto',
+      overwrite: false,
+    })
+
+    // Return the public URL
     return NextResponse.json({ 
       success: true, 
-      path: publicPath,
+      path: result.secure_url, // Use secure_url for HTTPS
       filename: filename,
+      publicId: result.public_id,
     })
   } catch (error) {
     console.error('File upload error:', error)
-    return NextResponse.json({ error: 'Failed to upload file' }, { status: 500 })
+    return NextResponse.json({ 
+      error: 'Failed to upload file',
+      details: process.env.NODE_ENV === 'development' ? String(error) : undefined
+    }, { status: 500 })
   }
 }
 
