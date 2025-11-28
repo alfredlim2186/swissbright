@@ -1,6 +1,33 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.EMAIL_API_KEY)
+// Lazy-load Resend client to avoid build-time errors
+// Only created when actually needed at runtime
+let _resend: Resend | null = null
+
+function getResendClient(): Resend | null {
+  // Allow fallback during build phase (NEXT_PHASE is set during build)
+  const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build' || 
+                      process.env.NEXT_PHASE === 'phase-development-build'
+  
+  // During build, return null (won't be used anyway)
+  if (isBuildPhase) {
+    return null
+  }
+  
+  // If already created, return it
+  if (_resend) {
+    return _resend
+  }
+  
+  // Create new instance only if API key exists
+  const apiKey = process.env.EMAIL_API_KEY
+  if (!apiKey) {
+    return null
+  }
+  
+  _resend = new Resend(apiKey)
+  return _resend
+}
 
 export interface EmailOptions {
   to: string
@@ -20,7 +47,8 @@ export async function sendEmail({ to, subject, html }: EmailOptions) {
 
     if (provider === 'resend') {
       try {
-        if (!process.env.EMAIL_API_KEY) {
+        const resend = getResendClient()
+        if (!resend) {
           console.warn('⚠️ EMAIL_API_KEY not set, email will not be sent')
           return { success: false, error: 'EMAIL_API_KEY not configured' }
         }
