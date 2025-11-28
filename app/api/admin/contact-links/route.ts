@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic'
 const contactLinkSchema = z.object({
   label: z.string().min(2).max(120),
   url: z.string().url(),
-  logoUrl: z.string().url().optional(),
+  logoUrl: z.union([z.string().url(), z.literal('')]).optional().transform((val) => val === '' ? undefined : val),
   description: z.string().max(200).optional(),
   accentColor: z.string().regex(/^#|rgba|rgb|hsl/, 'Provide a valid CSS color').optional(),
   sortOrder: z.number().int().optional(),

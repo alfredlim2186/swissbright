@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic'
 const updateSchema = z.object({
   label: z.string().min(2).max(120).optional(),
   url: z.string().url().optional(),
-  logoUrl: z.string().url().optional().nullable(),
+  logoUrl: z.union([z.string().url(), z.literal('')]).nullable().optional().transform((val) => val === '' ? null : val),
   description: z.string().max(200).optional().nullable(),
   accentColor: z.string().max(32).optional().nullable(),
   sortOrder: z.number().int().optional(),
