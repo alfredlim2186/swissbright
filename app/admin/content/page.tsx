@@ -31,6 +31,11 @@ function IngredientManager({
   uploading,
   setUploading,
   setMessage,
+  mediaLibrary,
+  showMediaSelector,
+  setShowMediaSelector,
+  fetchMediaLibrary,
+  loadingMedia,
 }: {
   content: ContentItem[]
   activeLanguage: Language
@@ -39,6 +44,11 @@ function IngredientManager({
   uploading: string | null
   setUploading: (key: string | null) => void
   setMessage: (msg: string) => void
+  mediaLibrary: any[]
+  showMediaSelector: string | null
+  setShowMediaSelector: (key: string | null) => void
+  fetchMediaLibrary: () => void
+  loadingMedia: boolean
 }) {
   const [editing, setEditing] = useState<{ slug: string; field: string } | null>(null)
   const [editValue, setEditValue] = useState('')
@@ -356,6 +366,96 @@ function IngredientManager({
                   />
                 </div>
               )}
+              
+              {/* Media Library Selector */}
+              <div style={{ marginBottom: '1rem' }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const key = `ingredients.${slug}.image`
+                    if (showMediaSelector === key) {
+                      setShowMediaSelector(null)
+                    } else {
+                      setShowMediaSelector(key)
+                      if (mediaLibrary.length === 0) {
+                        fetchMediaLibrary()
+                      }
+                    }
+                  }}
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    backgroundColor: 'rgba(201, 168, 106, 0.1)',
+                    border: '1px solid rgba(201, 168, 106, 0.3)',
+                    color: '#C9A86A',
+                    fontSize: '0.875rem',
+                    cursor: 'pointer',
+                    marginRight: '0.5rem',
+                    marginBottom: '0.5rem',
+                  }}
+                >
+                  {showMediaSelector === `ingredients.${slug}.image` ? '▼ Hide Media Library' : '📚 Select from Media Library'}
+                </button>
+                
+                {showMediaSelector === `ingredients.${slug}.image` && (
+                  <div style={{
+                    marginTop: '1rem',
+                    padding: '1rem',
+                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                    border: '1px solid rgba(201, 168, 106, 0.3)',
+                    borderRadius: '8px',
+                    maxHeight: '400px',
+                    overflowY: 'auto',
+                  }}>
+                    {loadingMedia ? (
+                      <p style={{ color: '#B8B8B8', textAlign: 'center' }}>Loading media...</p>
+                    ) : mediaLibrary.length === 0 ? (
+                      <p style={{ color: '#B8B8B8', textAlign: 'center' }}>No images in media library. Upload images first.</p>
+                    ) : (
+                      <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
+                        gap: '0.75rem',
+                      }}>
+                        {mediaLibrary.map((media) => (
+                          <div
+                            key={media.url}
+                            onClick={() => {
+                              const key = `ingredients.${slug}.image`
+                              handleSave(slug, 'image', media.url, 'IMAGE')
+                              setShowMediaSelector(null)
+                            }}
+                            style={{
+                              cursor: 'pointer',
+                              border: image === media.url ? '2px solid #C9A86A' : '1px solid rgba(201, 168, 106, 0.3)',
+                              borderRadius: '4px',
+                              overflow: 'hidden',
+                              aspectRatio: '1',
+                              position: 'relative',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.borderColor = '#C9A86A'
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.borderColor = image === media.url ? '#C9A86A' : 'rgba(201, 168, 106, 0.3)'
+                            }}
+                          >
+                            <img
+                              src={media.url}
+                              alt={media.filename}
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                              }}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
               <input
                 type="file"
                 accept="image/*"
@@ -370,6 +470,7 @@ function IngredientManager({
                   border: '1px solid rgba(201, 168, 106, 0.3)',
                   color: '#F8F8F8',
                   fontSize: '0.875rem',
+                  marginBottom: '0.5rem',
                 }}
               />
               {image && (
@@ -498,6 +599,9 @@ export default function AdminContentPage() {
   const [message, setMessage] = useState('')
   const [activeSection, setActiveSection] = useState<string>('hero')
   const [activeLanguage, setActiveLanguage] = useState<Language>('en')
+  const [mediaLibrary, setMediaLibrary] = useState<any[]>([])
+  const [showMediaSelector, setShowMediaSelector] = useState<string | null>(null)
+  const [loadingMedia, setLoadingMedia] = useState(false)
 
   const sections = [
     { id: 'hero', label: 'Hero Section', icon: '🎬' },
@@ -515,6 +619,40 @@ export default function AdminContentPage() {
   useEffect(() => {
     fetchContent()
   }, [activeSection, activeLanguage])
+
+  const fetchMediaLibrary = async () => {
+    try {
+      setLoadingMedia(true)
+      const res = await fetch('/api/admin/media')
+      if (res.ok) {
+        const data = await res.json()
+        setMediaLibrary(data.media || [])
+      }
+    } catch (error) {
+      console.error('Failed to fetch media library:', error)
+    } finally {
+      setLoadingMedia(false)
+    }
+  }
+
+  const handleSelectFromMediaLibrary = (key: string, imageUrl: string) => {
+    fetch('/api/admin/content', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        key, 
+        value: imageUrl,
+        type: 'IMAGE',
+        language: activeLanguage,
+        updateAllLanguages: true, // Sync image across all languages
+      }),
+    }).then(() => {
+      setShowMediaSelector(null)
+      fetchContent()
+      setMessage('✓ Image selected from media library')
+      setTimeout(() => setMessage(''), 3000)
+    })
+  }
 
   const fetchContent = async () => {
     try {
@@ -634,6 +772,12 @@ export default function AdminContentPage() {
     const isEditing = editing === key
 
     if (type === 'IMAGE') {
+      const isOriginalPhoto = value && (
+        value.includes('unsplash.com') || 
+        value.includes('images.unsplash.com') ||
+        value.startsWith('/images/')
+      )
+
       return (
         <div style={{
           marginBottom: '2rem',
@@ -661,22 +805,114 @@ export default function AdminContentPage() {
               />
             </div>
           )}
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-              const file = e.target.files?.[0]
-              if (file) handleImageUpload(key, file)
-            }}
-            disabled={uploading === key}
-            style={{
-              padding: '0.5rem',
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
-              border: '1px solid rgba(201, 168, 106, 0.3)',
-              color: '#F8F8F8',
-              fontSize: '0.875rem',
-            }}
-          />
+          
+          {/* Media Library Selector - Show for non-original photos or when no image is set */}
+          {(!isOriginalPhoto || !value) && (
+            <div style={{ marginBottom: '1rem' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  if (showMediaSelector === key) {
+                    setShowMediaSelector(null)
+                  } else {
+                    setShowMediaSelector(key)
+                    if (mediaLibrary.length === 0) {
+                      fetchMediaLibrary()
+                    }
+                  }
+                }}
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  backgroundColor: 'rgba(201, 168, 106, 0.1)',
+                  border: '1px solid rgba(201, 168, 106, 0.3)',
+                  color: '#C9A86A',
+                  fontSize: '0.875rem',
+                  cursor: 'pointer',
+                  marginRight: '0.5rem',
+                  marginBottom: '0.5rem',
+                }}
+              >
+                {showMediaSelector === key ? '▼ Hide Media Library' : '📚 Select from Media Library'}
+              </button>
+              
+              {showMediaSelector === key && (
+                <div style={{
+                  marginTop: '1rem',
+                  padding: '1rem',
+                  backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                  border: '1px solid rgba(201, 168, 106, 0.3)',
+                  borderRadius: '8px',
+                  maxHeight: '400px',
+                  overflowY: 'auto',
+                }}>
+                  {loadingMedia ? (
+                    <p style={{ color: '#B8B8B8', textAlign: 'center' }}>Loading media...</p>
+                  ) : mediaLibrary.length === 0 ? (
+                    <p style={{ color: '#B8B8B8', textAlign: 'center' }}>No images in media library. Upload images first.</p>
+                  ) : (
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
+                      gap: '0.75rem',
+                    }}>
+                      {mediaLibrary.map((media) => (
+                        <div
+                          key={media.url}
+                          onClick={() => handleSelectFromMediaLibrary(key, media.url)}
+                          style={{
+                            cursor: 'pointer',
+                            border: value === media.url ? '2px solid #C9A86A' : '1px solid rgba(201, 168, 106, 0.3)',
+                            borderRadius: '4px',
+                            overflow: 'hidden',
+                            aspectRatio: '1',
+                            position: 'relative',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = '#C9A86A'
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = value === media.url ? '#C9A86A' : 'rgba(201, 168, 106, 0.3)'
+                          }}
+                        >
+                          <img
+                            src={media.url}
+                            alt={media.filename}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* File Upload - Keep for original photos or as fallback */}
+          {isOriginalPhoto && (
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0]
+                if (file) handleImageUpload(key, file)
+              }}
+              disabled={uploading === key}
+              style={{
+                padding: '0.5rem',
+                backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                border: '1px solid rgba(201, 168, 106, 0.3)',
+                color: '#F8F8F8',
+                fontSize: '0.875rem',
+                marginBottom: '0.5rem',
+              }}
+            />
+          )}
+
           {value && (
             <input
               type="text"
@@ -1090,6 +1326,11 @@ export default function AdminContentPage() {
                 uploading={uploading}
                 setUploading={setUploading}
                 setMessage={setMessage}
+                mediaLibrary={mediaLibrary}
+                showMediaSelector={showMediaSelector}
+                setShowMediaSelector={setShowMediaSelector}
+                fetchMediaLibrary={fetchMediaLibrary}
+                loadingMedia={loadingMedia}
               />
             </div>
           </div>

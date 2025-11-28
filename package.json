@@ -12,7 +12,8 @@
     "db:studio": "prisma studio",
     "db:seed": "tsx prisma/seed.ts",
     "db:seed:ingredients": "tsx prisma/seed-ingredients.ts",
-    "db:seed:safety": "tsx prisma/seed-safety-certifications.ts"
+    "db:seed:safety": "tsx prisma/seed-safety-certifications.ts",
+    "db:seed:product-tiles": "tsx prisma/seed-product-tiles.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.7.0",
