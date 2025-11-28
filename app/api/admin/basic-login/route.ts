@@ -2,14 +2,22 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { createSession } from '@/lib/auth'
 
-const ADMIN_USERNAME = process.env.ADMIN_BASIC_USERNAME || 'Admin'
-const ADMIN_PASSWORD = process.env.ADMIN_BASIC_PASSWORD || 'Admin8899!'
+export const dynamic = 'force-dynamic'
+
+// Lazy-load admin credentials to avoid build-time errors
+function getAdminUsername(): string {
+  return process.env.ADMIN_BASIC_USERNAME || 'Admin'
+}
+
+function getAdminPassword(): string {
+  return process.env.ADMIN_BASIC_PASSWORD || 'Admin8899!'
+}
 
 export async function POST(request: NextRequest) {
   try {
     const { username = '', password = '' } = await request.json()
 
-    if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
+    if (username !== getAdminUsername() || password !== getAdminPassword()) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
     }
 

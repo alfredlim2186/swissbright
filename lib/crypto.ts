@@ -1,23 +1,37 @@
 import { createHash } from 'crypto'
 import bcrypt from 'bcryptjs'
 
+// Lazy-load app salt to avoid build-time errors
+// Only evaluated when actually needed at runtime
+let _appSalt: string | null = null
+
 function getAppSalt(): string {
+  if (_appSalt) return _appSalt
+  
   const salt = process.env.CRYPTO_SALT || process.env.SESSION_SECRET
   if (!salt) {
-    if (process.env.NODE_ENV === 'production') {
+    // Allow fallback during build phase (NEXT_PHASE is set during build)
+    const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build' || 
+                        process.env.NEXT_PHASE === 'phase-development-build'
+    
+    if (process.env.NODE_ENV === 'production' && !isBuildPhase) {
       throw new Error('CRYPTO_SALT or SESSION_SECRET environment variable is required in production')
     }
-    console.warn('⚠️  WARNING: CRYPTO_SALT not set, using fallback. This is insecure for production!')
-    return 'fallback-salt'
+    
+    if (!isBuildPhase) {
+      console.warn('⚠️  WARNING: CRYPTO_SALT not set, using fallback. This is insecure for production!')
+    }
+    _appSalt = 'fallback-salt'
+    return _appSalt
   }
-  return salt
+  
+  _appSalt = salt
+  return _appSalt
 }
-
-const APP_SALT = getAppSalt()
 
 export function hashCode(code: string): string {
   return createHash('sha256')
-    .update(code + APP_SALT)
+    .update(code + getAppSalt())
     .digest('hex')
 }
 
@@ -27,7 +41,7 @@ export function getCodeLast4(code: string): string {
 
 export function hashSecurityCode(securityCode: string): string {
   return createHash('sha256')
-    .update(`security:${securityCode}${APP_SALT}`)
+    .update(`security:${securityCode}${getAppSalt()}`)
     .digest('hex')
 }
 

@@ -4,19 +4,33 @@ import { prisma } from './db'
 
 const SESSION_COOKIE = 'sweetb_session'
 
+// Lazy-load session secret to avoid build-time errors
+// Only evaluated when actually needed at runtime
+let _sessionSecret: Uint8Array | null = null
+
 function getSessionSecret(): Uint8Array {
+  if (_sessionSecret) return _sessionSecret
+  
   const secret = process.env.SESSION_SECRET
   if (!secret) {
-    if (process.env.NODE_ENV === 'production') {
+    // Allow fallback during build phase (NEXT_PHASE is set during build)
+    const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build' || 
+                        process.env.NEXT_PHASE === 'phase-development-build'
+    
+    if (process.env.NODE_ENV === 'production' && !isBuildPhase) {
       throw new Error('SESSION_SECRET environment variable is required in production')
     }
-    console.warn('⚠️  WARNING: SESSION_SECRET not set, using fallback. This is insecure for production!')
-    return new TextEncoder().encode('fallback-secret-change-in-production')
+    
+    if (!isBuildPhase) {
+      console.warn('⚠️  WARNING: SESSION_SECRET not set, using fallback. This is insecure for production!')
+    }
+    _sessionSecret = new TextEncoder().encode('fallback-secret-change-in-production')
+    return _sessionSecret
   }
-  return new TextEncoder().encode(secret)
+  
+  _sessionSecret = new TextEncoder().encode(secret)
+  return _sessionSecret
 }
-
-const SESSION_SECRET = getSessionSecret()
 
 export interface SessionUser {
   id: string
@@ -29,7 +43,7 @@ export async function createSession(user: SessionUser) {
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('7d')
-    .sign(SESSION_SECRET)
+    .sign(getSessionSecret())
 
   cookies().set(SESSION_COOKIE, token, {
     httpOnly: true,
@@ -47,7 +61,7 @@ export async function getSession(): Promise<SessionUser | null> {
   if (!token) return null
 
   try {
-    const { payload } = await jwtVerify(token, SESSION_SECRET)
+    const { payload } = await jwtVerify(token, getSessionSecret())
     return (payload.user as SessionUser) || null
   } catch {
     return null
