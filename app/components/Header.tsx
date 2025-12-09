@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import LanguageSwitcher from './LanguageSwitcher'
+import SwissBrightLogo from './SwissBrightLogo'
 import styles from './Header.module.css'
 
 const CART_STORAGE_KEY = 'sweetb_shop_cart_v1'
@@ -151,24 +151,13 @@ export default function Header({
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <a href="/" className={styles.logo}>
-          <Image 
-            src="/images/logos/sweetb-logo-peru.png" 
-            alt="SweetB PERÚ" 
-            width={180}
-            height={60}
-            className={styles.logoImage}
-            priority
-          />
-        </a>
+        <SwissBrightLogo href="/" size="medium" className={styles.logo} />
 
         {/* Desktop Navigation */}
         <ul className={styles.navLinks}>
           <li><a href="/benefits">{benefits}</a></li>
-          <li><a href="/#ingredients">{ingredients}</a></li>
           <li><a href="/about">{about}</a></li>
           <li><a href="/#faq">{faq}</a></li>
-          <li><a href="/product-verification">{verify}</a></li>
           <li><a href="/contact" className={styles.contactLink}>{contact}</a></li>
           <li><a href="/shop" className={styles.shopLink}>{shop}</a></li>
           <li className={styles.cartIconItem}>
@@ -180,9 +169,6 @@ export default function Header({
                 <span className={styles.cartBadge}>{cartCount > 99 ? '99+' : cartCount}</span>
               )}
             </Link>
-          </li>
-          <li className={styles.languageSwitcherItem}>
-            <LanguageSwitcher />
           </li>
           {user ? (
             <li ref={dropdownRef} className={styles.accountDropdown}>
@@ -250,11 +236,8 @@ export default function Header({
           )}
         </ul>
 
-        {/* Mobile Language Switcher, Cart Icon, and Burger Button */}
+        {/* Mobile Cart Icon and Burger Button */}
         <div className={styles.mobileControls}>
-          <div className={styles.mobileLanguageSwitcher}>
-            <LanguageSwitcher />
-          </div>
           <Link href="/shop" className={styles.mobileCartIcon}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 17.9 19 19 19C20.1 19 21 18.1 21 17V13M9 19.5C9.8 19.5 10.5 20.2 10.5 21C10.5 21.8 9.8 22.5 9 22.5C8.2 22.5 7.5 21.8 7.5 21C7.5 20.2 8.2 19.5 9 19.5ZM20 19.5C20.8 19.5 21.5 20.2 21.5 21C21.5 21.8 20.8 22.5 20 22.5C19.2 22.5 18.5 21.8 18.5 21C18.5 20.2 19.2 19.5 20 19.5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -283,23 +266,13 @@ export default function Header({
       {/* Mobile Menu */}
       <div className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
         <div className={styles.mobileMenuHeader}>
-          <a href="/" className={styles.mobileLogo} onClick={closeMenu}>
-            <Image 
-              src="/images/logos/sweetb-logo-peru.png" 
-              alt="SweetB PERÚ" 
-              width={150}
-              height={50}
-              className={styles.logoImage}
-            />
-          </a>
+          <SwissBrightLogo href="/" size="small" className={styles.mobileLogo} />
         </div>
 
         <ul className={styles.mobileNavLinks}>
           <li><a href="/benefits" onClick={closeMenu}>{benefits}</a></li>
-          <li><a href="/#ingredients" onClick={closeMenu}>{ingredients}</a></li>
           <li><a href="/about" onClick={closeMenu}>{about}</a></li>
           <li><a href="/#faq" onClick={closeMenu}>{faq}</a></li>
-          <li><a href="/product-verification" onClick={closeMenu}>{verify}</a></li>
           <li><a href="/contact" onClick={closeMenu}>{contact}</a></li>
           <li><a href="/shop" onClick={closeMenu}>{shop}</a></li>
           {user ? (
@@ -323,7 +296,7 @@ export default function Header({
         </ul>
 
         <div className={styles.mobileMenuFooter}>
-          <p>© 2025 SweetB</p>
+          <p>© 2025 Swiss Bright</p>
         </div>
       </div>
     </header>

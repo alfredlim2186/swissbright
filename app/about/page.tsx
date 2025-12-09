@@ -31,23 +31,23 @@ export default async function AboutPage() {
     contactButton,
   ] = await Promise.all([
     getContent('about.back', '← Back to Home'),
-    getContent('about.title', 'The Legend of Candy B'),
-    getContent('about.origin.title', 'The Origin'),
-    getContent('about.origin.p1', 'High in the mountains of Peru, where the clouds hang low and the wind smells of wild herbs, a quiet tradition began. Local healers studied the plants that grew in that rare altitude, learning which roots restored strength, which leaves eased the mind, and which barks rekindled the body\'s fire.'),
-    getContent('about.origin.p2', 'From their hands came a blend that would later be known as Formula B.'),
-    getContent('about.nature.title', 'Nature\'s Wisdom'),
-    getContent('about.nature.p1', 'The formula was born from nature itself. Ginseng-like roots offered sustained energy, while gentle tonics balanced the heart and spirit. Each component was gathered by hand and prepared with care, using methods that preserved the natural potency of the herbs.'),
-    getContent('about.nature.p2', 'The result was something powerful yet calm, a source of vitality that felt deeply human.'),
-    getContent('about.heritage.title', 'Fifty Years of Heritage'),
-    getContent('about.heritage.p1', 'For more than fifty years, this secret was guarded within a small Peruvian family. It was refined slowly, protected as both a craft and a calling.'),
-    getContent('about.heritage.p2', 'To them, it was never just a supplement, but a way of honoring the balance between human strength and nature\'s rhythm.'),
-    getContent('about.modern.title', 'Modern Evolution'),
-    getContent('about.modern.p1', 'When science finally met this heritage, the formula found a new expression. The wisdom of those herbalists inspired SweetB, a discreet candy shaped for modern life but rooted in ancient knowledge.'),
-    getContent('about.modern.p2', 'Each piece carries the same promise of renewal, made from natural herbs and pure ingredients that support energy, stamina, and focus without force.'),
-    getContent('about.final.title', 'From the Andes to You'),
-    getContent('about.final.text', 'What began as a whisper in the Andes now lives on as a quiet act of restoration. From the soil to your hand, SweetB continues the story of nature\'s gift — steady, clean, and enduring.'),
-    getContent('about.final.tagline', 'Vitality Reborn.'),
-    getContent('about.final.benefitsButton', 'Discover Benefits'),
+    getContent('about.title', 'About Swiss Bright'),
+    getContent('about.origin.title', 'Our Mission'),
+    getContent('about.origin.p1', 'Swiss Bright was founded with a simple mission: to provide premium mobile gadgets and accessories that combine quality, affordability, and excellent customer service. We believe that everyone deserves access to high-quality mobile accessories without paying premium prices.'),
+    getContent('about.origin.p2', 'Our commitment is to source the best products, offer competitive pricing, and deliver exceptional service to every customer.'),
+    getContent('about.nature.title', 'Quality First'),
+    getContent('about.nature.p1', 'Every product in our catalog is carefully selected and tested to meet our high standards. We work directly with trusted manufacturers and suppliers to ensure authenticity and quality. From protective cases to charging cables, each item is verified for durability, compatibility, and performance.'),
+    getContent('about.nature.p2', 'We don\'t just sell products—we curate a collection that we\'re proud to stand behind.'),
+    getContent('about.heritage.title', 'Customer Focused'),
+    getContent('about.heritage.p1', 'At Swiss Bright, our customers are at the heart of everything we do. We understand that shopping for mobile gadgets should be simple, straightforward, and stress-free. That\'s why we offer clear product descriptions, competitive prices, and responsive customer support.'),
+    getContent('about.heritage.p2', 'We\'re committed to building long-term relationships with our customers, not just making one-time sales.'),
+    getContent('about.modern.title', 'Innovation & Growth'),
+    getContent('about.modern.p1', 'As the mobile technology landscape evolves, so do we. We continuously expand our product range to include the latest accessories and innovations. Our team stays up-to-date with industry trends to bring you the most relevant and useful mobile gadgets.'),
+    getContent('about.modern.p2', 'Whether you need a new case for your latest phone, a fast charger, or the latest mobile accessory, Swiss Bright is your trusted partner.'),
+    getContent('about.final.title', 'Your Trusted Mobile Gadget Partner'),
+    getContent('about.final.text', 'From our carefully curated product selection to our commitment to customer satisfaction, Swiss Bright is dedicated to being your go-to source for premium mobile gadgets and accessories. We\'re here to help you enhance your mobile experience with quality products you can trust.'),
+    getContent('about.final.tagline', 'Premium Mobile Gadgets.'),
+    getContent('about.final.benefitsButton', 'Why Buy From Us'),
     getContent('about.final.contactButton', 'Get in Touch'),
   ])
   
@@ -59,8 +59,8 @@ export default async function AboutPage() {
       <section className={styles.hero}>
         <div className={styles.heroBackground}>
           <img 
-            src="https://images.unsplash.com/photo-1526392060635-9d6019884377?w=1920&q=80"
-            alt="Peruvian mountains"
+            src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=1920&q=80"
+            alt="Mobile gadgets and technology"
             className={styles.heroImage}
           />
           <div className={styles.heroOverlay}></div>
@@ -83,8 +83,8 @@ export default async function AboutPage() {
             <div className={styles.sectionLayout}>
               <div className={styles.imageWrapper}>
                 <img 
-                  src="https://images.unsplash.com/photo-1589802829985-817e51171b92?w=800&q=80"
-                  alt="Misty Peruvian mountains"
+                  src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+                  alt="Mobile technology and innovation"
                   className={styles.sectionImage}
                   loading="lazy"
                 />
@@ -112,8 +112,8 @@ export default async function AboutPage() {
               </div>
               <div className={styles.imageWrapper}>
                 <img 
-                  src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80"
-                  alt="Natural herbs and botanicals"
+                  src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&q=80"
+                  alt="Quality mobile gadgets"
                   className={styles.sectionImage}
                   loading="lazy"
                 />
@@ -129,8 +129,8 @@ export default async function AboutPage() {
             <div className={styles.sectionLayout}>
               <div className={styles.imageWrapper}>
                 <img 
-                  src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80"
-                  alt="Traditional craftsmanship"
+                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80"
+                  alt="Customer service and support"
                   className={styles.sectionImage}
                   loading="lazy"
                 />
@@ -158,8 +158,8 @@ export default async function AboutPage() {
               </div>
               <div className={styles.imageWrapper}>
                 <img 
-                  src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&q=80"
-                  alt="Modern wellness"
+                  src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+                  alt="Mobile technology innovation"
                   className={styles.sectionImage}
                   loading="lazy"
                 />
@@ -180,7 +180,7 @@ export default async function AboutPage() {
                 <span className={styles.taglineText}>{tagline}</span>
               </div>
               <div className={styles.finalButtons}>
-                <a href="/#benefits" className="btn btn-primary">{benefitsButton}</a>
+                <a href="/benefits" className="btn btn-primary">{benefitsButton}</a>
                 <a href="/contact" className="btn btn-secondary">{contactButton}</a>
               </div>
             </div>

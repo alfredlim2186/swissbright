@@ -22,62 +22,41 @@ export async function getCurrentLanguage(): Promise<Language> {
 }
 
 /**
- * Get content by key with language support and fallback
+ * Get content by key (English only) - Hardcoded, no database required
  */
 export const getContent = cache(async (
   key: string, 
-  fallback: string = '',
-  language?: Language
+  fallback: string = ''
 ): Promise<string> => {
+  // Hardcoded content - no database required
+  const hardcodedContent: Record<string, string> = {
+    'header.whyBuyFromUs': 'Why Buy From Us',
+    'header.verify': 'Verify',
+    'promotionalmodal.message': 'Welcome to Swiss Bright',
+    'memberbanner.message': 'Join Swiss Bright today',
+  }
+  
+  if (hardcodedContent[key]) {
+    return hardcodedContent[key]
+  }
+  
   try {
-    let lang: Language = 'en'
-    
-    if (language) {
-      lang = language
-    } else {
-      try {
-        lang = await getCurrentLanguage()
-      } catch (error) {
-        console.error('Error getting current language, defaulting to English:', error)
-        lang = 'en'
-      }
-    }
-    
-    try {
-      const content = await prisma.content.findUnique({
-        where: { 
-          key_language: {
-            key,
-            language: lang,
-          }
-        },
-      })
-      
-      if (content?.value) {
-        return content.value
-      }
-      
-      // If not found in current language, try English as fallback
-      if (lang !== 'en') {
-        const englishContent = await prisma.content.findUnique({
-          where: { 
-            key_language: {
-              key,
-              language: 'en',
-            }
-          },
-        })
-        if (englishContent?.value) {
-          return englishContent.value
+    const content = await prisma.content.findUnique({
+      where: { 
+        key_language: {
+          key,
+          language: 'en',
         }
-      }
-    } catch (dbError) {
-      console.error(`Database error fetching content for key "${key}" (${lang}):`, dbError)
+      },
+    })
+    
+    if (content?.value) {
+      return content.value
     }
     
     return fallback
   } catch (error) {
-    console.error(`Error fetching content for key "${key}":`, error)
+    // Database not available, return fallback
     return fallback
   }
 })
@@ -130,7 +109,7 @@ export const getAllContent = cache(async (language?: Language) => {
 export const CONTENT_DEFAULTS = {
   // Hero Section
   'hero.headline': {
-    value: 'Vitality Reborn',
+    value: 'Premium Mobile Gadgets',
     type: 'TEXT',
     page: 'home',
     section: 'hero',
@@ -138,7 +117,7 @@ export const CONTENT_DEFAULTS = {
     description: 'Main headline on the homepage hero section',
   },
   'hero.subheadline': {
-    value: 'A discreet daily candy crafted for balanced energy, focus, and confidence — without the noise.',
+    value: 'Your trusted source for premium mobile gadgets and accessories. Quality products, competitive prices, fast shipping.',
     type: 'TEXT',
     page: 'home',
     section: 'hero',
@@ -146,7 +125,7 @@ export const CONTENT_DEFAULTS = {
     description: 'Subheadline text below the main headline',
   },
   'hero.cta.primary': {
-    value: 'Discover SweetB',
+    value: 'Shop Now',
     type: 'TEXT',
     page: 'home',
     section: 'hero',
@@ -154,7 +133,7 @@ export const CONTENT_DEFAULTS = {
     description: 'Text for the primary call-to-action button',
   },
   'hero.cta.secondary': {
-    value: 'Learn More',
+    value: 'Why Buy From Us',
     type: 'TEXT',
     page: 'home',
     section: 'hero',
@@ -164,7 +143,7 @@ export const CONTENT_DEFAULTS = {
 
   // Product Showcase
   'product.eyebrow': {
-    value: 'The Product',
+    value: 'Our Products',
     type: 'TEXT',
     page: 'home',
     section: 'product',
@@ -172,7 +151,7 @@ export const CONTENT_DEFAULTS = {
     description: 'Small text above the product title',
   },
   'product.title': {
-    value: 'Discreet Power, Natural Balance',
+    value: 'Quality Mobile Gadgets',
     type: 'TEXT',
     page: 'home',
     section: 'product',
@@ -180,7 +159,7 @@ export const CONTENT_DEFAULTS = {
     description: 'Main title for the product showcase section',
   },
   'product.description': {
-    value: 'Each SweetB candy combines time-tested botanicals with modern nutritional science. Formulated for men who value subtle strength and lasting performance.',
+    value: 'Discover our curated selection of premium mobile gadgets and accessories. From protective cases to fast chargers, we offer quality products designed to enhance your mobile experience.',
     type: 'TEXT',
     page: 'home',
     section: 'product',
@@ -214,7 +193,7 @@ export const CONTENT_DEFAULTS = {
     description: 'Title for the ingredients section',
   },
   'ingredients.description': {
-    value: 'SweetB combines time-tested botanicals with modern nutritional science to deliver balanced support for energy, focus, and vitality.',
+    value: 'Swiss Bright combines quality materials with modern technology to deliver reliable mobile accessories and gadgets that enhance your daily experience.',
     type: 'TEXT',
     page: 'home',
     section: 'ingredients',
@@ -232,7 +211,7 @@ export const CONTENT_DEFAULTS = {
     description: 'Title for the safety section',
   },
   'safety.description': {
-    value: 'Every piece of SweetB is crafted under the highest global standards of quality and safety.',
+    value: 'Every product from Swiss Bright is crafted under the highest global standards of quality and safety.',
     type: 'TEXT',
     page: 'home',
     section: 'safety',
@@ -240,7 +219,7 @@ export const CONTENT_DEFAULTS = {
     description: 'Description text for the safety section',
   },
   'safety.closing': {
-    value: 'These standards are more than numbers or labels. They represent our promise — that every SweetB candy you enjoy is pure, safe, and manufactured with integrity.',
+    value: 'These standards are more than numbers or labels. They represent our promise — that every Swiss Bright product you purchase is quality-tested, safe, and manufactured with integrity.',
     type: 'TEXT',
     page: 'home',
     section: 'safety',
@@ -254,6 +233,14 @@ export const CONTENT_DEFAULTS = {
     section: 'header',
     label: 'Header Verify Link',
     description: 'Verify link text in header',
+  },
+  'header.whyBuyFromUs': {
+    value: 'Why Buy From Us',
+    type: 'TEXT',
+    page: 'home',
+    section: 'header',
+    label: 'Header Why Buy From Us Link',
+    description: 'Why Buy From Us link text in header',
   },
 } as const
 

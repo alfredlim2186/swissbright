@@ -5,12 +5,12 @@ import { getContent } from '@/lib/content'
 const icons = ['①', '⏱', '◷', '◐', '✓']
 
 export default async function HowToUse() {
-  const title = await getContent('howtouse.title', 'How to Use')
-  const instruction1 = await getContent('howtouse.instruction1', 'Take only one (1) SweetB per day.')
-  const instruction2 = await getContent('howtouse.instruction2', 'Onset: 1–3 hours after consumption.')
-  const instruction3 = await getContent('howtouse.instruction3', 'Duration: up to 3 days (varies by individual).')
-  const instruction4 = await getContent('howtouse.instruction4', 'Allow it to dissolve slowly, or swallow whole if preferred.')
-  const instruction5 = await getContent('howtouse.instruction5', 'For best results: take on an empty stomach or 2 hours after a meal.')
+  const title = await getContent('howtouse.title', 'How to Shop')
+  const instruction1 = await getContent('howtouse.instruction1', 'Browse our catalog of premium mobile gadgets and accessories.')
+  const instruction2 = await getContent('howtouse.instruction2', 'Add products to your cart and review your selections.')
+  const instruction3 = await getContent('howtouse.instruction3', 'Proceed to checkout and complete your order.')
+  const instruction4 = await getContent('howtouse.instruction4', 'Receive tracking information once your order ships.')
+  const instruction5 = await getContent('howtouse.instruction5', 'Enjoy your new mobile gadgets with our quality guarantee.')
 
   const instructions = [
     { icon: icons[0], text: instruction1 },

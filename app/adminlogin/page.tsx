@@ -22,7 +22,11 @@ export default function AdminLoginPage() {
 
       if (!response.ok) {
         const data = await response.json()
-        throw new Error(data.error || 'Invalid credentials')
+        // Show detailed error in development
+        const errorMsg = data.details 
+          ? `${data.error}: ${data.details}` 
+          : data.error || 'Invalid credentials'
+        throw new Error(errorMsg)
       }
 
       window.location.href = '/admin'
@@ -63,7 +67,7 @@ export default function AdminLoginPage() {
             color: '#C9A86A',
           }}
         >
-          SweetB Admin
+          Swiss Bright Admin
         </div>
 
         <p
@@ -91,7 +95,6 @@ export default function AdminLoginPage() {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              readOnly
               style={{
                 width: '100%',
                 padding: '0.85rem 1rem',

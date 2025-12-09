@@ -6,8 +6,8 @@ import { getContent } from '@/lib/content'
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
-  title: 'Product Verification | SweetB',
-  description: 'Protect your purchase by verifying your SweetB product before use. Follow the three simple steps and access the official verification portal.',
+  title: 'Product Verification | Swiss Bright',
+  description: 'Protect your purchase by verifying your Swiss Bright product before use. Follow the three simple steps and access the official verification portal.',
 }
 
 export default async function ProductVerificationPage() {
@@ -15,7 +15,7 @@ export default async function ProductVerificationPage() {
   const heroTitle = await getContent('productVerification.title', 'Protect Your Confidence')
   const heroDescription = await getContent(
     'productVerification.description',
-    'Every SweetB piece is crafted with precise botanicals and rigorous safety standards. Product verification ensures that what you hold is genuine, potent, and safe for consumption.'
+    'Every Swiss Bright product is crafted with quality standards and rigorous testing. Product verification ensures that what you hold is genuine, authentic, and safe to use.'
   )
   const whyTitle = await getContent('productVerification.whyTitle', 'Why Verification Matters')
   const whyDescription = await getContent(
@@ -23,8 +23,8 @@ export default async function ProductVerificationPage() {
     'Counterfeit supplements are difficult to identify and can contain untested fillers. Verifying your product protects your health, ensures quality, and keeps your purchase history intact for loyalty perks.'
   )
   const ctaLabel = await getContent('productVerification.ctaLabel', 'Go to Official Verification Portal')
-  const ctaLink = await getContent('productVerification.ctaLink', 'https://verify.sweetb.co')
-  const stepsTitle = await getContent('productVerification.steps.title', 'Verify SweetB in Three Steps')
+  const ctaLink = await getContent('productVerification.ctaLink', 'https://verify.swissbright.com')
+  const stepsTitle = await getContent('productVerification.steps.title', 'Verify Swiss Bright Products in Three Steps')
   const stepsSubtitle = await getContent(
     'productVerification.steps.subtitle',
     'Use the guide below to locate your verification code and confirm your purchase with our trusted partner.'
@@ -40,7 +40,7 @@ export default async function ProductVerificationPage() {
       title: await getContent('productVerification.steps.1.title', 'Locate the Security Seal'),
       description: await getContent(
         'productVerification.steps.1.description',
-        'Find the tamper-evident SweetB seal on the side of your tube. Gently scratch to reveal your unique verification code.'
+        'Find the tamper-evident Swiss Bright seal on your product. Gently scratch to reveal your unique verification code.'
       ),
       image: await getContent(
         'productVerification.steps.1.image',
@@ -101,7 +101,7 @@ export default async function ProductVerificationPage() {
             <p className={styles.whyDescription}>
               {await getContent(
                 'productVerification.protectedDescription',
-                'Authentic SweetB ensures precise botanical ratios, clean manufacturing, and consistent results. Verifying your product shields you from counterfeits that compromise safety and undermine your progress.'
+                'Authentic Swiss Bright products ensure quality manufacturing, consistent performance, and reliable results. Verifying your product shields you from counterfeits that compromise quality and undermine your experience.'
               )}
             </p>
           </div>

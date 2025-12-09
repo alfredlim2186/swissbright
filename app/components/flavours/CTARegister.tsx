@@ -38,7 +38,7 @@ export default function CTARegister() {
         <div className={styles.content}>
           <h2 className={styles.title}>Unlock Member Perks</h2>
           <p className={styles.description}>
-            Register at sweetb.co to unlock member perks — free gifts with every 10-box purchase.
+            Register at swissbright.com to unlock member perks — free gifts with every purchase.
           </p>
           <Link href="/login" className={styles.ctaButton}>
             Create Account

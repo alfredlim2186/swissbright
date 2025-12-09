@@ -4,8 +4,8 @@ import AdminShell from './AdminShell'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Admin Dashboard - SweetB',
-  description: 'SweetB CRM administration',
+  title: 'Admin Dashboard - Swiss Bright',
+  description: 'Swiss Bright CRM administration',
 }
 
 export default function AdminLayout({

@@ -4,16 +4,16 @@ import { getContent } from '@/lib/content'
 
 export default async function FAQ() {
   const title = await getContent('faq.title', 'FAQ')
-  const q1 = await getContent('faq.q1', 'How long do effects last?')
-  const a1 = await getContent('faq.a1', 'Effects typically last up to 3 days, though this can vary by individual based on metabolism, diet, and activity level.')
-  const q2 = await getContent('faq.q2', 'Is SweetB safe for daily use?')
-  const a2 = await getContent('faq.a2', 'SweetB is designed to be taken once per day. Do not exceed one candy in a 24-hour period. If you have any medical conditions or concerns, consult your doctor before use.')
-  const q3 = await getContent('faq.q3', 'Can I mix SweetB with other supplements?')
-  const a3 = await getContent('faq.a3', 'We recommend not mixing SweetB with other medicines or supplements unless advised by your doctor, as interactions can occur.')
-  const q4 = await getContent('faq.q4', 'When should I take SweetB?')
-  const a4 = await getContent('faq.a4', 'For best results, take SweetB on an empty stomach or at least 2 hours after a meal. Effects typically begin 1–3 hours after consumption.')
-  const q5 = await getContent('faq.q5', 'Where is SweetB made?')
-  const a5 = await getContent('faq.a5', 'SweetB is manufactured in facilities that adhere to strict quality and safety standards, ensuring consistency and purity in every candy.')
+  const q1 = await getContent('faq.q1', 'What types of mobile gadgets do you sell?')
+  const a1 = await getContent('faq.a1', 'We offer a wide range of mobile gadgets and accessories including protective cases, charging cables, wireless chargers, phone stands, screen protectors, and more. We focus on quality products that enhance your mobile experience.')
+  const q2 = await getContent('faq.q2', 'Are your products authentic?')
+  const a2 = await getContent('faq.a2', 'Yes, all our products are authentic and sourced from trusted manufacturers and suppliers. We verify the authenticity and quality of every product before adding it to our catalog.')
+  const q3 = await getContent('faq.q3', 'What is your return policy?')
+  const a3 = await getContent('faq.a3', 'We offer a comprehensive warranty and return policy. If you\'re not satisfied with your purchase, please contact our customer service team within 7 days of receipt. We\'ll work with you to resolve any issues.')
+  const q4 = await getContent('faq.q4', 'How fast is shipping?')
+  const a4 = await getContent('faq.a4', 'We offer multiple shipping options to suit your needs. Standard shipping typically takes 3-5 business days, while express shipping options are available for faster delivery. You\'ll receive tracking information once your order ships.')
+  const q5 = await getContent('faq.q5', 'Do you ship internationally?')
+  const a5 = await getContent('faq.a5', 'Currently, we ship within our primary service area. Please check our shipping page or contact us for specific delivery locations and rates.')
 
   const faqs = [
     { question: q1, answer: a1 },

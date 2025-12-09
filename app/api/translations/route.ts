@@ -24,19 +24,16 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'No valid keys provided' }, { status: 400 })
     }
 
-    // Get current language (from cookie) or use provided language
-    const language = langParam || await getCurrentLanguage()
-
-    // Fetch all translations in parallel
+    // Fetch all translations in parallel (English only, no language parameter needed)
     const translations: Record<string, string> = {}
     await Promise.all(
       keys.map(async (key) => {
         // Use empty string as fallback, we'll handle defaults in the frontend
-        translations[key] = await getContent(key, '', language)
+        translations[key] = await getContent(key, '')
       })
     )
 
-    return NextResponse.json({ translations, language })
+    return NextResponse.json({ translations, language: 'en' })
   } catch (error) {
     console.error('Error fetching translations:', error)
     return NextResponse.json({ error: 'Failed to fetch translations' }, { status: 500 })

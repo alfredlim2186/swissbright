@@ -24,12 +24,12 @@ const aboutContent = {
     },
     modern: {
       title: 'Modern Evolution',
-      p1: 'When science finally met this heritage, the formula found a new expression. The wisdom of those herbalists inspired <span class="highlight">SweetB</span>, a discreet candy shaped for modern life but rooted in ancient knowledge.',
+      p1: 'When science finally met this heritage, the formula found a new expression. The wisdom of those innovators inspired <span class="highlight">Swiss Bright</span>, premium mobile gadgets designed for modern life but rooted in quality craftsmanship.',
       p2: 'Each piece carries the same promise of renewal, made from natural herbs and pure ingredients that support energy, stamina, and focus without force.',
     },
     final: {
       title: 'From the Andes to You',
-      text: 'What began as a whisper in the Andes now lives on as a quiet act of restoration. From the soil to your hand, SweetB continues the story of nature\'s gift — steady, clean, and enduring.',
+      text: 'What began as a commitment to quality now lives on as a dedication to excellence. From design to your hand, Swiss Bright continues the story of premium technology — reliable, innovative, and enduring.',
       tagline: 'Vitality Reborn.',
       benefitsButton: 'Discover Benefits',
       contactButton: 'Get in Touch',
@@ -55,12 +55,12 @@ const aboutContent = {
     },
     modern: {
       title: 'Evolusi Moden',
-      p1: 'Apabila sains akhirnya bertemu dengan warisan ini, formula itu menemui ekspresi baru. Kebijaksanaan ahli herba itu mengilhami <span class="highlight">SweetB</span>, gula-gula diskret yang dibentuk untuk kehidupan moden tetapi berakar pada pengetahuan kuno.',
+      p1: 'Apabila sains akhirnya bertemu dengan warisan ini, formula itu menemui ekspresi baru. Kebijaksanaan para inovator itu mengilhami <span class="highlight">Swiss Bright</span>, aksesori mudah alih premium yang direka untuk kehidupan moden tetapi berakar pada kraf berkualiti.',
       p2: 'Setiap kepingan membawa janji pembaharuan yang sama, dibuat dari herba semula jadi dan ramuan tulen yang menyokong tenaga, stamina, dan fokus tanpa paksaan.',
     },
     final: {
       title: 'Dari Andes Kepada Anda',
-      text: 'Apa yang bermula sebagai bisikan di Andes kini hidup sebagai tindakan pemulihan yang tenang. Dari tanah ke tangan anda, SweetB meneruskan cerita hadiah alam — stabil, bersih, dan berkekalan.',
+      text: 'Apa yang bermula sebagai komitmen kepada kualiti kini hidup sebagai dedikasi kepada kecemerlangan. Dari reka bentuk ke tangan anda, Swiss Bright meneruskan cerita teknologi premium — boleh dipercayai, inovatif, dan berkekalan.',
       tagline: 'Vitaliti Dilahirkan Semula.',
       benefitsButton: 'Temui Faedah',
       contactButton: 'Hubungi Kami',
@@ -86,12 +86,12 @@ const aboutContent = {
     },
     modern: {
       title: '现代演变',
-      p1: '当科学最终遇到这个传承时，配方找到了新的表达。那些草药师的智慧启发了 <span class="highlight">SweetB</span>，一种为现代生活而塑造但植根于古老知识的低调糖果。',
+      p1: '当科学最终遇到这个传承时，配方找到了新的表达。那些创新者的智慧启发了 <span class="highlight">Swiss Bright</span>，为现代生活而设计但植根于优质工艺的优质移动配件。',
       p2: '每一片都承载着同样的更新承诺，由天然草药和纯成分制成，支持能量、耐力和专注，无需强制。',
     },
     final: {
       title: '从安第斯山脉到您',
-      text: '在安第斯山脉开始的低语现在作为安静的恢复行为而存在。从土壤到您的手，SweetB 继续讲述自然的礼物——稳定、清洁和持久。',
+      text: '以质量承诺开始的东西现在作为对卓越的奉献而存在。从设计到您的手，Swiss Bright 继续讲述优质技术的故事——可靠、创新和持久。',
       tagline: '活力重生。',
       benefitsButton: '发现益处',
       contactButton: '联系我们',
@@ -222,4 +222,6 @@ main()
   .finally(async () => {
     await prisma.$disconnect()
   })
+
+
 

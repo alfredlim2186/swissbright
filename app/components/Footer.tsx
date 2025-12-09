@@ -2,6 +2,7 @@ import Image from 'next/image'
 import styles from './Footer.module.css'
 import { getContent } from '@/lib/content'
 import { getContactLinks } from '@/lib/contactLinks'
+import SwissBrightLogo from './SwissBrightLogo'
 
 export default async function Footer() {
   const about = await getContent('footer.about', 'About')
@@ -9,7 +10,7 @@ export default async function Footer() {
   const terms = await getContent('footer.terms', 'Terms')
   const privacy = await getContent('footer.privacy', 'Privacy')
   const contact = await getContent('footer.contact', 'Contact')
-  const copyright = await getContent('footer.copyright', '© 2025 SweetB. Vitality Reborn.')
+  const copyright = await getContent('footer.copyright', '© 2025 Swiss Bright. Premium Mobile Gadgets.')
   const contactLinks = await getContactLinks()
   
   // Filter for social media links (Instagram, Facebook, TikTok, WhatsApp, Telegram)
@@ -29,15 +30,9 @@ export default async function Footer() {
   return (
     <footer id="shop" className={styles.footer}>
       <div className={styles.emblem}>✦</div>
-      <a href="/" className={styles.logo}>
-        <Image 
-          src="/images/logos/sweetb-logo-peru.png" 
-          alt="SweetB PERÚ" 
-          width={180}
-          height={60}
-          className={styles.logoImage}
-        />
-      </a>
+      <div className={styles.logo}>
+        <SwissBrightLogo href="/" size="medium" />
+      </div>
       <nav className={styles.links}>
         <a href="/about">{about}</a>
         <span className={styles.separator}>•</span>
@@ -51,9 +46,9 @@ export default async function Footer() {
       </nav>
       {socialMediaLinks.length > 0 && (
         <div className={styles.socialLinks}>
-          {socialMediaLinks.map((link) => (
+          {socialMediaLinks.map((link, index) => (
             <a
-              key={link.id}
+              key={link.id || link.url || index}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"

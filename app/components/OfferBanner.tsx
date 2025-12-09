@@ -14,7 +14,7 @@ export default async function OfferBanner() {
       <div className={styles.content}>
         <span className={styles.icon}>★</span>
         <p className={styles.text}>
-          {linkText} <a href="https://sweetb.co" className={styles.link}>sweetb.co</a> {afterLink}
+          {linkText} <a href="https://swissbright.com" className={styles.link}>swissbright.com</a> {afterLink}
         </p>
         <span className={styles.icon}>★</span>
       </div>

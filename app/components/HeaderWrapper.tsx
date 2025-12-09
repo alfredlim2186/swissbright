@@ -2,8 +2,7 @@ import { getContent } from '@/lib/content'
 import Header from './Header'
 
 export default async function HeaderWrapper() {
-  const benefits = await getContent('header.benefits', 'Benefits')
-  const ingredients = await getContent('header.ingredients', 'Ingredients')
+  const whyBuyFromUs = await getContent('header.whyBuyFromUs', 'Why Buy From Us')
   const about = await getContent('header.about', 'About')
   const faq = await getContent('header.faq', 'FAQ')
   const verify = await getContent('header.verify', 'Verify')
@@ -13,8 +12,8 @@ export default async function HeaderWrapper() {
 
   return (
     <Header
-      benefits={benefits}
-      ingredients={ingredients}
+      benefits={whyBuyFromUs}
+      ingredients=""
       about={about}
       faq={faq}
       verify={verify}

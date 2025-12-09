@@ -1,6 +1,5 @@
 import styles from './ProductShowcase.module.css'
 import ScrollReveal from './ScrollReveal'
-import { getContent } from '@/lib/content'
 
 interface ProductShowcaseProps {
   eyebrow?: string
@@ -17,31 +16,22 @@ export default async function ProductShowcase({
   image1,
   image2,
 }: ProductShowcaseProps) {
-  // Fetch translations for product highlight tiles
-  const [
-    discreetFormatTitle,
-    discreetFormatDesc,
-    naturalBotanicalsTitle,
-    naturalBotanicalsDesc,
-    lastingEffectsTitle,
-    lastingEffectsDesc,
-  ] = await Promise.all([
-    getContent('product.highlight.discreetFormat.title', 'Discreet Format'),
-    getContent('product.highlight.discreetFormat.description', 'A single candy. No powders, no pills.'),
-    getContent('product.highlight.naturalBotanicals.title', 'Natural Botanicals'),
-    getContent('product.highlight.naturalBotanicals.description', 'Korean ginseng, Tongkat Ali, Maca—time-tested ingredients.'),
-    getContent('product.highlight.lastingEffects.title', 'Lasting Effects'),
-    getContent('product.highlight.lastingEffects.description', 'Onset in 1-3 hours. Effects may last up to 3 days.'),
-  ])
+  // Hardcoded values for premium mobile gadgets
+  const discreetFormatTitle = 'Premium Design'
+  const discreetFormatDesc = 'Cutting-edge devices. No compromises, no shortcuts.'
+  const naturalBotanicalsTitle = 'Top-Tier Hardware'
+  const naturalBotanicalsDesc = 'Latest processors, premium displays, advanced cameras—industry-leading technology.'
+  const lastingEffectsTitle = 'Durable Quality'
+  const lastingEffectsDesc = 'Fast delivery. Devices built to last for years.'
 
   const showcaseImages = [
     {
       src: image1 || 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=1200&q=80',
-      alt: 'SweetB luxury supplement lifestyle',
+      alt: 'Swiss Bright premium mobile gadgets',
     },
     {
       src: image2 || 'https://images.unsplash.com/photo-1516733968668-dbdce39c4651?w=1200&q=80',
-      alt: 'Premium wellness and vitality',
+      alt: 'Premium mobile accessories and gadgets',
     },
   ]
   return (
@@ -52,7 +42,7 @@ export default async function ProductShowcase({
           <h2 className={styles.title}>{title || 'One Candy. Quiet Confidence.'}</h2>
           <div className={styles.divider}></div>
           <p className={styles.description}>
-            {description || 'SweetB is not a pill, not a powder, not a ritual. It\'s a single, discreet candy—precisely formulated with time-honored botanicals to support energy, focus, and natural vitality. No noise. No fuss. Just steady, masculine poise.'}
+            {description || 'Discover our curated selection of premium mobile gadgets and accessories. From protective cases to fast chargers, we offer quality products designed to enhance your mobile experience.'}
           </p>
         </ScrollReveal>
 

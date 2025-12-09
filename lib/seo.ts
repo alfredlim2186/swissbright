@@ -3,27 +3,24 @@ import { cache } from 'react'
 import type { Metadata } from 'next'
 
 export const getSeoSettings = cache(async () => {
+  // Hardcoded SEO settings - no database required
+  const hardcodedSettings = {
+    siteName: 'Swiss Bright',
+    baseUrl: 'https://swissbright.com',
+    defaultOgImage: '/og/default.jpg',
+    twitterHandle: '@swissbright',
+    updatedAt: new Date(),
+  }
+  
   try {
     const settings = await prisma.seoSettings.findUnique({
       where: { id: 1 },
     })
     
-    return settings || {
-      siteName: 'SweetB',
-      baseUrl: 'https://sweetb.co',
-      defaultOgImage: '/og/default.jpg',
-      twitterHandle: '@sweetb',
-      updatedAt: new Date(),
-    }
+    return settings || hardcodedSettings
   } catch (error) {
-    console.error('Error fetching SEO settings:', error)
-    return {
-      siteName: 'SweetB',
-      baseUrl: 'https://sweetb.co',
-      defaultOgImage: '/og/default.jpg',
-      twitterHandle: '@sweetb',
-      updatedAt: new Date(),
-    }
+    // Database not available, return hardcoded settings
+    return hardcodedSettings
   }
 })
 

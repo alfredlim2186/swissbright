@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
     if (
       process.env.NODE_ENV === 'development' && 
       process.env.ALLOW_DEV_BYPASS === 'true' &&
-      email === 'admin@sweetb.co' && 
+      email === 'admin@swissbright.com' && 
       code === '000000'
     ) {
       console.log('🔓 Using admin development bypass code')

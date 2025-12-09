@@ -3,6 +3,7 @@ import styles from './page.module.css'
 import Link from 'next/link'
 import PageBackground from '@/app/components/PageBackground'
 import BackgroundElements from '@/app/components/BackgroundElements'
+import SwissBrightLogo from '@/app/components/SwissBrightLogo'
 import { getContent } from '@/lib/content'
 import { getContactLinks } from '@/lib/contactLinks'
 
@@ -23,15 +24,7 @@ export default async function ContactPage() {
           </Link>
           
           <div className={styles.header}>
-            <Link href="/" className={styles.logo}>
-              <Image 
-                src="/images/logos/sweetb-logo-peru.png" 
-                alt="SweetB PERÚ" 
-                width={200}
-                height={66}
-                className={styles.logoImage}
-              />
-            </Link>
+            <SwissBrightLogo href="/" size="large" className={styles.logo} />
             <h1 className={styles.title}>{title}</h1>
             <p className={styles.subtitle}>
               {subtitle}
@@ -80,7 +73,7 @@ export default async function ContactPage() {
           </div>
 
           <div className={styles.footer}>
-            <p>© 2025 SweetB. Vitality Reborn.</p>
+            <p>© 2025 Swiss Bright. Premium Mobile Gadgets.</p>
           </div>
         </div>
       </div>

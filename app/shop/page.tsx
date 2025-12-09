@@ -1,10 +1,7 @@
 import Link from 'next/link'
 import ShopClient from './ShopClient'
 import styles from './shop.module.css'
-import { getShopState, mapProductToPayload } from '@/lib/shop'
-import { getContactLinks } from '@/lib/contactLinks'
 import { generatePageMetadata } from '@/lib/seo'
-import { getContent } from '@/lib/content'
 import PageBackground from '@/app/components/PageBackground'
 import BackgroundElements from '@/app/components/BackgroundElements'
 
@@ -12,79 +9,52 @@ export const dynamic = 'force-dynamic'
 
 export async function generateMetadata() {
   return generatePageMetadata({
-    title: 'SweetB Shop',
+    title: 'Swiss Bright Shop - Premium Mobile Gadgets',
     description:
-      'Shop the SweetB collection. Highlighted hero drops, manual checkout, and concierge confirmation via WhatsApp for registered members.',
+      'Shop premium mobile gadgets and accessories at Swiss Bright. Quality products, competitive prices, fast shipping.',
     path: '/shop',
-    keywords: ['sweetb', 'shop', 'vitality', 'mens health', 'commerce'],
+    keywords: ['mobile gadgets', 'shop', 'phone accessories', 'chargers', 'cases', 'commerce'],
   })
 }
 
 export default async function ShopPage() {
-  const [{ enabled, products, promotion }, contactLinks] = await Promise.all([getShopState(), getContactLinks()])
-  const whatsappLink = contactLinks.find(
-    (link) =>
-      link.label?.toLowerCase().includes('whatsapp') || link.url.toLowerCase().includes('wa.me') || link.url.toLowerCase().includes('whatsapp.com'),
-  )
+  // Hardcoded - no database required
+  const enabled = true
+  const promotion = null
+  
+  // Hardcoded contact links
+  const whatsappLink = {
+    label: 'WhatsApp',
+    url: 'https://wa.me/60123456789',
+  }
 
-  const productPayload = products.map(mapProductToPayload)
-
-  // Fetch translations
-  const [
-    shopTagline,
-    shopTitle,
-    shopDescription,
-    comingSoon,
-    offlineTitle,
-    offlineDescription,
-    messageWhatsApp,
-    contactSweetB,
-    returnHome,
-    howItWorks,
-    simpleFlow,
-    addProducts,
-    addProductsDesc,
-    sendPayment,
-    sendPaymentDesc,
-    adminConfirm,
-    adminConfirmDesc,
-    fastDelivery,
-    fastDeliveryDesc,
-    discreetPackaging,
-    discreetPackagingDesc,
-    originalProduct,
-    originalProductDesc,
-    guaranteedSatisfaction,
-    guaranteedSatisfactionDesc,
-    nowLive,
-  ] = await Promise.all([
-    getContent('shop.tagline', 'Curated. Measured. Member-only.'),
-    getContent('shop.title', 'Shop the SweetB Collection'),
-    getContent('shop.description', 'Discover premium vitality products crafted with natural botanicals and backed by decades of heritage. Each item in our collection is carefully formulated to support your energy, focus, and confidence—delivered with the discretion and quality you deserve.'),
-    getContent('shop.comingSoon', 'Coming Soon'),
-    getContent('shop.offlineTitle', 'Our online store is currently offline'),
-    getContent('shop.offlineDescription', 'We\'re preparing the next SweetB drop. Tap below to message us on WhatsApp for concierge orders or questions in the meantime.'),
-    getContent('shop.messageWhatsApp', 'Message us on WhatsApp'),
-    getContent('shop.contactSweetB', 'Contact SweetB'),
-    getContent('shop.returnHome', 'Return home'),
-    getContent('shop.howItWorks', 'How it works'),
-    getContent('shop.simpleFlow', 'Simple manual flow'),
-    getContent('shop.addProducts', 'Add products'),
-    getContent('shop.addProductsDesc', 'Select from the hero card or the catalog grid. The cart persists locally so you can return anytime.'),
-    getContent('shop.sendPayment', 'Send payment advice'),
-    getContent('shop.sendPaymentDesc', 'Checkout launches WhatsApp with a pre-filled order summary so you can attach transfer confirmation.'),
-    getContent('shop.adminConfirm', 'Admin confirmation'),
-    getContent('shop.adminConfirmDesc', 'Our team moves the order from "Processing" to "Confirmed" and shares courier + tracking details manually.'),
-    getContent('shop.fastDelivery', 'Fast Delivery'),
-    getContent('shop.fastDeliveryDesc', 'Processed and shipped within 1 day. Orders are packed and dispatched the same day with tracking provided.'),
-    getContent('shop.discreetPackaging', 'Discreet Packaging'),
-    getContent('shop.discreetPackagingDesc', 'Unmarked, privacy-focused packaging with no external branding or product labels visible.'),
-    getContent('shop.originalProduct', 'Original Product'),
-    getContent('shop.originalProductDesc', 'Authentic SweetB products from our certified facility. Every item is verified and sealed.'),
-    getContent('shop.guaranteedSatisfaction', 'Guaranteed Satisfaction'),
-    getContent('shop.guaranteedSatisfactionDesc', 'We stand behind every purchase. Contact us within 7 days if not completely satisfied.'),
-    getContent('shop.nowLive', 'Now Live'),
-  ])
+  // Hardcoded English strings (no translations needed)
+  const shopTagline = 'Premium. Quality. Trusted.'
+  const shopTitle = 'Shop Premium Mobile Gadgets'
+  const shopDescription = 'Discover our curated selection of premium mobile gadgets and accessories. From protective cases to fast chargers, we offer quality products designed to enhance your mobile experience.'
+  const comingSoon = 'Coming Soon'
+  const offlineTitle = 'Our online store is currently offline'
+  const offlineDescription = 'We\'re preparing new products. Tap below to message us on WhatsApp for orders or questions in the meantime.'
+  const messageWhatsApp = 'Message us on WhatsApp'
+  const contactSweetB = 'Contact Swiss Bright'
+  const returnHome = 'Return home'
+  const howItWorks = 'How it works'
+  const simpleFlow = 'Simple manual flow'
+  const addProducts = 'Add products'
+  const addProductsDesc = 'Select from the hero card or the catalog grid. The cart persists locally so you can return anytime.'
+  const sendPayment = 'Send payment advice'
+  const sendPaymentDesc = 'Checkout launches WhatsApp with a pre-filled order summary so you can attach transfer confirmation.'
+  const adminConfirm = 'Admin confirmation'
+  const adminConfirmDesc = 'Our team moves the order from "Processing" to "Confirmed" and shares courier + tracking details manually.'
+  const fastDelivery = 'Fast Delivery'
+  const fastDeliveryDesc = 'Processed and shipped within 1 day. Orders are packed and dispatched the same day with tracking provided.'
+  const discreetPackaging = 'Discreet Packaging'
+  const discreetPackagingDesc = 'Secure packaging to protect your products during shipping.'
+  const originalProduct = 'Authentic Products'
+  const originalProductDesc = 'Genuine mobile gadgets and accessories from trusted suppliers. Every item is verified for quality and authenticity.'
+  const guaranteedSatisfaction = 'Guaranteed Satisfaction'
+  const guaranteedSatisfactionDesc = 'We stand behind every purchase. Contact us within 7 days if not completely satisfied.'
+  const nowLive = 'Now Live'
 
   if (!enabled) {
     return (
@@ -122,17 +92,6 @@ export default async function ShopPage() {
         <div className={styles.heroTagline}>{shopTagline}</div>
         <h1>{shopTitle}</h1>
         <p>{shopDescription}</p>
-        {promotion && (
-          <div className={styles.promoBanner}>
-            <span>{nowLive}</span>
-            <strong>
-              {promotion.discountType === 'PERCENTAGE'
-                ? `${promotion.discountValue}% off sitewide`
-                : `RM ${(promotion.discountValue / 100).toFixed(0)} off every item`}
-            </strong>
-            <p>{promotion.name}</p>
-          </div>
-        )}
       </section>
 
       <section className={styles.processSection}>
@@ -158,46 +117,38 @@ export default async function ShopPage() {
       </section>
 
       <ShopClient
-        products={productPayload}
-        promotion={promotion ? { name: promotion.name, discountType: promotion.discountType as 'PERCENTAGE' | 'FIXED', discountValue: promotion.discountValue } : undefined}
-        whatsappLink={
-          whatsappLink
-            ? {
-                label: whatsappLink.label,
-                url: whatsappLink.url,
-              }
-            : undefined
-        }
+        promotion={undefined}
+        whatsappLink={whatsappLink}
         translations={{
-          featured: await getContent('shop.featured', 'Featured'),
-          cart: await getContent('shop.cart', 'Cart'),
-          manualCheckout: await getContent('shop.manualCheckout', 'Manual Checkout'),
-          addToCart: await getContent('shop.addToCart', 'Add to Cart'),
-          viewCart: await getContent('shop.viewCart', 'View Cart'),
-          soldOut: await getContent('shop.soldOut', 'Sold Out'),
-          inInventory: await getContent('shop.inInventory', 'in inventory'),
-          outOfStock: await getContent('shop.outOfStock', 'Out of stock'),
-          subtotal: await getContent('shop.subtotal', 'Subtotal'),
-          total: await getContent('shop.total', 'Total'),
-          shipping: await getContent('shop.shipping', 'Shipping'),
-          shippingFee: await getContent('shop.shippingFee', 'Shipping Fee'),
-          promoCode: await getContent('shop.promoCode', 'Promo code'),
-          checkout: await getContent('shop.checkout', 'Checkout'),
-          clearCart: await getContent('shop.clearCart', 'Clear Cart'),
-          checkoutNote: await getContent('shop.checkoutNote', 'Checkout requires a verified SweetB user account. Payments are confirmed manually via WhatsApp, and orders remain in "Processing" until an admin marks them as paid.'),
-          bankTransferDetails: await getContent('shop.bankTransferDetails', 'Bank Transfer Details'),
-          bankName: await getContent('shop.bankName', 'Bank Name:'),
-          accountNumber: await getContent('shop.accountNumber', 'Account Number:'),
-          selectCourier: await getContent('shop.selectCourier', 'Select courier'),
-          addProductsFirst: await getContent('shop.addProductsFirst', 'Add products first'),
-          processing: await getContent('shop.processing', 'Processing...'),
-          catalog: await getContent('shop.catalog', 'Catalog'),
-          catalogHint: await getContent('shop.catalogHint', 'Add a product to begin your order.'),
-          confirmCheckout: await getContent('shop.confirmCheckout', 'Confirm Checkout'),
-          orderSummary: await getContent('shop.orderSummary', 'Order Summary:'),
-          redirectWhatsApp: await getContent('shop.redirectWhatsApp', 'You\'ll be redirected to WhatsApp to send payment advice after placing the order.'),
-          cancel: await getContent('shop.cancel', 'Cancel'),
-          placeOrder: await getContent('shop.placeOrder', 'Place Order'),
+          featured: 'Featured',
+          cart: 'Cart',
+          manualCheckout: 'Manual Checkout',
+          addToCart: 'Add to Cart',
+          viewCart: 'View Cart',
+          soldOut: 'Sold Out',
+          inInventory: 'in inventory',
+          outOfStock: 'Out of stock',
+          subtotal: 'Subtotal',
+          total: 'Total',
+          shipping: 'Shipping',
+          shippingFee: 'Shipping Fee',
+          promoCode: 'Promo code',
+          checkout: 'Checkout',
+          clearCart: 'Clear Cart',
+          checkoutNote: 'Checkout requires a verified Swiss Bright user account. Payments are confirmed manually via WhatsApp, and orders remain in "Processing" until an admin marks them as paid.',
+          bankTransferDetails: 'Bank Transfer Details',
+          bankName: 'Bank Name:',
+          accountNumber: 'Account Number:',
+          selectCourier: 'Select courier',
+          addProductsFirst: 'Add products first',
+          processing: 'Processing...',
+          catalog: 'Catalog',
+          catalogHint: 'Add a product to begin your order.',
+          confirmCheckout: 'Confirm Checkout',
+          orderSummary: 'Order Summary:',
+          redirectWhatsApp: 'You\'ll be redirected to WhatsApp to send payment advice after placing the order.',
+          cancel: 'Cancel',
+          placeOrder: 'Place Order',
         }}
       />
 

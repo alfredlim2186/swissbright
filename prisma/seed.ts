@@ -7,10 +7,10 @@ async function main() {
 
   // Create admin user
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@sweetb.co' },
+    where: { email: 'admin@swissbright.com' },
     update: {},
     create: {
-      email: 'admin@sweetb.co',
+      email: 'admin@swissbright.com',
       name: 'Admin',
       role: 'ADMIN',
       emailVerified: new Date(),
@@ -39,26 +39,37 @@ async function main() {
   })
   console.log('✅ Feature flag created:', randomDrawFlag.key)
 
+  // Enable shop feature flag
+  const shopFlag = await prisma.featureFlag.upsert({
+    where: { key: 'shop_enabled' },
+    update: { enabled: true },
+    create: {
+      key: 'shop_enabled',
+      enabled: true,
+    },
+  })
+  console.log('✅ Shop feature flag enabled')
+
   // Seed SEO settings
   const seoSettings = await prisma.seoSettings.upsert({
     where: { id: 1 },
     update: {},
     create: {
       id: 1,
-      siteName: 'SweetB',
-      baseUrl: 'https://sweetb.co',
+      siteName: 'Swiss Bright',
+      baseUrl: 'https://swissbright.com',
       defaultOgImage: '/og/default.jpg',
-      twitterHandle: '@sweetb',
+      twitterHandle: '@swissbright',
     },
   })
   console.log('✅ SEO settings seeded:', seoSettings.baseUrl)
 
-  // Import and run translation seeding
+  // Import and run product seeding
   const { execSync } = require('child_process')
   try {
-    execSync('tsx prisma/seed-translations.ts', { stdio: 'inherit' })
+    execSync('tsx prisma/seed-products.ts', { stdio: 'inherit' })
   } catch (error) {
-    console.log('⚠️  Translation seeding skipped (run separately if needed)')
+    console.log('⚠️  Product seeding skipped (run separately if needed)')
   }
 
   console.log('✨ Seeding complete!')

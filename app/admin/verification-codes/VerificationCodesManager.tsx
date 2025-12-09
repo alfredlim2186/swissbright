@@ -389,7 +389,7 @@ export default function VerificationCodesManager({ initialStats, initialRecent }
               type="text"
               value={code}
               onChange={(e) => setCode(e.target.value.trim())}
-              placeholder="E.g. SWEETB-1234"
+              placeholder="E.g. SWISSBRIGHT-1234"
               style={{
                 padding: '0.75rem 1rem',
                 backgroundColor: 'rgba(255, 255, 255, 0.05)',

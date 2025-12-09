@@ -51,9 +51,20 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        swissbright: {
+          black: '#0A0A0A',
+          'electric-blue': '#00D4FF',
+          'electric-blue-dark': '#00B8E6',
+          purple: '#9D4EDD',
+          'purple-dark': '#7B2CBF',
+          cyan: '#00F5FF',
+          'neon-white': '#F8F8F8',
+          'soft-gray': '#B8B8B8',
+        },
+        // Legacy sweetb colors for backward compatibility
         sweetb: {
           black: '#0A0A0A',
-          gold: '#C9A86A',
+          gold: '#00D4FF',
           'neon-white': '#F8F8F8',
           'soft-gray': '#B8B8B8',
         },

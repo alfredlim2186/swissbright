@@ -105,7 +105,7 @@ export default function AdminSettingsPage() {
             <input
               type="text"
               name="siteName"
-              defaultValue={settings?.siteName || 'SweetB'}
+              defaultValue={settings?.siteName || 'Swiss Bright'}
               required
               style={{
                 width: '100%',
@@ -121,12 +121,12 @@ export default function AdminSettingsPage() {
 
           <div style={{ marginBottom: '2rem' }}>
             <label style={{ display: 'block', color: '#C9A86A', marginBottom: '0.5rem', fontWeight: '500' }}>
-              Base URL (e.g., https://sweetb.co)
+              Base URL (e.g., https://swissbright.com)
             </label>
             <input
               type="url"
               name="baseUrl"
-              defaultValue={settings?.baseUrl || 'https://sweetb.co'}
+              defaultValue={settings?.baseUrl || 'https://swissbright.com'}
               required
               placeholder="https://example.com"
               style={{
@@ -176,8 +176,8 @@ export default function AdminSettingsPage() {
             <input
               type="text"
               name="twitterHandle"
-              defaultValue={settings?.twitterHandle || '@sweetb'}
-              placeholder="@sweetb"
+              defaultValue={settings?.twitterHandle || '@swissbright'}
+              placeholder="@swissbright"
               style={{
                 width: '100%',
                 padding: '0.875rem 1rem',

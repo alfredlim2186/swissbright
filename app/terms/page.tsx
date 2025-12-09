@@ -9,10 +9,10 @@ export const dynamic = 'force-dynamic'
 
 export async function generateMetadata() {
   return generatePageMetadata({
-    title: 'Terms and Conditions - SweetB',
-    description: 'Terms and conditions for SweetB. Read our policies on shipping, refunds, trademarks, and more.',
+    title: 'Terms and Conditions - Swiss Bright',
+    description: 'Terms and conditions for Swiss Bright. Read our policies on shipping, refunds, trademarks, and more.',
     path: '/terms',
-    keywords: ['terms', 'conditions', 'sweetb', 'policies', 'shipping', 'refund'],
+    keywords: ['terms', 'conditions', 'swiss bright', 'policies', 'shipping', 'refund'],
   })
 }
 
@@ -88,9 +88,9 @@ export default async function TermsPage() {
     getContent('terms.title', 'Terms and Conditions'),
     getContent('terms.lastUpdated', `Last Updated: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`),
     getContent('terms.section1.title', '1. Acceptance of Terms'),
-    getContent('terms.section1.content', 'By accessing and using the SweetB website and purchasing our products, you accept and agree to be bound by the terms and conditions set forth in this agreement. If you do not agree to these terms, please do not use our website or purchase our products.'),
+    getContent('terms.section1.content', 'By accessing and using the Swiss Bright website and purchasing our products, you accept and agree to be bound by the terms and conditions set forth in this agreement. If you do not agree to these terms, please do not use our website or purchase our products.'),
     getContent('terms.section2.title', '2. Trademark and Intellectual Property'),
-    getContent('terms.section2.content1', 'All content on this website, including but not limited to text, graphics, logos, images, audio clips, digital downloads, and software, is the property of SweetB or its content suppliers and is protected by international copyright and trademark laws. The "SweetB" name, logo, and all related names, logos, product and service names, designs, and slogans are trademarks of SweetB or its affiliates or licensors.'),
+    getContent('terms.section2.content1', 'All content on this website, including but not limited to text, graphics, logos, images, audio clips, digital downloads, and software, is the property of Swiss Bright or its content suppliers and is protected by international copyright and trademark laws. The "Swiss Bright" name, logo, and all related names, logos, product and service names, designs, and slogans are trademarks of Swiss Bright or its affiliates or licensors.'),
     getContent('terms.section2.content2', 'You may not use, reproduce, distribute, modify, or create derivative works of any content from this website without our prior written consent. Unauthorized use of our trademarks or copyrighted material may result in legal action.'),
     getContent('terms.section3.title', '3. Product Information'),
     getContent('terms.section3.content1', 'We strive to provide accurate product descriptions, images, and pricing information. However, we do not warrant that product descriptions or other content on this site is accurate, complete, reliable, current, or error-free. If a product offered by us is not as described, your sole remedy is to return it in unused condition.'),
@@ -99,7 +99,7 @@ export default async function TermsPage() {
     getContent('terms.section4.processingTime', 'Processing Time: Orders are typically processed and shipped within 1 business day of order confirmation. Processing times may vary during peak seasons or promotional periods.'),
     getContent('terms.section4.shippingMethods', 'Shipping Methods: We use third-party courier services to deliver your orders. Available shipping options and estimated delivery times will be displayed at checkout. Shipping fees are calculated based on the selected courier service and delivery location.'),
     getContent('terms.section4.deliveryAddress', 'Delivery Address: You are responsible for providing accurate delivery information. We are not liable for delays or failed deliveries due to incorrect or incomplete address information provided by you.'),
-    getContent('terms.section4.thirdPartyCouriers', 'Third-Party Couriers: Once your order is handed over to the courier service, SweetB is not responsible for any delays, damages, or losses that occur during transit. Any claims regarding shipping delays, damaged packages, or lost items must be directed to the respective courier service. We will assist you in filing claims with the courier, but we are not liable for their service failures.'),
+    getContent('terms.section4.thirdPartyCouriers', 'Third-Party Couriers: Once your order is handed over to the courier service, Swiss Bright is not responsible for any delays, damages, or losses that occur during transit. Any claims regarding shipping delays, damaged packages, or lost items must be directed to the respective courier service. We will assist you in filing claims with the courier, but we are not liable for their service failures.'),
     getContent('terms.section4.internationalShipping', 'International Shipping: Due to international laws and regulations, international delivery is not available through standard checkout. Please contact our customer service through our Contact page to arrange international delivery. Our team will assist you with shipping options, customs requirements, and any applicable fees for your destination country.'),
     getContent('terms.section5.title', '5. Refund and Return Policy'),
     getContent('terms.section5.eligibility', 'Eligibility for Refunds: We offer refunds for products that are defective, damaged during shipping (before delivery), or not as described, subject to the conditions outlined below.'),
@@ -116,7 +116,7 @@ export default async function TermsPage() {
     getContent('terms.section6.content1', 'All orders must be paid in full before processing and shipping. We accept bank transfers and other payment methods as displayed at checkout. Payment confirmation may take 1-2 business days to process.'),
     getContent('terms.section6.content2', 'Orders will remain in "Processing" status until payment is confirmed by our team. Once payment is verified, your order will be processed and shipped according to our shipping policy.'),
     getContent('terms.section7.title', '7. Limitation of Liability'),
-    getContent('terms.section7.content', 'To the fullest extent permitted by law, SweetB shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from:'),
+    getContent('terms.section7.content', 'To the fullest extent permitted by law, Swiss Bright shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from:'),
     getContent('terms.section7.list1', 'Your use or inability to use our website or services'),
     getContent('terms.section7.list2', 'Any conduct or content of third parties on our website'),
     getContent('terms.section7.list3', 'Any unauthorized access to or use of our servers and/or any personal information stored therein'),
@@ -125,8 +125,8 @@ export default async function TermsPage() {
     getContent('terms.section7.list6', 'Any errors or omissions in any content or for any loss or damage incurred as a result of the use of any content posted, emailed, transmitted, or otherwise made available through our website'),
     getContent('terms.section7.list7', 'Delays, damages, or losses caused by third-party courier services'),
     getContent('terms.section8.title', '8. Third-Party Services'),
-    getContent('terms.section8.content1', 'Our website and services may contain links to third-party websites or services that are not owned or controlled by SweetB. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services.'),
-    getContent('terms.section8.content2', 'Courier Services: We use third-party courier services for order delivery. SweetB is not responsible for the actions, delays, errors, or omissions of these courier services. Any issues with shipping, delivery, or package handling must be addressed directly with the courier service, though we will assist you in resolving such matters.'),
+    getContent('terms.section8.content1', 'Our website and services may contain links to third-party websites or services that are not owned or controlled by Swiss Bright. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services.'),
+    getContent('terms.section8.content2', 'Courier Services: We use third-party courier services for order delivery. Swiss Bright is not responsible for the actions, delays, errors, or omissions of these courier services. Any issues with shipping, delivery, or package handling must be addressed directly with the courier service, though we will assist you in resolving such matters.'),
     getContent('terms.section9.title', '9. User Accounts and Registration'),
     getContent('terms.section9.content1', 'To place orders, you must create an account and provide accurate, current, and complete information. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.'),
     getContent('terms.section9.content2', 'You agree to notify us immediately of any unauthorized use of your account or any other breach of security. We reserve the right to suspend or terminate your account at any time for violation of these terms.'),

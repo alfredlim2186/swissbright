@@ -1,10 +1,16 @@
 :root {
   --black: #0A0A0A;
-  --gold: #C9A86A;
+  --electric-blue: #00D4FF;
+  --electric-blue-dark: #00B8E6;
+  --purple: #9D4EDD;
+  --purple-dark: #7B2CBF;
+  --cyan: #00F5FF;
   --neon-white: #F8F8F8;
   --soft-gray: #B8B8B8;
   --font-inter: 'Inter', sans-serif;
   --font-playfair: 'Playfair Display', serif;
+  /* Legacy gold for backward compatibility during transition */
+  --gold: #00D4FF;
 }
 
 * {
@@ -23,9 +29,9 @@ body {
   font-family: var(--font-inter);
   background-color: var(--black);
   background-image: 
-    radial-gradient(circle at 20% 30%, rgba(201, 168, 106, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(201, 168, 106, 0.06) 0%, transparent 50%),
-    radial-gradient(circle at 50% 90%, rgba(201, 168, 106, 0.05) 0%, transparent 40%);
+    radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(157, 78, 221, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(0, 245, 255, 0.05) 0%, transparent 40%);
   background-attachment: fixed;
   color: var(--neon-white);
   line-height: 1.6;
@@ -86,7 +92,7 @@ section::before {
   transform: translateX(-50%);
   width: 1px;
   height: 50px;
-  background: linear-gradient(180deg, transparent, rgba(201, 168, 106, 0.3), transparent);
+  background: linear-gradient(180deg, transparent, rgba(0, 212, 255, 0.3), transparent);
   opacity: 0.5;
 }
 
@@ -139,13 +145,13 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0;
 }
 
-/* Gold divider */
+/* Accent divider */
 .gold-divider {
   width: 60px;
   height: 1px;
-  background-color: var(--gold);
+  background: linear-gradient(90deg, var(--electric-blue), var(--purple));
   margin: 2rem auto;
-  box-shadow: 0 0 8px rgba(201, 168, 106, 0.5);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
   position: relative;
   z-index: 10;
 }
@@ -167,15 +173,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-  color: var(--gold);
-  border-color: var(--gold);
+  color: var(--electric-blue);
+  border-color: var(--electric-blue);
   background-color: transparent;
 }
 
 .btn-primary:hover {
-  background-color: var(--gold);
+  background-color: var(--electric-blue);
   color: var(--black);
-  box-shadow: 0 0 10px rgba(201, 168, 106, 0.35);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.35);
 }
 
 .btn-secondary {
@@ -187,7 +193,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-secondary:hover {
-  color: var(--gold);
+  color: var(--electric-blue);
 }
 
 /* Section styling */

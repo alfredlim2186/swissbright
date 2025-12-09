@@ -85,7 +85,7 @@ export default async function Safety({ title, description, closing }: SafetyProp
             <h2 className={styles.sectionTitle}>{title || 'Our Commitment to Safety'}</h2>
             <div className="gold-divider"></div>
             <p className={styles.intro}>
-              {description || 'Every piece of SweetB is crafted under the highest global standards of quality and safety. From the sourcing of each natural ingredient to the precision of final packaging, we follow a process built on accountability and care.'}
+              {description || 'Every product from Swiss Bright is crafted under the highest global standards of quality and safety. From sourcing premium materials to precision manufacturing, we follow a process built on accountability and care.'}
             </p>
           </div>
         </ScrollReveal>
@@ -107,12 +107,12 @@ export default async function Safety({ title, description, closing }: SafetyProp
           <div className={styles.closingStatement}>
             <div className={styles.statementIcon}>✦</div>
             <p className={styles.statementText}>
-              {closing || 'These standards are more than numbers or labels. They represent our promise — that every SweetB candy you enjoy is pure, safe, and manufactured with integrity.'}
+              {closing || 'These standards are more than numbers or labels. They represent our promise — that every Swiss Bright product you purchase is quality-tested, safe, and manufactured with integrity.'}
             </p>
             <div className={styles.finalNote}>
               <span className={styles.finalIcon}>◇</span>
               <p className={styles.finalText}>
-                From the first herb to the final seal, SweetB is made with respect for your body 
+                From material selection to final packaging, Swiss Bright products are made with respect for quality 
                 and confidence in our craft.
               </p>
             </div>

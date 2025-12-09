@@ -9,10 +9,10 @@ export const dynamic = 'force-dynamic'
 
 export async function generateMetadata() {
   return generatePageMetadata({
-    title: 'Privacy Policy - SweetB',
-    description: 'Privacy policy for SweetB. Learn how we collect, use, and protect your personal information.',
+    title: 'Privacy Policy - Swiss Bright',
+    description: 'Privacy policy for Swiss Bright. Learn how we collect, use, and protect your personal information.',
     path: '/privacy',
-    keywords: ['privacy', 'policy', 'sweetb', 'data protection', 'personal information'],
+    keywords: ['privacy', 'policy', 'swiss bright', 'data protection', 'personal information'],
   })
 }
 
@@ -117,7 +117,7 @@ export default async function PrivacyPage() {
     getContent('privacy.title', 'Privacy Policy'),
     getContent('privacy.lastUpdated', `Last Updated: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`),
     getContent('privacy.section1.title', '1. Introduction'),
-    getContent('privacy.section1.content', 'SweetB ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or make a purchase. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site or use our services.'),
+    getContent('privacy.section1.content', 'Swiss Bright ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or make a purchase. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site or use our services.'),
     getContent('privacy.section2.title', '2. Information We Collect'),
     getContent('privacy.section2.intro', 'We collect information that you provide directly to us, as well as information automatically collected when you use our services.'),
     getContent('privacy.section2.sub1.title', '2.1 Information You Provide'),

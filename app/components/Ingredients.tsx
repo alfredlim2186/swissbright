@@ -144,7 +144,7 @@ export default function Ingredients({ title, description }: IngredientsProps) {
       <h2 className={styles.sectionTitle}>{title || 'Ingredients'}</h2>
       <div className="gold-divider"></div>
       <p className={styles.intro}>
-        {description || 'SweetB combines time-tested botanicals with modern nutritional science to deliver balanced support for energy, focus, and vitality.'}
+        {description || 'Swiss Bright combines quality materials with modern technology to deliver reliable mobile accessories and gadgets that enhance your daily experience.'}
       </p>
       
       {loading ? (

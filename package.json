@@ -1,12 +1,12 @@
 {
-  "name": "sweetb-website",
+  "name": "swissbright-website",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "start": "next start",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate || echo 'Prisma generate skipped (file may be locked)'",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
@@ -15,7 +15,8 @@
     "db:seed:safety": "tsx prisma/seed-safety-certifications.ts",
     "db:seed:product-tiles": "tsx prisma/seed-product-tiles.ts",
     "db:seed:benefits": "tsx prisma/seed-benefits.ts",
-    "db:seed:about": "tsx prisma/seed-about.ts"
+    "db:seed:about": "tsx prisma/seed-about.ts",
+    "db:seed:products": "tsx prisma/seed-products.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.7.0",
@@ -42,6 +43,7 @@
     "@types/react": "^18.2.0",
     "autoprefixer": "^10.4.16",
     "dotenv": "^17.2.3",
+    "dotenv-cli": "^11.0.0",
     "postcss": "^8.4.32",
     "prisma": "^5.7.0",
     "tailwindcss": "^3.4.0",

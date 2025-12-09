@@ -30,7 +30,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
     <div className={styles.shell}>
       <aside className={styles.sidebar}>
         <div className={styles.brand}>
-          SweetB
+          Swiss Bright
           <span>Admin</span>
         </div>
         <ul className={styles.navList}>

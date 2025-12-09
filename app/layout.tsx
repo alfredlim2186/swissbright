@@ -17,13 +17,13 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'SweetB - Vitality Reborn',
-  description: 'A discreet daily candy crafted for balanced energy, focus, and confidence — without the noise.',
-  keywords: 'mens health, supplement, energy, focus, confidence, vitality',
-  authors: [{ name: 'SweetB' }],
+  title: 'Swiss Bright - Premium Mobile Gadgets',
+  description: 'Your trusted source for premium mobile gadgets and accessories. Quality products, competitive prices, fast shipping.',
+  keywords: 'mobile gadgets, phone accessories, chargers, cases, cables, mobile accessories, tech gadgets',
+  authors: [{ name: 'Swiss Bright' }],
   openGraph: {
-    title: 'SweetB - Vitality Reborn',
-    description: 'A discreet daily candy crafted for balanced energy, focus, and confidence — without the noise.',
+    title: 'Swiss Bright - Premium Mobile Gadgets',
+    description: 'Your trusted source for premium mobile gadgets and accessories. Quality products, competitive prices, fast shipping.',
     type: 'website',
   },
 }

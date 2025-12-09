@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
 import styles from './Hero.module.css'
 
 interface HeroProps {
@@ -16,90 +15,15 @@ export default function Hero({
   ctaPrimary, 
   ctaSecondary 
 }: HeroProps) {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false)
-  const [shouldSkipVideo, setShouldSkipVideo] = useState(false)
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const sectionRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const connection = typeof navigator === 'undefined' ? null : (navigator as any)?.connection
-    const slowConnection =
-      connection?.saveData || /2g/.test(connection?.effectiveType || '')
-
-    if (slowConnection) {
-      setShouldSkipVideo(true)
-      return
-    }
-
-    // Lazy load video using Intersection Observer
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setShouldLoadVideo(true)
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    if (shouldLoadVideo && videoRef.current) {
-      videoRef.current.load()
-    }
-  }, [shouldLoadVideo])
-
-  const handleVideoLoaded = () => {
-    setIsVideoLoaded(true)
-  }
-
   return (
-    <section ref={sectionRef} className={styles.hero}>
-      {/* Full-screen background video */}
+    <section className={styles.hero}>
+      {/* Full-screen background image */}
       <div className={styles.heroBackground}>
-        <video 
-          ref={videoRef}
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          preload="metadata"
-          className={`${styles.heroVideo} ${isVideoLoaded ? styles.videoLoaded : ''}`}
-          poster="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1920&q=80"
-          onLoadedData={handleVideoLoaded}
-        >
-          {shouldLoadVideo && !shouldSkipVideo && (
-            <>
-              {/* WebM for better compression (loads first if supported) */}
-              <source 
-                src="/videos/sweetb-freedom.webm" 
-                type="video/webm"
-              />
-              {/* MP4 fallback */}
-              <source 
-                src="/videos/sweetb-freedom.mp4" 
-                type="video/mp4" 
-              />
-            </>
-          )}
-          Your browser does not support the video tag.
-        </video>
-        
-        {/* Loading overlay - fades out when video is ready */}
-        <div className={`${styles.loadingOverlay} ${isVideoLoaded ? styles.hidden : ''}`}>
-          <div className={styles.loadingSpinner}></div>
-        </div>
-        
+        <img 
+          src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=1920&q=80"
+          alt="Premium mobile gadgets"
+          className={styles.heroImage}
+        />
         <div className={styles.heroOverlay}></div>
       </div>
 
@@ -116,8 +40,8 @@ export default function Hero({
         </p>
         
         <div className={styles.buttons}>
-          <a href="/shop" className="btn btn-primary">{ctaPrimary || 'Shop SweetB'}</a>
-          <a href="/benefits" className="btn btn-secondary">{ctaSecondary || 'Learn More'}</a>
+          <a href="/shop" className="btn btn-primary">{ctaPrimary || 'Shop Now'}</a>
+          <a href="/benefits" className="btn btn-secondary">{ctaSecondary || 'Why Buy From Us'}</a>
         </div>
       </div>
     </section>
