@@ -3,8 +3,8 @@ CREATE TABLE "User" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "email" TEXT NOT NULL,
     "name" TEXT,
-    "emailVerified" DATETIME,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "emailVerified" TIMESTAMP,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "role" TEXT NOT NULL DEFAULT 'USER',
     "totalPurchases" INTEGER NOT NULL DEFAULT 0,
     "totalGifts" INTEGER NOT NULL DEFAULT 0
@@ -15,8 +15,8 @@ CREATE TABLE "EmailOtp" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "email" TEXT NOT NULL,
     "otpHash" TEXT NOT NULL,
-    "expiresAt" DATETIME NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "expiresAt" TIMESTAMP NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- CreateTable
@@ -29,7 +29,7 @@ CREATE TABLE "Purchase" (
     "productId" TEXT,
     "verifierName" TEXT,
     "rawPayload" TEXT,
-    "verifiedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "verifiedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT "Purchase_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -39,8 +39,8 @@ CREATE TABLE "Redemption" (
     "userId" TEXT NOT NULL,
     "status" TEXT NOT NULL DEFAULT 'PENDING',
     "giftDesc" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL,
     "approvedBy" TEXT,
     CONSTRAINT "Redemption_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -50,7 +50,7 @@ CREATE TABLE "FeatureFlag" (
     "key" TEXT NOT NULL PRIMARY KEY,
     "enabled" BOOLEAN NOT NULL DEFAULT false,
     "meta" TEXT,
-    "updatedAt" DATETIME NOT NULL
+    "updatedAt" TIMESTAMP NOT NULL
 );
 
 -- CreateTable
@@ -60,8 +60,8 @@ CREATE TABLE "LuckyDraw" (
     "description" TEXT,
     "status" TEXT NOT NULL DEFAULT 'DRAFT',
     "maxWinners" INTEGER NOT NULL DEFAULT 1,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL
 );
 
 -- CreateTable
@@ -69,7 +69,7 @@ CREATE TABLE "LuckyDrawEntry" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "drawId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "tickets" INTEGER NOT NULL DEFAULT 1,
     CONSTRAINT "LuckyDrawEntry_drawId_fkey" FOREIGN KEY ("drawId") REFERENCES "LuckyDraw" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "LuckyDrawEntry_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
@@ -80,7 +80,7 @@ CREATE TABLE "LuckyDrawWinner" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "drawId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT "LuckyDrawWinner_drawId_fkey" FOREIGN KEY ("drawId") REFERENCES "LuckyDraw" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "LuckyDrawWinner_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -92,7 +92,7 @@ CREATE TABLE "AuditLog" (
     "action" TEXT NOT NULL,
     "targetId" TEXT,
     "details" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- CreateIndex

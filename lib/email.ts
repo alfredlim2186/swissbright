@@ -38,7 +38,7 @@ export interface EmailOptions {
 export async function sendEmail({ to, subject, html }: EmailOptions) {
   try {
     const provider = process.env.EMAIL_PROVIDER || 'resend'
-    const from = process.env.EMAIL_FROM || 'no-reply@sweetb.co'
+    const from = process.env.EMAIL_FROM || 'no-reply@swissbright.com'
 
     console.log('📧 Attempting to send email via', provider)
     console.log('📧 From:', from)
@@ -103,7 +103,7 @@ export function generateOtpEmail(code: string, expiryMinutes: number = 10) {
             margin-bottom: 30px;
           }
           .logo-sweet { color: #C9A86A; }
-          .logo-b { color: #F8F8F8; text-shadow: 0 0 8px rgba(255, 255, 255, 0.6); }
+          .logo-b { color: #F8F8F8; text-shadow: 0 0 8px rgba(255, 255, 255, 0.6); margin-left: 4px; }
           .code { 
             font-size: 32px; 
             font-weight: bold; 
@@ -134,14 +134,14 @@ export function generateOtpEmail(code: string, expiryMinutes: number = 10) {
       <body>
         <div class="container">
           <div class="logo">
-            <span class="logo-sweet">Sweet</span><span class="logo-b">B</span>
+            <span class="logo-sweet">Swiss</span><span class="logo-b">Bright</span>
           </div>
           <p class="text">Your verification code is:</p>
           <div class="code">${code}</div>
           <p class="text">This code will expire in ${expiryMinutes} minutes.</p>
           <p class="text">If you didn't request this code, you can safely ignore this email.</p>
           <div class="footer">
-            <p>© 2025 SweetB. Vitality Reborn.</p>
+            <p>© 2025 Swiss Bright. Vitality Reborn.</p>
           </div>
         </div>
       </body>

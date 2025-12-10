@@ -3,7 +3,7 @@ import { generatePageMetadata } from '@/lib/seo'
 export async function generateMetadata() {
   return generatePageMetadata({
     title: 'My Orders',
-    description: 'Review your SweetB orders, statuses, and tracking information.',
+    description: 'Review your Swiss Bright orders, statuses, and tracking information.',
     path: '/account/orders',
   })
 }

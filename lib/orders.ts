@@ -216,7 +216,7 @@ const baseEmailTemplate = (params: {
             : ''
         }
         <div class="footer">
-          © ${new Date().getFullYear()} SweetB. Vitality Reborn.
+          © ${new Date().getFullYear()} Swiss Bright. Vitality Reborn.
         </div>
       </div>
     </body>
@@ -230,7 +230,7 @@ export const generateOrderEmailHtml = (status: OrderStatus, order: OrderWithRela
       return baseEmailTemplate({
         headline: 'Order Received',
         intro:
-          'Thanks for selecting SweetB. Share your payment advice via WhatsApp so we can move this order forward. Until then, it remains in Processing.',
+          'Thanks for selecting Swiss Bright. Share your payment advice via WhatsApp so we can move this order forward. Until then, it remains in Processing.',
         order,
         footerNote: 'Need help? Reply to this email or message us on WhatsApp.',
       })
@@ -243,15 +243,15 @@ export const generateOrderEmailHtml = (status: OrderStatus, order: OrderWithRela
     case ORDER_STATUS.SENT:
       return baseEmailTemplate({
         headline: 'Your Order Is On The Way',
-        intro: 'SweetB has handed your parcel to the courier. Tracking details are below—chat us if you need assistance.',
+        intro: 'Swiss Bright has handed your parcel to the courier. Tracking details are below—chat us if you need assistance.',
         order,
       })
     case ORDER_STATUS.COMPLETED:
       return baseEmailTemplate({
         headline: 'Order Completed',
-        intro: 'Your SweetB order has been completed. Thank you for your purchase!',
+        intro: 'Your Swiss Bright order has been completed. Thank you for your purchase!',
         order,
-        footerNote: 'We hope you enjoy your SweetB products. If you have any questions, feel free to contact us.',
+        footerNote: 'We hope you enjoy your Swiss Bright products. If you have any questions, feel free to contact us.',
       })
     case ORDER_STATUS.CANCELLED:
       return baseEmailTemplate({
@@ -263,7 +263,7 @@ export const generateOrderEmailHtml = (status: OrderStatus, order: OrderWithRela
     default:
       return baseEmailTemplate({
         headline: 'Order Update',
-        intro: 'There is an update regarding your SweetB order.',
+        intro: 'There is an update regarding your Swiss Bright order.',
         order,
       })
   }

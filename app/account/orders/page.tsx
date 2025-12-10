@@ -186,7 +186,7 @@ export default function MyOrdersPage() {
             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🛍️</div>
             <p style={{ marginBottom: '1rem' }}>{t('orders.noOrdersYet', 'No orders yet.')}</p>
             <p style={{ fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-              {t('orders.browseCollection', 'Browse the SweetB collection and place your first order.')}
+              {t('orders.browseCollection', 'Browse the Swiss Bright collection and place your first order.')}
             </p>
             <Link
               href="/shop"
@@ -288,7 +288,7 @@ function OrderCard({ order }: { order: UserOrder }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
         {order.message && (
           <p style={{ color: '#B8B8B8', fontSize: '0.9rem' }}>
-            <strong style={{ color: '#F8F8F8' }}>{t('orders.noteFromSweetB', 'Note from SweetB:')}</strong> {order.message}
+            <strong style={{ color: '#F8F8F8' }}>{t('orders.noteFromSweetB', 'Note from Swiss Bright:')}</strong> {order.message}
           </p>
         )}
         <p style={{ color: '#B8B8B8', fontSize: '0.9rem' }}>

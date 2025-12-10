@@ -3,7 +3,7 @@ import { generatePageMetadata } from '@/lib/seo'
 export async function generateMetadata() {
   return await generatePageMetadata({
     title: 'My Account',
-    description: 'View your purchase history, redeem gifts, and manage your SweetB account.',
+    description: 'View your purchase history, redeem gifts, and manage your Swiss Bright account.',
     path: '/account',
   })
 }

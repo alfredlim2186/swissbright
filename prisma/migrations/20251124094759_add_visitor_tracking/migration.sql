@@ -7,7 +7,7 @@ CREATE TABLE "Visit" (
     "userAgent" TEXT,
     "ipAddress" TEXT,
     "country" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- CreateIndex

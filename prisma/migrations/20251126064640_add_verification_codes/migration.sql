@@ -7,12 +7,10 @@ CREATE TABLE "VerificationCode" (
     "securityLast4" TEXT NOT NULL,
     "batch" TEXT,
     "productId" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- RedefineTables
-PRAGMA defer_foreign_keys=ON;
-PRAGMA foreign_keys=OFF;
 CREATE TABLE "new_Purchase" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "userId" TEXT NOT NULL,
@@ -22,20 +20,18 @@ CREATE TABLE "new_Purchase" (
     "productId" TEXT,
     "verifierName" TEXT,
     "rawPayload" TEXT,
-    "verifiedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "verifiedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "verificationCodeId" TEXT,
     CONSTRAINT "Purchase_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Purchase_verificationCodeId_fkey" FOREIGN KEY ("verificationCodeId") REFERENCES "VerificationCode" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
 INSERT INTO "new_Purchase" ("batch", "codeHash", "codeLast4", "id", "productId", "rawPayload", "userId", "verifiedAt", "verifierName") SELECT "batch", "codeHash", "codeLast4", "id", "productId", "rawPayload", "userId", "verifiedAt", "verifierName" FROM "Purchase";
-DROP TABLE "Purchase";
+DROP TABLE "Purchase" CASCADE;
 ALTER TABLE "new_Purchase" RENAME TO "Purchase";
 CREATE UNIQUE INDEX "Purchase_codeHash_key" ON "Purchase"("codeHash");
 CREATE UNIQUE INDEX "Purchase_verificationCodeId_key" ON "Purchase"("verificationCodeId");
 CREATE INDEX "Purchase_userId_idx" ON "Purchase"("userId");
 CREATE INDEX "Purchase_codeHash_idx" ON "Purchase"("codeHash");
-PRAGMA foreign_keys=ON;
-PRAGMA defer_foreign_keys=OFF;
 
 -- CreateIndex
 CREATE UNIQUE INDEX "VerificationCode_codeHash_key" ON "VerificationCode"("codeHash");

@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
     try {
       const emailResult = await sendEmail({
         to: email,
-        subject: 'Your SweetB Verification Code',
+        subject: 'Your Swiss Bright Verification Code',
         html: generateOtpEmail(otp, 10),
       })
 
