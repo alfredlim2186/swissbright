@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import styles from './Hero.module.css'
 
 interface HeroProps {
@@ -19,10 +20,14 @@ export default function Hero({
     <section className={styles.hero}>
       {/* Full-screen background image */}
       <div className={styles.heroBackground}>
-        <img 
+        <Image 
           src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=1920&q=80"
           alt="Premium mobile gadgets"
+          fill
+          priority
+          quality={85}
           className={styles.heroImage}
+          sizes="100vw"
         />
         <div className={styles.heroOverlay}></div>
       </div>

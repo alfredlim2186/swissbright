@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import styles from './ProductShowcase.module.css'
 import ScrollReveal from './ScrollReveal'
 
@@ -77,11 +78,13 @@ export default async function ProductShowcase({
         {showcaseImages.map((image, index) => (
           <ScrollReveal key={index} delay={index * 150}>
             <div className={styles.imageCard}>
-              <img 
+              <Image 
                 src={image.src} 
                 alt={image.alt}
+                fill
                 className={styles.image}
-                loading="lazy"
+                quality={85}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
               <div className={styles.overlay}></div>
             </div>

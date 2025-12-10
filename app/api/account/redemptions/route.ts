@@ -28,7 +28,14 @@ export async function GET() {
       },
     })
 
-    return NextResponse.json({ redemptions })
+    return NextResponse.json(
+      { redemptions },
+      {
+        headers: {
+          'Cache-Control': 'private, s-maxage=60, stale-while-revalidate=120',
+        },
+      }
+    )
   } catch (error) {
     console.error('Get user redemptions error:', error)
     if ((error as Error).message === 'Unauthorized') {

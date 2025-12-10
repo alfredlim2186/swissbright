@@ -172,7 +172,18 @@ export default function AccountPage() {
 
   const fetchUserData = useCallback(async () => {
     try {
-      const res = await fetch('/api/auth/me')
+      // Use combined endpoint to fetch all account data in a single request
+      const res = await fetch('/api/account/data')
+      
+      if (res.status === 401) {
+        router.push('/login')
+        return
+      }
+
+      if (!res.ok) {
+        throw new Error('Failed to fetch account data')
+      }
+
       const data = await res.json()
 
       if (!data.user) {
@@ -182,34 +193,36 @@ export default function AccountPage() {
 
       setUser(data.user)
 
-      const profileRes = await fetch('/api/account/profile')
-      if (profileRes.ok) {
-        const profileData = await profileRes.json()
+      // Set profile data
+      if (data.profile) {
         setProfile({
           name: data.user?.name ?? '',
-          aliasName: profileData.profile?.aliasName ?? '',
-          phoneNumber: profileData.profile?.phoneNumber ?? '',
-          addressLine1: profileData.profile?.addressLine1 ?? '',
-          addressLine2: profileData.profile?.addressLine2 ?? '',
-          city: profileData.profile?.city ?? '',
-          state: profileData.profile?.state ?? '',
-          postalCode: profileData.profile?.postalCode ?? '',
-          country: profileData.profile?.country ?? 'Malaysia',
+          aliasName: data.profile?.aliasName ?? '',
+          phoneNumber: data.profile?.phoneNumber ?? '',
+          addressLine1: data.profile?.addressLine1 ?? '',
+          addressLine2: data.profile?.addressLine2 ?? '',
+          city: data.profile?.city ?? '',
+          state: data.profile?.state ?? '',
+          postalCode: data.profile?.postalCode ?? '',
+          country: data.profile?.country ?? 'Malaysia',
         })
-        setLatestShipment(profileData.latestShipment || null)
       }
 
-      const redemptionsRes = await fetch('/api/account/redemptions')
-      if (redemptionsRes.ok) {
-        const redemptionsData = await redemptionsRes.json()
-        setRedemptions(redemptionsData.redemptions || [])
-      }
+      setLatestShipment(data.latestShipment || null)
+      setRedemptions(data.redemptions || [])
+      setAvailableGifts(data.gifts || [])
+    } catch (err) {
+      console.error('Failed to fetch user:', err)
+      router.push('/login')
+    } finally {
+      setLoading(false)
+    }
+  }, [router])
 
-      const giftsRes = await fetch('/api/gifts')
-      if (giftsRes.ok) {
-        const giftsData = await giftsRes.json()
-        setAvailableGifts(giftsData.gifts || [])
-      }
+  useEffect(() => {
+    fetchUserData()
+  }, [fetchUserData])
+
     } catch (err) {
       console.error('Failed to fetch user:', err)
       router.push('/login')
