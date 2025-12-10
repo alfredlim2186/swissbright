@@ -101,19 +101,21 @@ export default function Header({
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const sessionRes = await fetch('/api/auth/me')
-        if (sessionRes.ok) {
-          const data = await sessionRes.json()
+        // Try combined endpoint first (faster, single request)
+        const res = await fetch('/api/account/data')
+        if (res.ok) {
+          const data = await res.json()
           setUser(data.user ?? null)
-          if (data.user) {
-            const profileRes = await fetch('/api/account/profile')
-            if (profileRes.ok) {
-              const profileData = await profileRes.json()
-              setProfile(profileData.profile || null)
-            } else {
-              setProfile(null)
-            }
+          setProfile(data.profile || null)
+        } else if (res.status === 401) {
+          // Not logged in, try simple session check
+          const sessionRes = await fetch('/api/auth/me')
+          if (sessionRes.ok) {
+            const sessionData = await sessionRes.json()
+            setUser(sessionData.user ?? null)
+            setProfile(null)
           } else {
+            setUser(null)
             setProfile(null)
           }
         } else {

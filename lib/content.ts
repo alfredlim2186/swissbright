@@ -62,6 +62,52 @@ export const getContent = cache(async (
 })
 
 /**
+ * Batch fetch multiple content keys in a single database query
+ * More efficient than calling getContent() multiple times
+ */
+export const getContentBatch = cache(async (
+  keys: string[],
+  language: Language = 'en'
+): Promise<Record<string, string>> => {
+  const result: Record<string, string> = {}
+  
+  // Check hardcoded content first
+  const hardcodedContent: Record<string, string> = {
+    'header.whyBuyFromUs': 'Why Buy From Us',
+    'header.verify': 'Verify',
+    'promotionalmodal.message': 'Welcome to Swiss Bright',
+    'memberbanner.message': 'Join Swiss Bright today',
+  }
+  
+  keys.forEach(key => {
+    if (hardcodedContent[key]) {
+      result[key] = hardcodedContent[key]
+    }
+  })
+  
+  // Fetch remaining keys from database in a single query
+  const keysToFetch = keys.filter(key => !result[key])
+  if (keysToFetch.length > 0) {
+    try {
+      const contentItems = await prisma.content.findMany({
+        where: {
+          key: { in: keysToFetch },
+          language,
+        },
+      })
+      
+      contentItems.forEach(item => {
+        result[item.key] = item.value
+      })
+    } catch (error) {
+      console.error('Error fetching content batch:', error)
+    }
+  }
+  
+  return result
+})
+
+/**
  * Get all content items for a specific page/section and language
  */
 export const getContentByPage = cache(async (

@@ -8,9 +8,16 @@ export async function GET() {
   try {
     const cookieStore = await cookies()
     const lang = cookieStore.get('language')?.value as Language
-    return NextResponse.json({ 
-      language: lang && SUPPORTED_LANGUAGES.includes(lang) ? lang : 'en' 
-    })
+    return NextResponse.json(
+      { 
+        language: lang && SUPPORTED_LANGUAGES.includes(lang) ? lang : 'en' 
+      },
+      {
+        headers: {
+          'Cache-Control': 'private, s-maxage=300, stale-while-revalidate=600',
+        },
+      }
+    )
   } catch {
     return NextResponse.json({ language: 'en' })
   }

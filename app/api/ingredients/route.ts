@@ -52,7 +52,14 @@ export async function GET() {
       .filter((ing) => ing.name && ing.image) // Only include ingredients with name and image
       .sort((a, b) => a.name.localeCompare(b.name))
 
-    return NextResponse.json({ ingredients })
+    return NextResponse.json(
+      { ingredients },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+        },
+      }
+    )
   } catch (error) {
     console.error('Ingredients API error:', error)
     return NextResponse.json({ ingredients: [] }, { status: 200 }) // Return empty array on error

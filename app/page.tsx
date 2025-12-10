@@ -6,7 +6,7 @@ import Footer from './components/Footer'
 import BackgroundElements from './components/BackgroundElements'
 import PageBackground from './components/PageBackground'
 import { generatePageMetadata } from '@/lib/seo'
-import { getContent } from '@/lib/content'
+import { getContentBatch } from '@/lib/content'
 
 // Force dynamic rendering since we use cookies for language detection
 export const dynamic = 'force-dynamic'
@@ -33,38 +33,31 @@ export default async function Home() {
   let productImage2 = 'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=1200&q=80'
 
   try {
-    const [
-      headlineResult,
-      subheadlineResult,
-      ctaPrimaryResult,
-      ctaSecondaryResult,
-      productEyebrowResult,
-      productTitleResult,
-      productDescriptionResult,
-      productImage1Result,
-      productImage2Result,
-    ] = await Promise.allSettled([
-      getContent('hero.headline', headline),
-      getContent('hero.subheadline', subheadline),
-      getContent('hero.cta.primary', ctaPrimary),
-      getContent('hero.cta.secondary', ctaSecondary),
-      getContent('product.eyebrow', productEyebrow),
-      getContent('product.title', productTitle),
-      getContent('product.description', productDescription),
-      getContent('product.image1', productImage1),
-      getContent('product.image2', productImage2),
-    ])
+    // Fetch all content keys in a single database query for better performance
+    const contentKeys = [
+      'hero.headline',
+      'hero.subheadline',
+      'hero.cta.primary',
+      'hero.cta.secondary',
+      'product.eyebrow',
+      'product.title',
+      'product.description',
+      'product.image1',
+      'product.image2',
+    ]
+    
+    const contentMap = await getContentBatch(contentKeys, 'en')
 
-    // Extract values from settled promises
-    headline = headlineResult.status === 'fulfilled' ? headlineResult.value : headline
-    subheadline = subheadlineResult.status === 'fulfilled' ? subheadlineResult.value : subheadline
-    ctaPrimary = ctaPrimaryResult.status === 'fulfilled' ? ctaPrimaryResult.value : ctaPrimary
-    ctaSecondary = ctaSecondaryResult.status === 'fulfilled' ? ctaSecondaryResult.value : ctaSecondary
-    productEyebrow = productEyebrowResult.status === 'fulfilled' ? productEyebrowResult.value : productEyebrow
-    productTitle = productTitleResult.status === 'fulfilled' ? productTitleResult.value : productTitle
-    productDescription = productDescriptionResult.status === 'fulfilled' ? productDescriptionResult.value : productDescription
-    productImage1 = productImage1Result.status === 'fulfilled' ? productImage1Result.value : productImage1
-    productImage2 = productImage2Result.status === 'fulfilled' ? productImage2Result.value : productImage2
+    // Extract values with fallbacks
+    headline = contentMap['hero.headline'] || headline
+    subheadline = contentMap['hero.subheadline'] || subheadline
+    ctaPrimary = contentMap['hero.cta.primary'] || ctaPrimary
+    ctaSecondary = contentMap['hero.cta.secondary'] || ctaSecondary
+    productEyebrow = contentMap['product.eyebrow'] || productEyebrow
+    productTitle = contentMap['product.title'] || productTitle
+    productDescription = contentMap['product.description'] || productDescription
+    productImage1 = contentMap['product.image1'] || productImage1
+    productImage2 = contentMap['product.image2'] || productImage2
   } catch (error) {
     console.error('Error loading content, using defaults:', error)
   }

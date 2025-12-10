@@ -11,27 +11,34 @@ export async function GET() {
       return NextResponse.json({ user: null })
     }
 
-    return NextResponse.json({ 
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        aliasName: (user as any).aliasName,
-        role: user.role,
-        totalPurchases: user.totalPurchases,
-        totalGifts: user.totalGifts,
-        emailVerified: user.emailVerified,
-        createdAt: user.createdAt,
-        phoneNumber: user.phoneNumber,
-        addressLine1: user.addressLine1,
-        addressLine2: user.addressLine2,
-        city: user.city,
-        state: user.state,
-        postalCode: user.postalCode,
-        country: user.country,
-        profileUpdatedAt: user.profileUpdatedAt,
+    return NextResponse.json(
+      { 
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          aliasName: (user as any).aliasName,
+          role: user.role,
+          totalPurchases: user.totalPurchases,
+          totalGifts: user.totalGifts,
+          emailVerified: user.emailVerified,
+          createdAt: user.createdAt,
+          phoneNumber: user.phoneNumber,
+          addressLine1: user.addressLine1,
+          addressLine2: user.addressLine2,
+          city: user.city,
+          state: user.state,
+          postalCode: user.postalCode,
+          country: user.country,
+          profileUpdatedAt: user.profileUpdatedAt,
+        }
+      },
+      {
+        headers: {
+          'Cache-Control': 'private, s-maxage=60, stale-while-revalidate=120',
+        },
       }
-    })
+    )
   } catch (error) {
     console.error('Get user error:', error)
     return NextResponse.json(
