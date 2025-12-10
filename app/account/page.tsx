@@ -223,18 +223,6 @@ export default function AccountPage() {
     fetchUserData()
   }, [fetchUserData])
 
-    } catch (err) {
-      console.error('Failed to fetch user:', err)
-      router.push('/login')
-    } finally {
-      setLoading(false)
-    }
-  }, [router])
-
-  useEffect(() => {
-    fetchUserData()
-  }, [fetchUserData])
-
   useEffect(() => {
     let mounted = true
     const fetchDraws = async () => {
